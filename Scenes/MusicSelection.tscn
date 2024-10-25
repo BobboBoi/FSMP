@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://q0nooewms7ui"]
+
+[ext_resource type="Script" path="res://Scripts/MusicSelection.gd" id="1_bhw46"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnhta"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgtip"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffgl3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkdkr"]
+
+[node name="TrackButton" type="Control"]
+custom_minimum_size = Vector2(1433, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -487.0
+offset_bottom = -1030.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bhw46")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+anchor_left = 0.0104676
+anchor_top = 0.26
+anchor_right = 0.0272156
+anchor_bottom = 0.74
+metadata/_edit_use_anchors_ = true
+
+[node name="Index" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.0453594
+anchor_top = 0.24
+anchor_right = 0.068388
+anchor_bottom = 0.76
+text = "###"
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.0893231
+anchor_top = 0.24
+anchor_right = 0.252617
+anchor_bottom = 0.76
+text = "Decently long song name here
+"
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.479414
+anchor_top = 0.24
+anchor_right = 0.642708
+anchor_bottom = 0.76
+text = "Artist and other people
+"
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Album" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.678297
+anchor_top = 0.24
+anchor_right = 0.985345
+anchor_bottom = 0.76
+text = "Decently Long Album name here
+"
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.0390789
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyrkb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mnhta")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pgtip")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffgl3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jkdkr")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="toggled" from="CheckBox" to="." method="BoxToggled"]

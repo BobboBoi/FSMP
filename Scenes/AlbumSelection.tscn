@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4bg6rulc1uo0"]
+
+[ext_resource type="Script" path="res://Scripts/Components/AlbumSelection.gd" id="1_4fmw8"]
+[ext_resource type="Texture2D" uid="uid://bpom5xxbpw10o" path="res://icon.svg" id="1_cpl4h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnhta"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgtip"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffgl3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkdkr"]
+
+[node name="AlbumSelection" type="Control"]
+custom_minimum_size = Vector2(1433, 149)
+layout_mode = 3
+anchor_right = 0.746354
+anchor_bottom = 0.137963
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4fmw8")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0104676
+anchor_top = 0.26
+anchor_right = 0.0272156
+anchor_bottom = 0.74
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.162596
+anchor_top = 0.24
+anchor_right = 0.32589
+anchor_bottom = 0.76
+text = "Decently album song name here
+"
+vertical_alignment = 1
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist" type="Label" parent="."]
+layout_mode = 0
+anchor_left = 0.535241
+anchor_top = 0.24
+anchor_right = 0.698535
+anchor_bottom = 0.76
+offset_right = 6.10352e-05
+text = "Artist and other people
+"
+vertical_alignment = 1
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0390789
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyrkb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mnhta")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pgtip")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffgl3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jkdkr")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 10.5
+offset_right = 193.0
+offset_bottom = 138.5
+texture = ExtResource("1_cpl4h")
+expand_mode = 1

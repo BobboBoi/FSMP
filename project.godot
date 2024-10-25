@@ -1,0 +1,66 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="F.S.M.P."
+config/description="The worst music player you'll ever use.
+"
+config/tags=PackedStringArray("mainproject")
+run/main_scene="res://Scenes/sampler.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://Assets/Sprites/Logo..png"
+
+[autoload]
+
+Loader="*res://Scripts/Loader.gd"
+DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="F.S.M.P."
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Scenes/Deprecated/": "red",
+"res://Scripts/Deprecated/": "red",
+"res://addons/": "green"
+}
+
+[global_group]
+
+Player="The node that plays the music"
+Home="The home menu node"
+ProgramRoot="Root of the main application"
+Lister="The tracklister"
+
+[input]
+
+wheel_up={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+wheel_down={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjrwq3o34lqgi"]
+
+[ext_resource type="Script" path="res://Scripts/Components/QuickAccess/QuickAccessButton.gd" id="1_jhp3n"]
+
+[node name="QuickAccessButton" type="Button"]
+offset_right = 51.0
+offset_bottom = 31.0
+mouse_filter = 1
+text = "dddddddddddddd"
+text_overrun_behavior = 1
+script = ExtResource("1_jhp3n")

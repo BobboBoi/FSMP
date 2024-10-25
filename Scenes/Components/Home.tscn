@@ -1,0 +1,372 @@
+[gd_scene load_steps=13 format=3 uid="uid://dex5ybh72uomo"]
+
+[ext_resource type="Script" path="res://Scripts/Home.gd" id="1_uex14"]
+[ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_muooh"]
+[ext_resource type="Script" path="res://Scripts/AlbumSongList.gd" id="3_nnwa8"]
+[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="3_sxx7c"]
+[ext_resource type="Texture2D" uid="uid://bpom5xxbpw10o" path="res://icon.svg" id="4_q3djh"]
+[ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/Settings.tscn" id="6_xd810"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_y64le"]
+color = Color(0.125911, 0.125911, 0.125911, 1)
+thickness = 20
+vertical = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_roh73"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogave"]
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkjh1"]
+bg_color = Color(0.87451, 0.470588, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3xs3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3j07"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Home" type="Control" groups=["Home"]]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uex14")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.247059, 0.247059, 1)
+
+[node name="MainCont" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="MainCont"]
+custom_minimum_size = Vector2(186, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+metadata/_edit_use_anchors_ = true
+
+[node name="Music" type="Button" parent="MainCont/Menu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Music"
+
+[node name="Albums" type="Button" parent="MainCont/Menu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Albums
+"
+
+[node name="Button3" type="Button" parent="MainCont/Menu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Playlists
+"
+
+[node name="Sep" type="VSeparator" parent="MainCont"]
+layout_mode = 2
+theme_override_constants/separation = 40
+theme_override_styles/separator = SubResource("StyleBoxLine_y64le")
+
+[node name="TabCont" type="TabContainer" parent="MainCont"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_roh73")
+current_tab = 2
+tabs_visible = false
+
+[node name="MusicTab" type="Control" parent="MainCont/TabCont"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MainCont" type="VBoxContainer" parent="MainCont/TabCont/MusicTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SearchBar" type="TextEdit" parent="MainCont/TabCont/MusicTab/MainCont" node_paths=PackedStringArray("target")]
+z_index = 1
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
+placeholder_text = "Search for your garbage here :)
+"
+script = ExtResource("3_sxx7c")
+target = NodePath("../Scroll/MusicList")
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/MusicTab/MainCont"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicList" type="VBoxContainer" parent="MainCont/TabCont/MusicTab/MainCont/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("2_muooh")
+
+[node name="AlbumsTab" type="Control" parent="MainCont/TabCont"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+metadata/_tab_index = 1
+
+[node name="MainCont" type="VBoxContainer" parent="MainCont/TabCont/AlbumsTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SearchBar" type="TextEdit" parent="MainCont/TabCont/AlbumsTab/MainCont" node_paths=PackedStringArray("target")]
+process_priority = 1
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
+placeholder_text = "Search for your garbage here :)
+"
+script = ExtResource("3_sxx7c")
+target = NodePath("../Scroll/AlbumList")
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/AlbumsTab/MainCont"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="AlbumList" type="VBoxContainer" parent="MainCont/TabCont/AlbumsTab/MainCont/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("2_muooh")
+bookMarks = false
+
+[node name="AlbumMusicTab" type="Control" parent="MainCont/TabCont"]
+layout_mode = 2
+mouse_filter = 2
+metadata/_tab_index = 2
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/AlbumMusicTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="AlbumMusicList" type="VBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("3_nnwa8")
+
+[node name="AlbumInfo" type="Control" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList"]
+custom_minimum_size = Vector2(1434, 275)
+layout_mode = 2
+
+[node name="Bg" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ogave")
+
+[node name="Hcont" type="HBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 22.0
+offset_top = -121.5
+offset_bottom = 121.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="Cover" type="TextureRect" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(243.2, 243.2)
+layout_mode = 2
+texture = ExtResource("4_q3djh")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont/Cover"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.4
+offset_top = -6.4
+offset_right = 6.40001
+offset_bottom = 6.40001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xkjh1")
+
+[node name="Title" type="Label" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 34
+text = "AlbumName"
+metadata/_edit_use_anchors_ = true
+
+[node name="HSeparator" type="HSeparator" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_y3xs3")
+
+[node name="Sep2" type="VSeparator" parent="MainCont"]
+layout_mode = 2
+theme_override_constants/separation = 40
+theme_override_styles/separator = SubResource("StyleBoxLine_y64le")
+
+[node name="Options" type="VBoxContainer" parent="MainCont"]
+custom_minimum_size = Vector2(152, 0)
+layout_mode = 2
+
+[node name="Sub1" type="VBoxContainer" parent="MainCont/Options"]
+custom_minimum_size = Vector2(152, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EditButt" type="Button" parent="MainCont/Options/Sub1"]
+layout_mode = 2
+text = "Edit
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Close" type="Button" parent="MainCont/Options/Sub1"]
+layout_mode = 2
+text = "Close"
+metadata/_edit_use_anchors_ = true
+
+[node name="Sub2" type="VBoxContainer" parent="MainCont/Options"]
+custom_minimum_size = Vector2(152, 0)
+layout_mode = 2
+
+[node name="Settings" type="Button" parent="MainCont/Options/Sub2"]
+layout_mode = 2
+text = "Settings
+"
+
+[node name="Edit" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.348177
+anchor_top = 0.203704
+anchor_right = 0.651823
+anchor_bottom = 0.796296
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Edit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3j07")
+
+[node name="Label" type="Label" parent="Edit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.465695
+anchor_right = 0.534305
+anchor_bottom = 0.040625
+grow_horizontal = 2
+text = "Edit
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AlbumAll" type="Control" parent="Edit"]
+layout_mode = 1
+anchor_top = 0.1125
+anchor_right = 1.0
+anchor_bottom = 0.201562
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Butt" type="Button" parent="Edit/AlbumAll"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.22807
+anchor_right = 0.217839
+anchor_bottom = 0.77193
+grow_vertical = 2
+text = "Set album for all
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="EditAlbum" type="TextEdit" parent="Edit/AlbumAll"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -436.0
+offset_top = -21.0
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 2
+placeholder_text = "Album Name
+"
+
+[node name="Settings" parent="." instance=ExtResource("6_xd810")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainCont/Menu/Music" to="MainCont/TabCont" method="set_current_tab" binds= [0]]
+[connection signal="pressed" from="MainCont/Menu/Albums" to="MainCont/TabCont" method="set_current_tab" binds= [1]]
+[connection signal="pressed" from="MainCont/Options/Sub1/EditButt" to="." method="editPressed"]
+[connection signal="pressed" from="MainCont/Options/Sub1/Close" to="." method="hideHome"]
+[connection signal="pressed" from="MainCont/Options/Sub2/Settings" to="Settings" method="show"]
+[connection signal="pressed" from="Edit/AlbumAll/Butt" to="." method="setAlbumForAll"]
+[connection signal="text_changed" from="Edit/AlbumAll/EditAlbum" to="." method="_on_text_edit_text_changed"]

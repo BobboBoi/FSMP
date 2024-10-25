@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dfownpiohbsvl"]
+
+[ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="1_tdu5c"]
+
+[resource]
+atlas = ExtResource("1_tdu5c")
+region = Rect2(0, 0, 200, 200)

@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://blry2rxlowk06"]
+
+[ext_resource type="Script" path="res://Scripts/Components/QuickAccess.gd" id="1_irfns"]
+
+[node name="QuickAccessMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_irfns")
+metadata/_edit_group_ = true
+
+[node name="Root" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_right = 0.208333
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Vcont" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Searchbar" type="TextEdit" parent="Root/Vcont"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Search for your garbage :)"
+
+[node name="Scroll" type="ScrollContainer" parent="Root/Vcont"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Root/Vcont/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ListButton" type="Button" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 25.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "<"
+
+[connection signal="text_changed" from="Root/Vcont/Searchbar" to="." method="SearchBarTextChanged"]
+[connection signal="pressed" from="Root/ListButton" to="." method="OnListButtonPressed"]

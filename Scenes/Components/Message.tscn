@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://ualop8mbavhg"]
+
+[ext_resource type="Script" path="res://Scripts/Components/Message.gd" id="1_4d7ct"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4busr"]
+bg_color = Color(0.371094, 0.226135, 0, 1)
+border_width_left = 30
+border_width_top = 20
+border_width_right = 30
+border_width_bottom = 20
+border_color = Color(0.372549, 0.227451, 0, 1)
+
+[node name="Message" type="PanelContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -40.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4busr")
+script = ExtResource("1_4d7ct")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "WARNING: THIS WARNING IS A WARNING BECAUSE NO WARNING WAS SET!"
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]

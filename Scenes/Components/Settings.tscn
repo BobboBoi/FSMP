@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://yh17p5vo1ynv"]
+
+[ext_resource type="Script" path="res://Scripts/Components/Settings.gd" id="1_1m57d"]
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_4448g"]
+[ext_resource type="PackedScene" uid="uid://dac3riqucf4tm" path="res://Scenes/Components/About.tscn" id="2_ojt15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eh40"]
+bg_color = Color(0.140625, 0.140625, 0.140625, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1ale"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchor_left = 0.348177
+anchor_top = 0.203704
+anchor_right = 0.651823
+anchor_bottom = 0.796296
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4448g")
+script = ExtResource("1_1m57d")
+metadata/_edit_use_anchors_ = true
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+disable_3d = true
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(960, 540)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="Layer" type="CanvasLayer" parent="."]
+
+[node name="FirstTime" parent="Layer" instance=ExtResource("2_ojt15")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
+
+[node name="VCont" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_right = 69.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="HSeparator" type="HSeparator" parent="VCont"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
+
+[node name="Label" type="Label" parent="VCont"]
+layout_mode = 2
+text = "Settings
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MFolderButt" type="Button" parent="VCont"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add music folder"
+
+[node name="CFolderButt" type="Button" parent="VCont"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Set cover folder"
+
+[node name="About" type="Button" parent="VCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "About"
+
+[node name="Close" type="Button" parent="VCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Close
+"
+
+[connection signal="canceled" from="FileDialog" to="." method="OnCancel"]
+[connection signal="pressed" from="VCont/MFolderButt" to="." method="MFolderPressed"]
+[connection signal="pressed" from="VCont/CFolderButt" to="." method="CFolderPressed"]
+[connection signal="pressed" from="VCont/About" to="Layer/FirstTime" method="show"]
+[connection signal="pressed" from="VCont/Close" to="." method="hide"]
