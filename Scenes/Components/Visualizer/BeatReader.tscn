@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgiof0hu8gf5j"]
+
+[ext_resource type="Script" path="res://Scripts/Components/BeatReader.gd" id="1_kekm4"]
+
+[node name="BeatReader" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kekm4")
+debug = true

@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene load_steps=15 format=3 uid="uid://dex5ybh72uomo"]
 
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" path="res://Scripts/Home.gd" id="1_uex14"]
 [ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_muooh"]
 [ext_resource type="Script" path="res://Scripts/AlbumSongList.gd" id="3_nnwa8"]
 [ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="3_sxx7c"]
 [ext_resource type="Texture2D" uid="uid://bpom5xxbpw10o" path="res://icon.svg" id="4_q3djh"]
+[ext_resource type="StyleBox" uid="uid://yeaxdaapw84d" path="res://Assets/Resources/StyleBoxxes/CoverBorder.tres" id="6_p54mm"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/Settings.tscn" id="6_xd810"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y64le"]
@@ -14,21 +16,22 @@ vertical = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_roh73"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogave"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg4ro"]
 bg_color = Color(0.164706, 0.164706, 0.164706, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkjh1"]
-bg_color = Color(0.87451, 0.470588, 0, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3xs3"]
+
+[sub_resource type="GDScript" id="GDScript_eitmm"]
+resource_name = "EditButton"
+script/source = "extends Button
+
+func CheckSelection():
+	visible = $\"../../../..\".selected.size() > 0
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3j07"]
 bg_color = Color(0.137255, 0.137255, 0.137255, 1)
@@ -45,6 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_tmcsk")
 script = ExtResource("1_uex14")
 
 [node name="BG" type="ColorRect" parent="."]
@@ -73,17 +77,20 @@ metadata/_edit_use_anchors_ = true
 [node name="Music" type="Button" parent="MainCont/Menu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Music"
 
 [node name="Albums" type="Button" parent="MainCont/Menu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Albums
 "
 
 [node name="Button3" type="Button" parent="MainCont/Menu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Playlists
 "
 
@@ -168,6 +175,8 @@ metadata/_edit_use_anchors_ = true
 [node name="AlbumList" type="VBoxContainer" parent="MainCont/TabCont/AlbumsTab/MainCont/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
 script = ExtResource("2_muooh")
@@ -207,7 +216,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ogave")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kg4ro")
 
 [node name="Hcont" type="HBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo"]
 layout_mode = 1
@@ -242,7 +251,7 @@ offset_right = 6.40001
 offset_bottom = 6.40001
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xkjh1")
+theme_override_styles/panel = ExtResource("6_p54mm")
 
 [node name="Title" type="Label" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont"]
 unique_name_in_owner = true
@@ -272,13 +281,17 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="EditButt" type="Button" parent="MainCont/Options/Sub1"]
+visible = false
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Edit
 "
+script = SubResource("GDScript_eitmm")
 metadata/_edit_use_anchors_ = true
 
 [node name="Close" type="Button" parent="MainCont/Options/Sub1"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Close"
 metadata/_edit_use_anchors_ = true
 
@@ -288,6 +301,7 @@ layout_mode = 2
 
 [node name="Settings" type="Button" parent="MainCont/Options/Sub2"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Settings
 "
 
@@ -363,8 +377,10 @@ placeholder_text = "Album Name
 visible = false
 layout_mode = 1
 
+[connection signal="SelectionUpdated" from="." to="MainCont/Options/Sub1/EditButt" method="CheckSelection"]
 [connection signal="pressed" from="MainCont/Menu/Music" to="MainCont/TabCont" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="MainCont/Menu/Albums" to="MainCont/TabCont" method="set_current_tab" binds= [1]]
+[connection signal="tab_changed" from="MainCont/TabCont" to="." method="ClearSelection" unbinds=1]
 [connection signal="pressed" from="MainCont/Options/Sub1/EditButt" to="." method="editPressed"]
 [connection signal="pressed" from="MainCont/Options/Sub1/Close" to="." method="hideHome"]
 [connection signal="pressed" from="MainCont/Options/Sub2/Settings" to="Settings" method="show"]

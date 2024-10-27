@@ -1,4 +1,4 @@
-extends Control
+extends HomeMenuItem
 class_name MusicSelection
 
 @onready var button : Button = %Button
@@ -12,7 +12,7 @@ class_name MusicSelection
 		index = value
 		if button != null: Refresh()
 
-var selected := false
+signal Pressed
 
 static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	var inst = preload("res://Scenes/MusicSelection.tscn").instantiate()
@@ -22,6 +22,9 @@ static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	return inst;
 
 func _ready() -> void:
+	super()
+	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
+	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
 	Refresh()
 
 func Refresh() -> void:
@@ -34,7 +37,10 @@ func Refresh() -> void:
 	%Index.text = str(index)
 
 func ConnectToPlayer(player : Player):
-	button.connect("pressed",player.PlayFromData.bind(data))#.path,data.name,data.album))   
+	Pressed.connect(player.PlayFromData.bind(data))
 
-func BoxToggled(toggled_on: bool) -> void:
-	selected = toggled_on
+func ButtonPressed() -> void:
+	if Input.is_action_pressed("SelectMode"):
+		Select(true)
+	else:
+		Pressed.emit()

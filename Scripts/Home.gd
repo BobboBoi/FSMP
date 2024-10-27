@@ -1,8 +1,6 @@
 extends Control
 class_name HomeMenu
 
-var current = "Music"
-@onready var loadSelect = preload("res://Scenes/MusicSelection.tscn")
 @onready var lister : TrackLister = %TrackLister
 @onready var player : Player = %Player
 
@@ -16,17 +14,24 @@ var current = "Music"
 
 @onready var albumEdit := %EditAlbum
 
+var selected : Array[HomeMenuItem] = []
+
 enum TABS {
 	MUSIC,
 	ALBUM,
 	ALBUM_MUSIC
 }
 
+signal SelectionUpdated
+
 func _ready():
 	visible = true
 	tabCont.set_current_tab(TABS.MUSIC)
+	
 	Reload()
+	
 	lister.ListChanged.connect(Reload)
+	player.NewTrack.connect(hideHome.unbind(1))
 
 func Reload():
 	for i in musicList.get_children(): i.free()
@@ -37,13 +42,20 @@ func Reload():
 		var butt := MusicSelection.Create(i)
 		musicList.add_child(butt)
 		butt.ConnectToPlayer(player)
-		butt.button.connect("pressed",self.hideHome)
+		
+		#Connect selection signals
+		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
+		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
 	
 	#List Music
 	for i in lister.albums:
 		var butt := AlbumSelection.Create(i)
 		albumList.add_child(butt)
 		butt.ConnectToAlbum(self)
+		
+		#Connect selection signals
+		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
+		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
 	
 	musicList.Update()
 	albumList.Update()
@@ -115,3 +127,19 @@ func showHome() -> void:
 
 func hideHome() -> void:
 	self.visible = false
+
+#Music selection
+func SelectedItem(item : HomeMenuItem):
+	if selected.find(item) != -1: return
+	selected.append(item)
+	SelectionUpdated.emit()
+
+func UnselectedItem(item : HomeMenuItem):
+	var index := selected.find(item)
+	if index == -1: return
+	selected.remove_at(index)
+	SelectionUpdated.emit()
+
+func ClearSelection():
+	for i in selected:
+		i.Select(false)

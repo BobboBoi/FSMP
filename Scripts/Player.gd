@@ -9,15 +9,15 @@ signal NewTrack(stream : AudioStream)
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
-func PlayFromPath(path : String):
+func PlayFromPath(path : String,emitSignal := true):
 	var loaded = Loader._load(path)
 	if loaded == null or loaded is not MusicData: return
-	PlayFromData(loaded)
+	PlayFromData(loaded,emitSignal)
 
-func PlayFromData(data : MusicData):
-	PlayNewTrack(data.path,data.name,data.album)
+func PlayFromData(data : MusicData,emitSignal := true):
+	PlayNewTrack(data.path,data.name,data.album,emitSignal)
 
-func PlayNewTrack(music : String,trackName : String,album :String):
+func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := true):
 	self.stop()
 	if music == "": return
 	
@@ -36,7 +36,7 @@ func PlayNewTrack(music : String,trackName : String,album :String):
 	
 	self.play()
 	
-	NewTrack.emit(stream)
+	if emitSignal: NewTrack.emit(stream)
 	get_tree().get_first_node_in_group("Discord").refresh(trackName,album)
 
 ##WAV files don't loop properly when imported 

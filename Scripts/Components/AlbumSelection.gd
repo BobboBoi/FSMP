@@ -1,4 +1,4 @@
-extends Control
+extends HomeMenuItem
 class_name AlbumSelection
 
 @onready var button : Button = %Button
@@ -15,11 +15,14 @@ static func Create(newData : AlbumData) -> AlbumSelection:
 	return inst
 
 func _ready() -> void:
+	super()
+	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
+	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
 	Refresh(true)
 
 func Refresh(cover = false):
-	$Name.text = data.name
-	$Artist.text = str(data.artists)
+	%Name.text = data.name
+	%Artist.text = str(data.artists)
 	
 	if data.cover == "" or !cover: return
 	LoadCover(data.cover)
@@ -40,7 +43,7 @@ func LoadCover(path : String):
 			#print("Load succesful jpg:",texture)
 		
 		var final = ImageTexture.create_from_image(texture)
-		$TextureRect.texture = final
+		%Cover.texture = final
 	
 	file.close()
 

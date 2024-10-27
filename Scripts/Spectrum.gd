@@ -2,30 +2,22 @@ extends Control
 
 @onready var analyzer : AudioEffectSpectrumAnalyzerInstance
 @onready var window : Window = get_window()
-@onready var sprite := %Sprite #Will be removed in the future
 @onready var lineObject := %Line
-
-@onready var part = preload("res://Scenes/particles.tscn")
 
 #@export var width : float = 750;
 @export var samples := 320;
 @export var height := 350;
-@export var beatHeight := 0.6
-@export var beatIndex := 10
-@export var beatDiff := 0.05
 
 @export var line = true
 @export var lineYOrigin := 0.0
 var flexOrigin := 0.0
 
 
-const FREQ_MAX = 11050.0/3
-const MIN_DB = 60 #80
+const FREQ_MAX = 11050.0/2
+@export var MIN_DB = 60 #80
 const LERP : float = 0.4
 
 var lastPos : Array
-var lastBeat
-var beat
 var prevHz := 0.0
 
 func _ready():
@@ -41,6 +33,7 @@ func _process(_delta):
 
 func _draw():
 	var division = size.x/(samples-1)
+	prevHz = 0.0
 	#var division = (width*1.015)/samples 
 	
 	lineObject.clear_points()
@@ -64,40 +57,11 @@ func _draw():
 			lerpHeight = final
 		lastPos[i-1] = lerpHeight as float
 		
-		#Check if current index is the beat index
-		if i == beatIndex and final > (height)*beatHeight:
-			#if lastbeat is set check if for a valid beat
-			if lastBeat != null and !beat:
-				var dif = lastBeat - final
-				if dif < 0:
-					dif *= -1
-					if dif > beatDiff*height:
-						#print("Beat: ",dif)
-						var particles = part.instantiate()
-						particles.emitting = true
-						sprite.add_child(particles)
-						beat = true
-						$Timer.start()
-				elif beat:
-					beat = false
-			lastBeat = final
-			
-			sprite.scale = Vector2(lerp(sprite.scale.x, 1 + (final-(height)*beatHeight)/height*2 ,0.4) , \
-			lerp(sprite.scale.y, 1 + (final-(height)*beatHeight)/height*2 ,0.4)) 
-			if line:
-				lineObject.add_point(Vector2(division*i -6,lerpHeight*-1 + flexOrigin))
-			else:
-				draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.RED)
-			
+		if line:
+			lineObject.add_point(Vector2(division*i -6,lerpHeight*-1 + flexOrigin))
 		else:
-			if line:
-				lineObject.add_point(Vector2(division*i -6,lerpHeight*-1 + flexOrigin))
-			else:
-				draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.WHITE)
+			draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.WHITE)
 		
-		#Beatindicator update
-		if i == beatIndex and !final > (height)*beatHeight:
-			sprite.scale = Vector2(lerp(sprite.scale.x, 1.0, 0.4), lerp(sprite.scale.y, 1.0,0.4)) 
 		prevHz = hz
 
 func SetLine(value : bool) -> void:
@@ -105,6 +69,3 @@ func SetLine(value : bool) -> void:
 
 func SizeUpdate() -> void:
 	flexOrigin = lineYOrigin * (size.y/1080)
-
-func CoolDownTimout() -> void:
-	beat = false

@@ -1,15 +1,27 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d27558cdkugpr"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://d27558cdkugpr"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrspl"]
-bg_color = Color(0.332031, 0.332031, 0.332031, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr6w1"]
-bg_color = Color(0.21875, 0.21875, 0.21875, 1)
+[ext_resource type="StyleBox" uid="uid://yeaxdaapw84d" path="res://Assets/Resources/StyleBoxxes/CoverBorder.tres" id="1_5wgfc"]
+[ext_resource type="StyleBox" uid="uid://cwq7cvqyt1w5c" path="res://Assets/Resources/StyleBoxxes/ButtonHover.tres" id="1_i6cwk"]
+[ext_resource type="StyleBox" uid="uid://cj1a38fsu1nj7" path="res://Assets/Resources/StyleBoxxes/Item1.tres" id="1_o6blo"]
+[ext_resource type="StyleBox" uid="uid://b31w5bicxmnsj" path="res://Assets/Resources/StyleBoxxes/CheckBoxHover.tres" id="2_2oguq"]
+[ext_resource type="StyleBox" uid="uid://qsqhx134hu15" path="res://Assets/Resources/StyleBoxxes/Item1Hovered.tres" id="2_14odb"]
+[ext_resource type="StyleBox" uid="uid://b031rtox3av8y" path="res://Assets/Resources/StyleBoxxes/Item2.tres" id="2_nhftc"]
+[ext_resource type="StyleBox" uid="uid://dtid2ibkvdra" path="res://Assets/Resources/StyleBoxxes/Item2Hovered.tres" id="3_odfgw"]
+[ext_resource type="StyleBox" uid="uid://7jjn42h3w08k" path="res://Assets/Resources/StyleBoxxes/Default.tres" id="3_y3puk"]
 
 [resource]
-Panel/styles/Menu = SubResource("StyleBoxFlat_xrspl")
-Panel/styles/panel = SubResource("StyleBoxFlat_fr6w1")
+Button/styles/hover = ExtResource("1_i6cwk")
+CheckBox/styles/hover = ExtResource("2_2oguq")
+CheckBox/styles/hover_pressed = ExtResource("2_2oguq")
+CoverBorder/base_type = &"Panel"
+CoverBorder/styles/panel = ExtResource("1_5wgfc")
+ListItem1/base_type = &"Panel"
+ListItem1/styles/panel = ExtResource("1_o6blo")
+ListItem1Hovered/base_type = &"Panel"
+ListItem1Hovered/styles/panel = ExtResource("2_14odb")
+ListItem2/base_type = &"Panel"
+ListItem2/styles/panel = ExtResource("2_nhftc")
+ListItem2Hovered/base_type = &"Panel"
+ListItem2Hovered/styles/panel = ExtResource("3_odfgw")
+Panel/styles/panel = ExtResource("3_y3puk")
+PanelContainer/styles/panel = ExtResource("3_y3puk")

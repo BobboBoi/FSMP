@@ -4,16 +4,23 @@ extends Control
 @onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if fileDialog.visible:
-			fileDialog.hide()
-			get_window().set_input_as_handled()
-		elif %FirstTime.visible:
-			%FirstTime.hide()
-			get_window().set_input_as_handled()
-		elif self.visible:
-			hide()
-			get_window().set_input_as_handled()
+	if !event.is_action_pressed("ui_cancel"): return
+	CloseLayer()
+
+func OnColorRectInput(event: InputEvent) -> void:
+	if !event.is_action("ui_accept"): return
+	CloseLayer()
+
+func CloseLayer():
+	if fileDialog.visible:
+		fileDialog.hide()
+		get_window().set_input_as_handled()
+	elif %FirstTime.visible:
+		%FirstTime.hide()
+		get_window().set_input_as_handled()
+	elif self.visible:
+		hide()
+		get_window().set_input_as_handled()
 
 func MFolderPressed() -> void:
 	fileDialog.dir_selected.connect(AddMusicFolder)

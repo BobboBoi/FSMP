@@ -5,6 +5,8 @@ var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
 var paths : Array[String] = []
 
+
+
 signal ListChanged
 
 func _ready():
@@ -29,7 +31,8 @@ func Reload():
 				Loader._save("user://Songs/"+i,save)
 				loaded = save
 			
-			music.append(loaded)
+			if music.find(loaded) == -1:
+				music.append(loaded)
 	
 	var uniqueAlbums : Array = []
 	for i in music:

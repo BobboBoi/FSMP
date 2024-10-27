@@ -10,6 +10,7 @@ var path := ""
 func _init(newData : MusicData) -> void:
 	text_overrun_behavior = TextServer.OverrunBehavior.OVERRUN_TRIM_CHAR
 	size_flags_horizontal = SizeFlags.SIZE_EXPAND_FILL
+	mouse_default_cursor_shape = CURSOR_POINTING_HAND
 	
 	path = newData.name
 	if newData.name != "":

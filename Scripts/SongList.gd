@@ -2,7 +2,6 @@ extends VBoxContainer
 
 @export var bookMarks := true
 
-#Unreadable art :')
 func Update():
 	#Remove bookmarks
 	for i in get_children():
@@ -18,10 +17,7 @@ func Update():
 		if bookMarks: numb = CheckBookmark(i,numb)
 		
 		#Add color patern
-		if numb % 2 == 0:
-			get_child(numb).get_node("ColorRect").color = Color(0,0,0,1)
-		else:
-			get_child(numb).get_node("ColorRect").color = Color(0.1,0.1,0.1,1)
+		i.SetVariation(1+int(numb % 2 == 0))
 		
 		numb += 1
 
@@ -36,6 +32,8 @@ func SortList() -> void:
 
 func SortItems(a,b) -> bool:
 	if a is MusicSelection and b is MusicSelection:
+		return a.data.name < b.data.name
+	if a is AlbumSelection and b is AlbumSelection:
 		return a.data.name < b.data.name
 	
 	push_warning(self.name,": Format not supported by list sorting")

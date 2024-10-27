@@ -1,11 +1,53 @@
-[gd_scene load_steps=86 format=3 uid="uid://cmtqwlk3etxas"]
+[gd_scene load_steps=88 format=3 uid="uid://cmtqwlk3etxas"]
 
+[ext_resource type="PackedScene" uid="uid://dgiof0hu8gf5j" path="res://Scenes/Components/Visualizer/BeatReader.tscn" id="1_mkr3y"]
 [ext_resource type="PackedScene" uid="uid://e2rvldetudgn" path="res://Scenes/Components/SimpleSpectrum.tscn" id="1_pjcxw"]
 [ext_resource type="PackedScene" uid="uid://5jya2i260pb2" path="res://Scenes/Components/BaseProgressBar.tscn" id="2_ibyt5"]
 [ext_resource type="Texture2D" uid="uid://cqsjp08c7g7s0" path="res://Assets/Sprites/DAWG.png" id="3_4xeou"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeButton.gd" id="3_i80r3"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="4_06o6a"]
+[ext_resource type="Script" path="res://Scripts/Components/AnimatedSpriteSelector.gd" id="4_krs0l"]
 [ext_resource type="Script" path="res://Scripts/Components/AnimatedBeatIndicator.gd" id="6_qy74n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b1m0"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhl8t"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11j2x"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6pss"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8mqq"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1leg"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnge3"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha4op"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(1400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lq7b"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(1600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_161d0"]
+atlas = ExtResource("4_06o6a")
+region = Rect2(1800, 0, 200, 200)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dhabq"]
 atlas = ExtResource("3_4xeou")
@@ -279,48 +321,43 @@ region = Rect2(200, 1768, 200, 136)
 atlas = ExtResource("3_4xeou")
 region = Rect2(400, 1768, 200, 136)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4b1m0"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(0, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nhl8t"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(200, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_11j2x"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(400, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m6pss"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(600, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i8mqq"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(800, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u1leg"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(1000, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gnge3"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(1200, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha4op"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(1400, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4lq7b"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(1600, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_161d0"]
-atlas = ExtResource("4_06o6a")
-region = Rect2(1800, 0, 200, 200)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_itlep"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b1m0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhl8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11j2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6pss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8mqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1leg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnge3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha4op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lq7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_161d0")
+}],
+"loop": true,
+"name": &"Da Man",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dhabq")
@@ -529,41 +566,6 @@ animations = [{
 "loop": true,
 "name": &"Pug",
 "speed": 30.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4b1m0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nhl8t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_11j2x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m6pss")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i8mqq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u1leg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gnge3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ha4op")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4lq7b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_161d0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
 }]
 
 [node name="OgVisualizer" type="Control"]
@@ -601,38 +603,52 @@ alignment = 2
 [node name="Spectrum" parent="MainCont" instance=ExtResource("1_pjcxw")]
 layout_mode = 2
 
+[node name="BeatReader" parent="MainCont" instance=ExtResource("1_mkr3y")]
+layout_mode = 2
+debug = false
+
 [node name="Bar" parent="MainCont" instance=ExtResource("2_ibyt5")]
 custom_minimum_size = Vector2(0, 138)
 layout_mode = 2
 
-[node name="Config" type="Panel" parent="."]
+[node name="Config" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -104.0
-offset_bottom = 59.0
+offset_bottom = 94.0
 grow_horizontal = 0
 mouse_filter = 2
 
 [node name="VCont" type="VBoxContainer" parent="Config"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="Config/VCont"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Home"
 script = ExtResource("3_i80r3")
+
+[node name="HSeparator" type="HSeparator" parent="Config/VCont"]
+layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="CheckBox" type="CheckBox" parent="Config/VCont"]
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
 button_pressed = true
+
+[node name="OptionButton" type="OptionButton" parent="Config/VCont" node_paths=PackedStringArray("target")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "#NAME#"
+script = ExtResource("4_krs0l")
+target = NodePath("../../../Sprite")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -642,4 +658,9 @@ sprite_frames = SubResource("SpriteFrames_itlep")
 animation = &"Pug"
 script = ExtResource("6_qy74n")
 
+[node name="Timer" type="Timer" parent="Sprite"]
+one_shot = true
+
+[connection signal="Beat" from="MainCont/BeatReader" to="Sprite" method="OnBeat" unbinds=1]
+[connection signal="Update" from="MainCont/BeatReader" to="Sprite" method="Update"]
 [connection signal="toggled" from="Config/VCont/CheckBox" to="MainCont/Spectrum" method="SetLine"]

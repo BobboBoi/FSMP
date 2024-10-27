@@ -23,6 +23,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Vcont" type="VBoxContainer" parent="Root"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,5 +62,6 @@ offset_bottom = 31.0
 grow_horizontal = 0
 text = "<"
 
+[connection signal="resized" from="." to="." method="SizeUpdate"]
 [connection signal="text_changed" from="Root/Vcont/Searchbar" to="." method="SearchBarTextChanged"]
 [connection signal="pressed" from="Root/ListButton" to="." method="OnListButtonPressed"]

@@ -15,15 +15,22 @@ border_width_bottom = 4
 
 [node name="Settings" type="Control"]
 layout_mode = 3
-anchor_left = 0.348177
-anchor_top = 0.203704
-anchor_right = 0.651823
-anchor_bottom = 0.796296
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_4448g")
 script = ExtResource("1_1m57d")
-metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.1)
 
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
@@ -46,14 +53,17 @@ visible = false
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.395833
+anchor_top = 0.282407
+anchor_right = 0.604167
+anchor_bottom = 0.717593
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
+metadata/_edit_use_anchors_ = true
 
-[node name="VCont" type="VBoxContainer" parent="."]
+[node name="VCont" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -65,42 +75,43 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="HSeparator" type="HSeparator" parent="VCont"]
+[node name="HSeparator" type="HSeparator" parent="Panel/VCont"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 
-[node name="Label" type="Label" parent="VCont"]
+[node name="Label" type="Label" parent="Panel/VCont"]
 layout_mode = 2
 text = "Settings
 "
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MFolderButt" type="Button" parent="VCont"]
+[node name="MFolderButt" type="Button" parent="Panel/VCont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Add music folder"
 
-[node name="CFolderButt" type="Button" parent="VCont"]
+[node name="CFolderButt" type="Button" parent="Panel/VCont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Set cover folder"
 
-[node name="About" type="Button" parent="VCont"]
+[node name="About" type="Button" parent="Panel/VCont"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "About"
 
-[node name="Close" type="Button" parent="VCont"]
+[node name="Close" type="Button" parent="Panel/VCont"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Close
 "
 
+[connection signal="gui_input" from="ColorRect" to="." method="OnColorRectInput"]
 [connection signal="canceled" from="FileDialog" to="." method="OnCancel"]
-[connection signal="pressed" from="VCont/MFolderButt" to="." method="MFolderPressed"]
-[connection signal="pressed" from="VCont/CFolderButt" to="." method="CFolderPressed"]
-[connection signal="pressed" from="VCont/About" to="Layer/FirstTime" method="show"]
-[connection signal="pressed" from="VCont/Close" to="." method="hide"]
+[connection signal="pressed" from="Panel/VCont/MFolderButt" to="." method="MFolderPressed"]
+[connection signal="pressed" from="Panel/VCont/CFolderButt" to="." method="CFolderPressed"]
+[connection signal="pressed" from="Panel/VCont/About" to="Layer/FirstTime" method="show"]
+[connection signal="pressed" from="Panel/VCont/Close" to="." method="hide"]

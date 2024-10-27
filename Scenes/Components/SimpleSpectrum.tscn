@@ -17,9 +17,4 @@ points = PackedVector2Array(43, -133)
 width = 4.0
 joint_mode = 2
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [connection signal="resized" from="." to="." method="SizeUpdate"]
-[connection signal="timeout" from="Timer" to="." method="CoolDownTimout"]
