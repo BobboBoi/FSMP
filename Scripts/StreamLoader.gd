@@ -7,6 +7,11 @@ func LoadMP3FromBytes(bytes : PackedByteArray) -> AudioStreamMP3:
 	stream.loop = true
 	return stream
 
+func LoadOGGFromBytes(bytes : PackedByteArray) -> AudioStreamOggVorbis:
+	var stream := AudioStreamOggVorbis.load_from_buffer(bytes)
+	stream.loop = true
+	return stream
+
 ##Based on https://github.com/Stoxis/GDScriptAudioImport-Godot4/tree/master
 func LoadWAVFromBytes(bytes : PackedByteArray) -> AudioStreamWAV:
 	var newstream = AudioStreamWAV.new()

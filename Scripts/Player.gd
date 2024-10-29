@@ -31,6 +31,9 @@ func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := 
 	# Load wav
 	elif music.ends_with(".wav"):
 		self.stream = streamLoader.LoadWAVFromBytes(bytes)
+	# Load wav
+	elif music.ends_with(".ogg"):
+		self.stream = streamLoader.LoadOGGFromBytes(bytes)
 	
 	file.close()
 	
