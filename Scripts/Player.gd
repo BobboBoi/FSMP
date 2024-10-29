@@ -2,6 +2,7 @@ extends AudioStreamPlayer
 class_name Player
 
 @onready var streamLoader := $StreamLoader
+#@onready var metaReader := MetaDataReader.new()
 var loopStart := 0.0
 
 signal NewTrack(stream : AudioStream)
@@ -21,9 +22,11 @@ func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := 
 	self.stop()
 	if music == "": return
 	
+	
 	print(music)
 	var file = FileAccess.open(music, FileAccess.READ)
 	var bytes = file.get_buffer(file.get_length())
+	
 	
 	# Load mp3
 	if music.ends_with(".mp3"):

@@ -5,7 +5,7 @@ var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
 var paths : Array[String] = []
 
-
+const illegalChars : Array[String] = ["\\","/",":"]
 
 signal ListChanged
 
@@ -13,7 +13,7 @@ func _ready():
 	Reload()
 
 ##Look for music files in saved directories
-func Reload():
+func Reload(forceMetaUpdate = false):
 	paths = Loader.config.musicPaths
 	music = []
 	albums = []
@@ -23,16 +23,10 @@ func Reload():
 		
 		#Go over files in dir
 		for i in files:
-			var loaded = Loader._load("user://Songs/"+i)
 			
-			#Create new data if there isn't any
-			if loaded == null:
-				var save = MusicData.Create(i,p+"/"+i)
-				Loader._save("user://Songs/"+i,save)
-				loaded = save
-			
-			if music.find(loaded) == -1:
-				music.append(loaded)
+			var loadedMusic := CheckMusicData(p,i,forceMetaUpdate)
+			if music.filter(func(d): return d.name == loadedMusic.name).size() == 0:
+				music.append(loadedMusic)
 	
 	var uniqueAlbums : Array = []
 	for i in music:
@@ -41,8 +35,8 @@ func Reload():
 				uniqueAlbums.append(i.album)
 	
 	for i in uniqueAlbums:
-		var loaded := CheckAlbumData(i)
-		albums.append(loaded)
+		var loadedAlbum := CheckAlbumData(i)
+		albums.append(loadedAlbum)
 	
 	ListChanged.emit()
 
@@ -61,13 +55,43 @@ func FindMusicFiles(path : String) -> Array:
 	dir.list_dir_end()
 	return files
 
+func CheckMusicData(p : String,i : String,forceMetaUpdate := false) -> MusicData:
+	var data := MetaDataReader.GetFromAudioFile(p+"/"+i)
+	var path = i
+	if data != null:
+		if data.Title.is_valid_filename() and data.Title != "":
+			path = data.Title
+	
+	for c in illegalChars:
+		path = path.replace(c,'')
+	
+	var loaded = Loader._load("user://Songs/"+path)
+	
+	#Create new data if there isn't any
+	if loaded == null or forceMetaUpdate:
+		var save : MusicData = null
+		
+		if data != null:
+			save = MusicData.Create(path,p+"/"+i,"",data.Album,data.Index)
+		else:
+			save = MusicData.Create(i,p+"/"+i)
+		
+		Loader._save("user://Songs/"+save.name,save)
+		loaded = save
+	
+	return loaded
+
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
-	var loaded = Loader._load("user://Albums/"+albumName)
+	var path := albumName
+	for c in illegalChars:
+		path = path.replace(c,'')
+	
+	var loaded = Loader._load("user://Albums/"+path)
 	
 	if loaded == null:
 		var save = AlbumData.Create(albumName) #TODO Artists aren't listed yet
-		Loader._save("user://Songs/"+albumName,save)
+		Loader._save("user://Albums/"+path,save)
 		loaded = save
 	
 	#Check for a cover

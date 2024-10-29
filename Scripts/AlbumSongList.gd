@@ -1,8 +1,9 @@
-extends VBoxContainer
+extends SongList
 
-func sort():
-	var numb = 0
-	for i in get_children():
-		if i is MusicSelection:
-			i.SetVariation(1+int(numb % 2 == 0))
-		numb += 1
+func _init() -> void:
+	bookMarks = false
+
+func SortItems(a,b) -> bool:
+	if a is MusicSelection and b is MusicSelection:
+		return a.data.albumIndex < b.data.albumIndex
+	return false

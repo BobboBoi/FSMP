@@ -1,4 +1,5 @@
 extends VBoxContainer
+class_name SongList
 
 @export var bookMarks := true
 
@@ -17,7 +18,8 @@ func Update():
 		if bookMarks: numb = CheckBookmark(i,numb)
 		
 		#Add color patern
-		i.SetVariation(1+int(numb % 2 == 0))
+		if i is HomeMenuItem:
+			i.SetVariation(1+int(numb % 2 == 0))
 		
 		numb += 1
 

@@ -29,8 +29,10 @@ corner_radius_bottom_left = 15
 resource_name = "EditButton"
 script/source = "extends Button
 
+#Currently unused
 func CheckSelection():
-	visible = $\"../../../..\".selected.size() > 0
+	pass
+	#visible = $\"../../../..\".selected.size() > 0
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3j07"]
@@ -187,29 +189,19 @@ layout_mode = 2
 mouse_filter = 2
 metadata/_tab_index = 2
 
-[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/AlbumMusicTab"]
+[node name="MainCont" type="VBoxContainer" parent="MainCont/TabCont/AlbumMusicTab"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
 
-[node name="AlbumMusicList" type="VBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/Scroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_constants/separation = 0
-script = ExtResource("3_nnwa8")
-
-[node name="AlbumInfo" type="Control" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList"]
+[node name="AlbumInfo" type="Control" parent="MainCont/TabCont/AlbumMusicTab/MainCont"]
 custom_minimum_size = Vector2(1434, 275)
 layout_mode = 2
 
-[node name="Bg" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo"]
+[node name="Bg" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/MainCont/AlbumInfo"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,7 +210,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kg4ro")
 
-[node name="Hcont" type="HBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo"]
+[node name="Hcont" type="HBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/MainCont/AlbumInfo"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -231,7 +223,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
 
-[node name="Cover" type="TextureRect" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont"]
+[node name="Cover" type="TextureRect" parent="MainCont/TabCont/AlbumMusicTab/MainCont/AlbumInfo/Hcont"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(243.2, 243.2)
 layout_mode = 2
@@ -239,7 +231,7 @@ texture = ExtResource("4_q3djh")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont/Cover"]
+[node name="Panel" type="Panel" parent="MainCont/TabCont/AlbumMusicTab/MainCont/AlbumInfo/Hcont/Cover"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -253,7 +245,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("6_p54mm")
 
-[node name="Title" type="Label" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList/AlbumInfo/Hcont"]
+[node name="Title" type="Label" parent="MainCont/TabCont/AlbumMusicTab/MainCont/AlbumInfo/Hcont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -261,10 +253,24 @@ theme_override_font_sizes/font_size = 34
 text = "AlbumName"
 metadata/_edit_use_anchors_ = true
 
-[node name="HSeparator" type="HSeparator" parent="MainCont/TabCont/AlbumMusicTab/Scroll/AlbumMusicList"]
+[node name="HSeparator" type="HSeparator" parent="MainCont/TabCont/AlbumMusicTab/MainCont"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_y3xs3")
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/AlbumMusicTab/MainCont"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AlbumMusicList" type="VBoxContainer" parent="MainCont/TabCont/AlbumMusicTab/MainCont/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("3_nnwa8")
 
 [node name="Sep2" type="VSeparator" parent="MainCont"]
 layout_mode = 2

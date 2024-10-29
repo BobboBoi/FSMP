@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://c4bg6rulc1uo0"]
 
 [ext_resource type="Script" path="res://Scripts/Components/AlbumSelection.gd" id="1_4fmw8"]
-[ext_resource type="Texture2D" uid="uid://bpom5xxbpw10o" path="res://icon.svg" id="1_cpl4h"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_hg365"]
+[ext_resource type="Texture2D" uid="uid://btl2ilw25strr" path="res://Assets/Sprites/Logo.png" id="3_u60gx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
 
@@ -76,7 +76,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 134.1)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("1_cpl4h")
+texture = ExtResource("3_u60gx")
 expand_mode = 2
 
 [node name="Panel" type="Panel" parent="MainCont/Cover"]

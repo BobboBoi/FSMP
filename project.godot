@@ -15,8 +15,10 @@ config/description="The worst music player you'll ever use.
 "
 config/tags=PackedStringArray("mainproject")
 run/main_scene="res://Scenes/sampler.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://Assets/Sprites/Logo..png"
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+boot_splash/image="res://Assets/Sprites/FSMPLogo.png"
+boot_splash/fullsize=false
+config/icon="res://Assets/Sprites/Logo.png"
 
 [autoload]
 
