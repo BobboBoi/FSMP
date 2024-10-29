@@ -3,7 +3,7 @@ This is a really bad music player. Please don't use this.
 
 <b>Features</b>
 <ul>
-<li>No metadata support</li>
+<li>Metadata support</li>
 <li>Useless visualizer</li>
 <li>No playlists</li>
 <li>No pause button</li>
