@@ -49,9 +49,7 @@ It was made purely as a stupid hobby
 
 Set music directories with the \"Add music folder\" button. Supported formats: MP3,WAV and OGG.
 
-Set an album cover directory with that \"Set cover folder\" button. The album covers file name should match that of the album set in this program. Supported formats: PNG, JPG.
-
-Metadata will be added into the future to simplify this process"
+Set an album cover directory with that \"Set cover folder\" button. The album covers file name should match that of the album set in this program. Supported formats: PNG, JPG."
 autowrap_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="Panel/Dialog"]
