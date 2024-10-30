@@ -13,9 +13,6 @@ This is a really bad music player. Please don't use this.
 
 ## UFAQ
 <ul>
-	<li>Why doesn't it read metadata?<br>
-	This will be added later.
-	</li>
 	<li>Why do some WAV files take so long to load?<br>
 	Godot moment.
 	</li>
