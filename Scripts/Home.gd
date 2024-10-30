@@ -22,6 +22,8 @@ enum TABS {
 	ALBUM_MUSIC
 }
 
+const THREAD_SLICE := 100
+
 signal SelectionUpdated
 
 func _ready():
@@ -37,17 +39,18 @@ func Reload():
 	for i in musicList.get_children(): i.free()
 	for i in albumList.get_children(): i.free()
 	
-	#List Music
-	for i in lister.music:
-		var butt := MusicSelection.Create(i)
-		musicList.add_child(butt)
-		butt.ConnectToPlayer(player)
-		
-		#Connect selection signals
-		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
-		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
+	var threads : Array[Thread] = []
 	
 	#List Music
+	for s in range(ceil(float(lister.music.size()) / THREAD_SLICE)):
+		var t := Thread.new()
+		t.start(AddHomeButtons.bind(lister.music.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))))
+		threads.append(t)
+	
+	for t in threads:
+		t.wait_to_finish()
+	
+	#List Albums
 	for i in lister.albums:
 		var butt := AlbumSelection.Create(i)
 		albumList.add_child(butt)
@@ -57,8 +60,19 @@ func Reload():
 		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
 		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
 	
-	musicList.Update()
+	musicList.call_deferred("Update")
 	albumList.Update()
+
+##Add home buttons for music in the given array
+func AddHomeButtons(arr : Array[MusicData]) -> void:
+	for i in arr:
+		var butt := MusicSelection.Create(i)
+		musicList.call_deferred_thread_group("add_child",butt)
+		butt.ConnectToPlayer(player)
+		
+		#Connect selection signals
+		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
+		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
 
 func OpenAlbum(album : AlbumData):
 	#Reset songlist

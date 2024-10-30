@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://blry2rxlowk06"]
+[gd_scene load_steps=3 format=3 uid="uid://blry2rxlowk06"]
 
 [ext_resource type="Script" path="res://Scripts/Components/QuickAccess.gd" id="1_irfns"]
+[ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_1au3y"]
 
 [node name="QuickAccessMenu" type="Control"]
 layout_mode = 3
@@ -50,6 +51,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
+script = ExtResource("2_1au3y")
+bookMarks = false
 
 [node name="ListButton" type="Button" parent="Root"]
 unique_name_in_owner = true

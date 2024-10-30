@@ -21,11 +21,25 @@ func _ready() -> void:
 
 func Reload() -> void:
 	for i in list.get_children(): i.free()
-	for i in lister.music:
+	
+	var threads : Array[Thread] = []
+	
+	for s in range(ceil(float(lister.music.size()) / 100)):
+		var t := Thread.new()
+		t.start(AddButtonsToMenu.bind(lister.music.slice(100*s,100*(s+1))))
+		threads.append(t)
+	
+	for t in threads:
+		t.wait_to_finish()
+	
+	list.call_deferred("Update")
+
+func AddButtonsToMenu(arr : Array[MusicData]) -> void:
+	for i in arr:
 		var butt := QuickAccessButton.new(i)
 		butt.custom_minimum_size = Vector2(0,75)
 		butt.ConnectToPlayer(player)
-		list.add_child(butt)
+		list.call_deferred_thread_group("add_child",butt)
 
 func OnListButtonPressed() -> void:
 	var tween := create_tween()
@@ -50,7 +64,6 @@ func SearchBarTextChanged() -> void:
 	for i in list.get_children():
 		if i is QuickAccessButton:
 			i.visible = !(i.text.to_lower().find(searchbar.text) == -1 and not searchbar.text == "")
-
 
 func SizeUpdate() -> void:
 	if root == null: return

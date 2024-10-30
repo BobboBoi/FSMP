@@ -37,6 +37,8 @@ func SortItems(a,b) -> bool:
 		return a.data.name < b.data.name
 	if a is AlbumSelection and b is AlbumSelection:
 		return a.data.name.to_lower() < b.data.name.to_lower()
+	if a is Button and b is Button:
+		return a.text < b.text
 	
 	push_warning(self.name,": Format not supported by list sorting")
 	return false
