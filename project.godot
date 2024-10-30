@@ -24,6 +24,7 @@ config/icon="res://Assets/Sprites/Logo.png"
 
 Loader="*res://Scripts/Loader.gd"
 DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
+Discord="*res://Scripts/Discord.gd"
 
 [display]
 

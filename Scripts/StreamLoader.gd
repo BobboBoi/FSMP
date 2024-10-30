@@ -1,19 +1,19 @@
 extends Node
 class_name StreamLoader
 
-func LoadMP3FromBytes(bytes : PackedByteArray) -> AudioStreamMP3:
+static func LoadMP3FromBytes(bytes : PackedByteArray) -> AudioStreamMP3:
 	var stream := AudioStreamMP3.new()
 	stream.data = bytes
 	stream.loop = true
 	return stream
 
-func LoadOGGFromBytes(bytes : PackedByteArray) -> AudioStreamOggVorbis:
+static func LoadOGGFromBytes(bytes : PackedByteArray) -> AudioStreamOggVorbis:
 	var stream := AudioStreamOggVorbis.load_from_buffer(bytes)
 	stream.loop = true
 	return stream
 
 ##Based on https://github.com/Stoxis/GDScriptAudioImport-Godot4/tree/master
-func LoadWAVFromBytes(bytes : PackedByteArray) -> AudioStreamWAV:
+static func LoadWAVFromBytes(bytes : PackedByteArray) -> AudioStreamWAV:
 	var newstream = AudioStreamWAV.new()
 	var bits_per_sample = 0
 	
@@ -76,7 +76,7 @@ func LoadWAVFromBytes(bytes : PackedByteArray) -> AudioStreamWAV:
 	return newstream
 
 @warning_ignore("integer_division","narrowing_conversion")
-func convert_to_16bit(data: PackedByteArray, from: int) -> PackedByteArray:
+static func convert_to_16bit(data: PackedByteArray, from: int) -> PackedByteArray:
 	print("converting to 16-bit from %d" % from)
 	var time = Time.get_ticks_msec()
 	if from == 24:

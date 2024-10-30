@@ -5,7 +5,7 @@ var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
 var paths : Array[String] = []
 
-const illegalChars : Array[String] = ["\\","/",":"]
+const illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
 
 signal ListChanged
 
@@ -111,8 +111,8 @@ func CheckAlbumData(albumName : String) -> AlbumData:
 	
 	return loaded
 
-func MusicFile(file) -> bool:
+static func MusicFile(file) -> bool:
 	return file.ends_with(".wav") or file.ends_with(".mp3") or file.ends_with(".ogg")
 
-func ImageFile(file : String) -> bool:
+static func ImageFile(file : String) -> bool:
 	return file.ends_with(".png") or file.ends_with(".jpg")
