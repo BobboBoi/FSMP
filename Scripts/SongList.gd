@@ -36,7 +36,7 @@ func SortItems(a,b) -> bool:
 	if a is MusicSelection and b is MusicSelection:
 		return a.data.name < b.data.name
 	if a is AlbumSelection and b is AlbumSelection:
-		return a.data.name < b.data.name
+		return a.data.name.to_lower() < b.data.name.to_lower()
 	
 	push_warning(self.name,": Format not supported by list sorting")
 	return false

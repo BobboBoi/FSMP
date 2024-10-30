@@ -4,13 +4,14 @@ func _ready():
 	refresh()
 
 func refresh(track = null,album = null):
-	if(track != null):
+	if track != null:
+		if !discord_sdk.get_is_discord_working(): return
 		discord_sdk.state = "Listening to: "+track+("("+album+")" if album != "" else "")
 		discord_sdk.start_timestamp = int(Time.get_unix_time_from_system())
 		
 		discord_sdk.refresh()
 		
-		print("Status"+track)
+		print("New status: "+track)
 	else:
 		discord_sdk.app_id = 1135292728712896563 #Don't you fucking dare
 		print("Discord working: " + str(discord_sdk.get_is_discord_working()))
