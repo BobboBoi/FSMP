@@ -7,45 +7,28 @@ var data : AlbumData :
 	set(value):
 		data = value
 		if button != null: Refresh()
-var coverPath : String
+var cover : ImageTexture = null
 
-static func Create(newData : AlbumData) -> AlbumSelection:
+static func Create(newData : AlbumData,newCover : ImageTexture = null) -> AlbumSelection:
 	var inst = preload("res://Scenes/AlbumSelection.tscn").instantiate()
 	inst.data = newData
+	if newCover != null:
+		inst.cover = newCover
 	return inst
 
 func _ready() -> void:
 	super()
 	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
 	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
-	Refresh(true)
+	Refresh()
 
-func Refresh(cover = false):
+func Refresh():
 	%Name.text = data.name
 	%Artist.text = str(data.artists)
 	
-	if data.cover == "" or !cover: return
-	LoadCover(data.cover)
-
-func LoadCover(path : String):
-	var file = FileAccess.open(path, FileAccess.READ)
-	if file == null: return
-	
-	var bytes = file.get_buffer(file.get_length())
-	var texture = Image.new()
-	
-	if bytes.size() > 0:
-		if path.ends_with(".png"):
-			texture.load_png_from_buffer(bytes)
-			#print("Load succesful png:",texture)
-		elif path.ends_with(".jpg"):
-			texture.load_jpg_from_buffer(bytes)
-			#print("Load succesful jpg:",texture)
-		
-		var final = ImageTexture.create_from_image(texture)
-		%Cover.texture = final
-	
-	file.close()
+	if cover == null: return
+	if %AlbumCover.texture != cover:
+		%AlbumCover.texture = cover
 
 func ConnectToAlbum(home : HomeMenu) -> void:
-	get_node("Button").connect("pressed",home.OpenAlbum.bind(data))
+	get_node("Button").connect("pressed",home.OpenAlbum.bind(data,%AlbumCover.texture))

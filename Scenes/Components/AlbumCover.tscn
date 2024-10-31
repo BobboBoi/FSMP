@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://42pus6g3tefj"]
+
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_3dv26"]
+[ext_resource type="Texture2D" uid="uid://btl2ilw25strr" path="res://Assets/Sprites/Logo.png" id="1_l0557"]
+[ext_resource type="Script" path="res://Scripts/Components/AlbumCover.gd" id="2_0dyj8"]
+[ext_resource type="StyleBox" uid="uid://dilgkseudstbh" path="res://Assets/Resources/StyleBoxxes/CoverClip.tres" id="4_xa0k2"]
+
+[node name="AlbumCover" type="PanelContainer"]
+show_behind_parent = true
+clip_contents = true
+custom_minimum_size = Vector2(106, 0)
+offset_right = 106.0
+offset_bottom = 106.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3dv26")
+theme_type_variation = &"CoverBorder"
+script = ExtResource("2_0dyj8")
+texture = ExtResource("1_l0557")
+
+[node name="Pad" type="Control" parent="."]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 2
+
+[node name="BG" type="Panel" parent="Pad"]
+unique_name_in_owner = true
+show_behind_parent = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0121951
+anchor_top = -0.0121951
+anchor_right = 1.0122
+anchor_bottom = 1.0122
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CoverBorder"
+theme_override_styles/panel = ExtResource("4_xa0k2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Texture" type="TextureRect" parent="Pad"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0121951
+anchor_top = -0.0121951
+anchor_right = 1.0122
+anchor_bottom = 1.0122
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_l0557")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="resized" from="." to="." method="SizeUpdate"]

@@ -129,22 +129,18 @@ func CheckAlbumData(albumName : String) -> AlbumData:
 		Loader._save("user://Albums/"+path,save)
 		loaded = save
 	
-	#Check for a cover
-	if loaded.cover == "":
-		var dir = DirAccess.open(Loader.config.coverPath)
-		dir.list_dir_begin()
-		
-		while true:
-			var file = dir.get_next()
-			if file == "":
-				break
-			elif ImageFile(file) and file.begins_with(loaded.name):
-				loaded.cover = Loader.config.coverPath+file
-				Loader._save("user://Albums/"+albumName,loaded)
-		
-		dir.list_dir_end()
-	
 	return loaded
+
+func LoadAlbumCover(data : AlbumData) -> ImageTexture:
+	var list := music.filter(func(d): return d.album == data.name)
+	if list.size() <= 0: return null
+	
+	for i in list:
+		var result = MetaDataReader.GetImageFromAudioFile(i.path,0)
+		if result != null:
+			if result is ImageTexture:
+				return result
+	return null;
 
 static func MusicFile(file) -> bool:
 	return file.ends_with(".wav") or file.ends_with(".mp3") or file.ends_with(".ogg")

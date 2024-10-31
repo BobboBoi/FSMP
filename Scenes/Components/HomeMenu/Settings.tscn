@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Components/Settings.gd" id="1_1m57d"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_4448g"]
-[ext_resource type="PackedScene" uid="uid://dac3riqucf4tm" path="res://Scenes/Components/About.tscn" id="2_ojt15"]
+[ext_resource type="PackedScene" uid="uid://dac3riqucf4tm" path="res://Scenes/Components/HomeMenu/About.tscn" id="2_ojt15"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eh40"]
 bg_color = Color(0.140625, 0.140625, 0.140625, 1)
