@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene load_steps=22 format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" path="res://Scripts/Home.gd" id="1_uex14"]
@@ -8,6 +8,22 @@
 [ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/AlbumTab.tscn" id="5_p0xqo"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/HomeMenu/Settings.tscn" id="6_xd810"]
 [ext_resource type="Script" path="res://Scenes/Components/HomeMenu/EnqueueButton.gd" id="7_84wqk"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_bw3fi"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_2fr8g"]
+events = [SubResource("InputEventKey_bw3fi")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_clgxf"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_3ry0k"]
+events = [SubResource("InputEventKey_clgxf")]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y64le"]
 color = Color(0.125911, 0.125911, 0.125911, 1)
@@ -32,6 +48,17 @@ pressed = true
 
 [sub_resource type="Shortcut" id="Shortcut_fc311"]
 events = [SubResource("InputEventAction_4htky")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_cdorg"]
+device = -1
+keycode = 4194334
+
+[sub_resource type="InputEventKey" id="InputEventKey_mjpn1"]
+device = -1
+keycode = 4194332
+
+[sub_resource type="Shortcut" id="Shortcut_cvt0x"]
+events = [SubResource("InputEventKey_cdorg"), SubResource("InputEventKey_mjpn1")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3j07"]
 bg_color = Color(0.137255, 0.137255, 0.137255, 1)
@@ -78,6 +105,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_2fr8g")
 text = "Music"
 
 [node name="Albums" type="Button" parent="MainCont/Menu"]
@@ -87,10 +115,11 @@ mouse_default_cursor_shape = 2
 text = "Albums
 "
 
-[node name="Button3" type="Button" parent="MainCont/Menu"]
+[node name="Playlists" type="Button" parent="MainCont/Menu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_3ry0k")
 text = "Playlists
 "
 
@@ -189,6 +218,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Close" type="Button" parent="MainCont/Options/Sub1"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_cvt0x")
 text = "Close"
 metadata/_edit_use_anchors_ = true
 

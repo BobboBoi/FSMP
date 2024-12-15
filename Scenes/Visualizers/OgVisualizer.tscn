@@ -658,7 +658,7 @@ target = NodePath("../../../Sprite")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 z_index = 1
-position = Vector2(948, 479)
+position = Vector2(576, 324)
 sprite_frames = SubResource("SpriteFrames_itlep")
 animation = &"Pug"
 script = ExtResource("6_qy74n")
