@@ -30,8 +30,11 @@ func _ready() -> void:
 	else:
 		print("PATH:",arguments[0])
 		var album := ""
-		if meta != null: album = meta.Album
+		var artist := ""
+		if meta != null: 
+			album = meta.Album
+			artist = meta.Artists[0]
 		
-		player.PlayNewTrack(arguments[0],title,album)
+		player.PlayNewTrack(arguments[0],title,album,artist)
 	
 	queue_free()

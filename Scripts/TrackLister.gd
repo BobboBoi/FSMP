@@ -104,7 +104,7 @@ func CheckMusicData(p : String,i : String,forceMetaUpdate := false) -> MusicData
 		var save : MusicData = null
 		
 		if data != null:
-			save = MusicData.Create(path,p+"/"+i,"",data.Album,data.Index)
+			save = MusicData.Create(path,p+"/"+i,data.Artists[0],data.Album,data.Index)
 		else:
 			save = MusicData.Create(i,p+"/"+i)
 		

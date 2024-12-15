@@ -1,22 +1,22 @@
 extends Node
 
 func _ready():
+	discord_sdk.app_id = 1135292728712896563 #Don't you fucking dare
+	print("Discord working: " + str(discord_sdk.get_is_discord_working()))
 	refresh()
 
-func refresh(track = null,album = null):
+func refresh(track = null,album = null,artist = null):
 	if track != null:
 		if !discord_sdk.get_is_discord_working(): return
 		discord_sdk.details = "Listening to: "+track
-		discord_sdk.state = "artist - "+album
+		discord_sdk.state = artist+" - "
+		discord_sdk.state += album
 		discord_sdk.start_timestamp = int(Time.get_unix_time_from_system())
 		
 		discord_sdk.refresh()
 		
 		print("New status: "+track)
 	else:
-		discord_sdk.app_id = 1135292728712896563 #Don't you fucking dare
-		print("Discord working: " + str(discord_sdk.get_is_discord_working()))
-		
 		discord_sdk.details = "Listening to: nothing... what a loser"
 		discord_sdk.state = "I wonder what FSMP stands for...."
 		

@@ -13,7 +13,6 @@ func _ready() -> void:
 	
 	config = loaded
 
-
 func _save(path,nodeToSave):
 	var dir = DirAccess.open("C:/")
 	if not dir.dir_exists("user://Songs"):

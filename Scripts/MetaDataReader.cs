@@ -1,9 +1,7 @@
 using Godot;
 using System.IO;
-using System.Drawing;
 using TagLib;
 using File = TagLib.File;
-using System;
 using SkiaSharp;
 
 [GlobalClass]
@@ -20,7 +18,8 @@ public partial class MetaDataReader : Node
             {
                 Title = raw.Tag.Title,
                 Album = raw.Tag.Album,
-                Index = (int)raw.Tag.Track
+                Index = (int)raw.Tag.Track,
+                Artists = raw.Tag.Performers.Length > 0 ? raw.Tag.Performers : new string[] {""},
             };
 
             return data;

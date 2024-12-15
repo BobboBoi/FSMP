@@ -4,11 +4,18 @@
 public partial class MetaData : GodotObject
 {
     public MetaData() { }
-    public MetaData(string Title = "", string Album = "", int Index = 0)
+    public MetaData(string title = "", string album = "", int index = 0)
     {
-        this.Title = Title;
-        this.Album = Album;
-        this.Index = Index;
+        Title = title;
+        Album = album;
+        Index = index;
+    }
+    public MetaData(string[] artists, string title = "", string album = "", int index = 0)
+    {
+        Title = title;
+        Album = album;
+        Index = index;
+        Artists = artists;
     }
 
     public override string ToString()
@@ -21,5 +28,6 @@ public partial class MetaData : GodotObject
 
     public string Title { get; set; } = "";
     public string Album { get; set; } = "";
+    public string[] Artists { get; set; } = new string[0];
     public int Index { get; set; } = 0;
 }

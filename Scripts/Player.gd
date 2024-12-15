@@ -27,9 +27,9 @@ func PlayFromPath(path : String,emitSignal := true):
 	PlayFromData(loaded,emitSignal)
 
 func PlayFromData(data : MusicData,emitSignal := true):
-	PlayNewTrack(data.path,data.name,data.album,emitSignal)
+	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
 
-func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := true):
+func PlayNewTrack(music : String,trackName : String,album : String,artist : String, emitSignal := true):
 	self.stop()
 	if music == "": return
 	
@@ -52,7 +52,7 @@ func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := 
 	self.play()
 	
 	if emitSignal: NewTrack.emit(stream)
-	Discord.refresh(trackName,album)
+	Discord.refresh(trackName,album,artist)
 #endregion
 
 #region Queue
