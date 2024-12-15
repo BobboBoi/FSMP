@@ -3,6 +3,7 @@ class_name TrackLister
 
 var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
+var albumCovers : Array[ImageTexture] = []
 var paths : Array[String] = []
 
 #Seems to not work with threading?
@@ -49,6 +50,7 @@ func Reload(forceMetaUpdate = false) -> void:
 	for i in uniqueAlbums:
 		var loadedAlbum := CheckAlbumData(i)
 		albums.append(loadedAlbum)
+	albums.sort_custom(func(a,b): return a.name < b.name)
 	
 	ListChanged.emit()
 
@@ -135,11 +137,20 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 	var list := music.filter(func(d): return d.album == data.name)
 	if list.size() <= 0: return null
 	
+	var cache = albumCovers.filter(func(c): return c.resource_name == data.name)
+	if cache.size() > 0:
+		return cache.front()
+	
 	for i in list:
-		var result = MetaDataReader.GetImageFromAudioFile(i.path,0)
+		var result = MetaDataReader.GetImageFromAudioFile(i.path,0) #Causes errors for some JPEG's
+		
 		if result != null:
 			if result is ImageTexture:
+				result.resource_name = data.name
+				albumCovers.append(result)
+				
 				return result
+	
 	return null;
 
 static func MusicFile(file) -> bool:

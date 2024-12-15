@@ -6,7 +6,7 @@ class_name HomeMenu
 
 @onready var tabCont : TabContainer = %TabCont
 @onready var musicList := %MusicList
-@onready var albumList := %AlbumList
+@onready var albumTab := %AlbumTab
 @onready var albumMusicTab := %AlbumMusicTab
 
 @onready var albumEdit := %EditAlbum
@@ -32,10 +32,13 @@ func _ready():
 	lister.ListChanged.connect(Reload)
 	player.NewTrack.connect(hideHome.unbind(1))
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and visible:
+		get_parent().select_previous_available()
+		get_viewport().set_input_as_handled()
+
 func Reload():
 	for i in musicList.get_children(): i.free()
-	for i in albumList.get_children(): i.free()
-	
 	var threads : Array[Thread] = []
 	
 	#List Music
@@ -47,18 +50,7 @@ func Reload():
 	for t in threads:
 		t.wait_to_finish()
 	
-	#List Albums
-	for i in lister.albums:
-		var butt := AlbumSelection.Create(i,lister.LoadAlbumCover(i))
-		albumList.add_child(butt)
-		butt.ConnectToAlbum(self)
-		
-		#Connect selection signals
-		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
-		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
-	
 	musicList.call_deferred("Update")
-	albumList.Update()
 
 ##Add home buttons for music in the given array
 func AddHomeButtons(arr : Array[MusicData]) -> void:
@@ -70,7 +62,6 @@ func AddHomeButtons(arr : Array[MusicData]) -> void:
 		#Connect selection signals
 		butt.Selected.connect(SelectedItem.bind(butt),CONNECT_DEFERRED)
 		butt.Unselected.connect(UnselectedItem.bind(butt),CONNECT_DEFERRED)
-
 
 func OpenAlbum(albumData : AlbumData,cover : Texture2D):
 	albumMusicTab.OpenAlbum(albumData,self,cover)

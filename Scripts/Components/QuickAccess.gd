@@ -1,15 +1,14 @@
 extends Control
 class_name QuickAccessMenu
 
-@onready var lister : TrackLister = %TrackLister
-@onready var player : Player = %Player
+@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var listButton := %ListButton
 @onready var searchbar := %Searchbar
 @onready var list := %List
 @onready var root := %Root
 
-var status := STATES.OPEN
-
+var status := STATES.CLOSED
 enum STATES {
 	OPEN,
 	CLOSED
@@ -42,12 +41,16 @@ func AddButtonsToMenu(arr : Array[MusicData]) -> void:
 		list.call_deferred_thread_group("add_child",butt)
 
 func OnListButtonPressed() -> void:
+	if !visible: return
+	
 	var tween := create_tween()
 	if root.position.x == 0:
+		searchbar.release_focus()
 		tween.tween_property(root,"position",Vector2(-root.size.x as float,0),0.4)
 		tween.tween_callback(HideList)
 		listButton.text = ">"
 	else:
+		searchbar.grab_focus()
 		tween.tween_property(root,"position",Vector2(0.0,0.0),0.4)
 		ShowList()
 		listButton.text = "<"
@@ -60,13 +63,11 @@ func ShowList():
 	status = STATES.OPEN
 	%Vcont.show()
 
-func SearchBarTextChanged() -> void:
-	for i in list.get_children():
-		if i is QuickAccessButton:
-			i.visible = !(i.text.to_lower().find(searchbar.text) == -1 and not searchbar.text == "")
-
 func SizeUpdate() -> void:
 	if root == null: return
+	root.size.x = size.x*root.anchor_right
+	root.size.y = size.y
+	
 	if status == STATES.OPEN:
 		root.position.x = 0
 	else:

@@ -1,13 +1,17 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://d27558cdkugpr"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d27558cdkugpr"]
 
 [ext_resource type="StyleBox" uid="uid://yeaxdaapw84d" path="res://Assets/Resources/StyleBoxxes/CoverBorder.tres" id="1_5wgfc"]
 [ext_resource type="StyleBox" uid="uid://cwq7cvqyt1w5c" path="res://Assets/Resources/StyleBoxxes/ButtonHover.tres" id="1_i6cwk"]
-[ext_resource type="StyleBox" uid="uid://cj1a38fsu1nj7" path="res://Assets/Resources/StyleBoxxes/Item1.tres" id="1_o6blo"]
 [ext_resource type="StyleBox" uid="uid://b31w5bicxmnsj" path="res://Assets/Resources/StyleBoxxes/CheckBoxHover.tres" id="2_2oguq"]
-[ext_resource type="StyleBox" uid="uid://qsqhx134hu15" path="res://Assets/Resources/StyleBoxxes/Item1Hovered.tres" id="2_14odb"]
-[ext_resource type="StyleBox" uid="uid://b031rtox3av8y" path="res://Assets/Resources/StyleBoxxes/Item2.tres" id="2_nhftc"]
-[ext_resource type="StyleBox" uid="uid://dtid2ibkvdra" path="res://Assets/Resources/StyleBoxxes/Item2Hovered.tres" id="3_odfgw"]
 [ext_resource type="StyleBox" uid="uid://7jjn42h3w08k" path="res://Assets/Resources/StyleBoxxes/Default.tres" id="3_y3puk"]
+[ext_resource type="StyleBox" uid="uid://cj1a38fsu1nj7" path="res://Assets/Resources/StyleBoxxes/MenuItems/Item1.tres" id="4_wmoeo"]
+[ext_resource type="StyleBox" uid="uid://qsqhx134hu15" path="res://Assets/Resources/StyleBoxxes/MenuItems/Item1Hovered.tres" id="5_wuiyd"]
+[ext_resource type="StyleBox" uid="uid://b031rtox3av8y" path="res://Assets/Resources/StyleBoxxes/MenuItems/Item2.tres" id="6_0xa1e"]
+[ext_resource type="StyleBox" uid="uid://dtid2ibkvdra" path="res://Assets/Resources/StyleBoxxes/MenuItems/Item2Hovered.tres" id="7_0g2uv"]
+[ext_resource type="StyleBox" uid="uid://dhge8lm5oeinv" path="res://Assets/Resources/StyleBoxxes/ProgressBar/BaseProgressBarBG.tres" id="9_ckflk"]
+[ext_resource type="StyleBox" uid="uid://ppopdgw0xjhk" path="res://Assets/Resources/StyleBoxxes/ProgressBar/BaseProgressBarFill.tres" id="10_cynk7"]
+[ext_resource type="StyleBox" uid="uid://db1mym2jkuh3h" path="res://Assets/Resources/StyleBoxxes/QueueBG.tres" id="11_ca37p"]
+[ext_resource type="StyleBox" uid="uid://dh43h5ee24tn" path="res://Assets/Resources/StyleBoxxes/ToolTip.tres" id="12_0her2"]
 
 [resource]
 Button/styles/hover = ExtResource("1_i6cwk")
@@ -16,12 +20,17 @@ CheckBox/styles/hover_pressed = ExtResource("2_2oguq")
 CoverBorder/base_type = &"Panel"
 CoverBorder/styles/panel = ExtResource("1_5wgfc")
 ListItem1/base_type = &"Panel"
-ListItem1/styles/panel = ExtResource("1_o6blo")
+ListItem1/styles/panel = ExtResource("4_wmoeo")
 ListItem1Hovered/base_type = &"Panel"
-ListItem1Hovered/styles/panel = ExtResource("2_14odb")
+ListItem1Hovered/styles/panel = ExtResource("5_wuiyd")
 ListItem2/base_type = &"Panel"
-ListItem2/styles/panel = ExtResource("2_nhftc")
+ListItem2/styles/panel = ExtResource("6_0xa1e")
 ListItem2Hovered/base_type = &"Panel"
-ListItem2Hovered/styles/panel = ExtResource("3_odfgw")
+ListItem2Hovered/styles/panel = ExtResource("7_0g2uv")
 Panel/styles/panel = ExtResource("3_y3puk")
 PanelContainer/styles/panel = ExtResource("3_y3puk")
+ProgressBar/styles/background = ExtResource("9_ckflk")
+ProgressBar/styles/fill = ExtResource("10_cynk7")
+QueueBG/base_type = &"Panel"
+QueueBG/styles/panel = ExtResource("11_ca37p")
+TooltipPanel/styles/panel = ExtResource("12_0her2")

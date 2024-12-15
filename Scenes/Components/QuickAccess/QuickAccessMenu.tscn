@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://blry2rxlowk06"]
+[gd_scene load_steps=6 format=3 uid="uid://blry2rxlowk06"]
 
 [ext_resource type="Script" path="res://Scripts/Components/QuickAccess.gd" id="1_irfns"]
 [ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_1au3y"]
+[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="2_ynxih"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_m7vdc"]
+device = -1
+keycode = 4194332
+
+[sub_resource type="Shortcut" id="Shortcut_6vhid"]
+events = [SubResource("InputEventKey_m7vdc")]
 
 [node name="QuickAccessMenu" type="Control"]
 layout_mode = 3
@@ -19,6 +27,8 @@ unique_name_in_owner = true
 layout_mode = 1
 anchor_right = 0.208333
 anchor_bottom = 1.0
+offset_left = -240.0
+offset_right = -240.0
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
@@ -33,11 +43,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 
-[node name="Searchbar" type="TextEdit" parent="Root/Vcont"]
+[node name="Searchbar" type="TextEdit" parent="Root/Vcont" node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Search for your garbage :)"
+script = ExtResource("2_ynxih")
+target = NodePath("../Scroll/List")
 
 [node name="Scroll" type="ScrollContainer" parent="Root/Vcont"]
 layout_mode = 2
@@ -63,8 +75,9 @@ anchor_right = 1.0
 offset_right = 25.0
 offset_bottom = 31.0
 grow_horizontal = 0
-text = "<"
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_6vhid")
+text = ">"
 
 [connection signal="resized" from="." to="." method="SizeUpdate"]
-[connection signal="text_changed" from="Root/Vcont/Searchbar" to="." method="SearchBarTextChanged"]
 [connection signal="pressed" from="Root/ListButton" to="." method="OnListButtonPressed"]

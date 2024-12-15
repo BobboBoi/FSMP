@@ -6,7 +6,8 @@ func _ready():
 func refresh(track = null,album = null):
 	if track != null:
 		if !discord_sdk.get_is_discord_working(): return
-		discord_sdk.state = "Listening to: "+track+("("+album+")" if album != "" else "")
+		discord_sdk.details = "Listening to: "+track
+		discord_sdk.state = "artist - "+album
 		discord_sdk.start_timestamp = int(Time.get_unix_time_from_system())
 		
 		discord_sdk.refresh()
@@ -16,11 +17,11 @@ func refresh(track = null,album = null):
 		discord_sdk.app_id = 1135292728712896563 #Don't you fucking dare
 		print("Discord working: " + str(discord_sdk.get_is_discord_working()))
 		
-		discord_sdk.details = "I wonder what FSMP stands for...."
-		discord_sdk.state = "Listening to: nothing... what a loser"
+		discord_sdk.details = "Listening to: nothing... what a loser"
+		discord_sdk.state = "I wonder what FSMP stands for...."
 		
 		discord_sdk.large_image = "disc"
-		discord_sdk.large_image_text = "LOOK GUYS! its an idiot"
+		discord_sdk.large_image_text = "I wonder what FSMP stands for...."
 		
 		# "02:46 elapsed"
 		# discord_sdk.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00 remaining"

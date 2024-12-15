@@ -1,7 +1,7 @@
-extends Control
+extends Tab
 
-@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
+@onready var lister : TrackLister
+@onready var player : Player
 
 @onready var scrollBar : VScrollBar = %Scroll.get_v_scroll_bar()
 @onready var list : SongList = %AlbumMusicList
@@ -11,15 +11,23 @@ extends Control
 const SENSITIVITY := 1.5
 
 func _ready() -> void:
+	lister = home.lister
+	player = home.player
+	
 	$AnimationPlayer.current_animation = "Scroll"
 	$AnimationPlayer.stop(true)
 	scrollBar.value_changed.connect(ScrollChanged)
 
-func OpenAlbum(album : AlbumData, home : HomeMenu,newCover : Texture2D = null):
+func OpenAlbum(album : AlbumData, newHome : HomeMenu,newCover : Texture2D = null):
 	#Reset songlist
 	for i in list.get_children():
 		if i is MusicSelection:
 				i.free()
+	
+	if lister == null:
+		home = newHome
+		lister = home.lister
+		player = home.player
 	
 	#Fetch Songs
 	var files : Array = []
@@ -40,6 +48,8 @@ func OpenAlbum(album : AlbumData, home : HomeMenu,newCover : Texture2D = null):
 	
 	cover.texture = newCover
 	title.text = album.name
+	$AnimationPlayer.seek(0.0,true,true)
+	
 	list.Update()
 
 
@@ -47,6 +57,6 @@ func ScrollChanged(value : float):
 	if !visible: return
 	$AnimationPlayer.seek(clamp(value/scrollBar.page*SENSITIVITY,0.0,1.0),true,true)
 
-func _on_hidden() -> void:
-	for i in list.get_children():
-		i.queue_free()
+func OnTabClosed() -> void:
+	if list == null: return
+	for i in list.get_children(): i.queue_free()

@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsq4lil7y26xw"]
+
+[ext_resource type="Texture2D" uid="uid://bwg11s3wfgppi" path="res://Assets/Sprites/Icons/Loop.png" id="1_c4gqo"]
+[ext_resource type="PackedScene" uid="uid://cf0idhr6w37fn" path="res://Scenes/Components/MediaControls/BaseProgressBar.tscn" id="1_n46p1"]
+[ext_resource type="Script" path="res://Scenes/Components/LoopButton.gd" id="2_3034r"]
+[ext_resource type="Texture2D" uid="uid://dl7dkx7pdn220" path="res://Assets/Sprites/Icons/List.png" id="3_ciw4t"]
+[ext_resource type="Texture2D" uid="uid://d0kbgff2wnc08" path="res://Assets/Sprites/Icons/LoopOne.png" id="3_hcu6x"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControls/QueueButton.gd" id="3_pntsk"]
+[ext_resource type="Texture2D" uid="uid://x6er6mf5ocbr" path="res://Assets/Sprites/Icons/NoLoop.png" id="4_sjwuw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbfk"]
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
+border_width_top = 3
+border_color = Color(0.482353, 0.482353, 0.482353, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i57s"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ewgbj"]
+device = -1
+keycode = 4194333
+
+[sub_resource type="Shortcut" id="Shortcut_ialpq"]
+events = [SubResource("InputEventKey_ewgbj")]
+
+[node name="DefaultMediaControls" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 110)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewbfk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PadL" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+
+[node name="LoopButton" type="TextureButton" parent="HBoxContainer/PadL"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_c4gqo")
+stretch_mode = 0
+script = ExtResource("2_3034r")
+LoopQueueTexture = ExtResource("1_c4gqo")
+LoopSingleTexture = ExtResource("3_hcu6x")
+NoLoopTexture = ExtResource("4_sjwuw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8i57s")
+
+[node name="ProgressBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_n46p1")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="PadR" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+
+[node name="QueueButton" type="TextureButton" parent="HBoxContainer/PadR"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_ialpq")
+texture_normal = ExtResource("3_ciw4t")
+stretch_mode = 0
+script = ExtResource("3_pntsk")

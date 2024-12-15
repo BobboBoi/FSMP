@@ -12,6 +12,8 @@ func Filter():
 	if target == null: return
 	for i in target.get_children():
 		if i is MusicSelection or i is AlbumSelection:
-			i.visible = !(i.data.name.to_lower().find(text) == -1 and not text == "")
+			i.visible = !(i.data.name.to_lower().find(text.to_lower()) == -1 and not text == "")
+		elif i is QuickAccessButton:
+			i.visible = !(i.text.to_lower().find(text.to_lower()) == -1 and not text == "")
 		elif i is Label:
 			i.visible = text == ""

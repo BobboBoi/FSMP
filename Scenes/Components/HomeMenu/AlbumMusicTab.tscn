@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_oqssu"]
 [ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="1_vr22n"]
-[ext_resource type="Script" path="res://Scenes/Components/HomeMenu/AlbumMusicTab.gd" id="2_mrbvy"]
+[ext_resource type="Script" path="res://Scripts/Components/AlbumMusicTab.gd" id="2_mrbvy"]
 [ext_resource type="Script" path="res://Scripts/AlbumSongList.gd" id="2_p3o3m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3xs3"]
@@ -116,5 +116,3 @@ script = ExtResource("2_p3o3m")
 libraries = {
 "": SubResource("AnimationLibrary_2myko")
 }
-
-[connection signal="hidden" from="." to="." method="_on_hidden"]

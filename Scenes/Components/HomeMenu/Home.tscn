@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene load_steps=15 format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" path="res://Scripts/Home.gd" id="1_uex14"]
 [ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_muooh"]
 [ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="3_sxx7c"]
 [ext_resource type="PackedScene" uid="uid://cugs6ixvklnpn" path="res://Scenes/Components/HomeMenu/AlbumMusicTab.tscn" id="5_dx7ea"]
+[ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/AlbumTab.tscn" id="5_p0xqo"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/HomeMenu/Settings.tscn" id="6_xd810"]
+[ext_resource type="Script" path="res://Scenes/Components/HomeMenu/EnqueueButton.gd" id="7_84wqk"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y64le"]
 color = Color(0.125911, 0.125911, 0.125911, 1)
@@ -23,6 +25,13 @@ func CheckSelection():
 	pass
 	#visible = $\"../../../..\".selected.size() > 0
 "
+
+[sub_resource type="InputEventAction" id="InputEventAction_4htky"]
+action = &"Enqueue"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_fc311"]
+events = [SubResource("InputEventAction_4htky")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3j07"]
 bg_color = Color(0.137255, 0.137255, 0.137255, 1)
@@ -95,11 +104,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_roh73")
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 
 [node name="MusicTab" type="Control" parent="MainCont/TabCont"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -134,43 +142,10 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 script = ExtResource("2_muooh")
 
-[node name="AlbumsTab" type="Control" parent="MainCont/TabCont"]
-layout_mode = 2
-mouse_filter = 2
-metadata/_tab_index = 1
-
-[node name="MainCont" type="VBoxContainer" parent="MainCont/TabCont/AlbumsTab"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SearchBar" type="TextEdit" parent="MainCont/TabCont/AlbumsTab/MainCont" node_paths=PackedStringArray("target")]
-process_priority = 1
-custom_minimum_size = Vector2(0, 53)
-layout_mode = 2
-placeholder_text = "Search for your garbage here :)
-"
-script = ExtResource("3_sxx7c")
-target = NodePath("../Scroll/AlbumList")
-
-[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/AlbumsTab/MainCont"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="AlbumList" type="VBoxContainer" parent="MainCont/TabCont/AlbumsTab/MainCont/Scroll"]
+[node name="AlbumTab" parent="MainCont/TabCont" instance=ExtResource("5_p0xqo")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_constants/separation = 0
-script = ExtResource("2_muooh")
-bookMarks = false
 
 [node name="AlbumMusicTab" parent="MainCont/TabCont" instance=ExtResource("5_dx7ea")]
 unique_name_in_owner = true
@@ -198,6 +173,17 @@ mouse_default_cursor_shape = 2
 text = "Edit
 "
 script = SubResource("GDScript_eitmm")
+metadata/_edit_use_anchors_ = true
+
+[node name="Enqueue" type="Button" parent="MainCont/Options/Sub1"]
+visible = false
+layout_mode = 2
+tooltip_text = "Enqueue Selected item"
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_fc311")
+text = "Enqueue
+"
+script = ExtResource("7_84wqk")
 metadata/_edit_use_anchors_ = true
 
 [node name="Close" type="Button" parent="MainCont/Options/Sub1"]
@@ -289,9 +275,11 @@ visible = false
 layout_mode = 1
 
 [connection signal="SelectionUpdated" from="." to="MainCont/Options/Sub1/EditButt" method="CheckSelection"]
+[connection signal="SelectionUpdated" from="." to="MainCont/Options/Sub1/Enqueue" method="CheckSelection"]
 [connection signal="pressed" from="MainCont/Menu/Music" to="MainCont/TabCont" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="MainCont/Menu/Albums" to="MainCont/TabCont" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="MainCont/Options/Sub1/EditButt" to="." method="editPressed"]
+[connection signal="pressed" from="MainCont/Options/Sub1/Enqueue" to="MainCont/Options/Sub1/Enqueue" method="OnPressed"]
 [connection signal="pressed" from="MainCont/Options/Sub1/Close" to="." method="hideHome"]
 [connection signal="pressed" from="MainCont/Options/Sub2/Settings" to="Settings" method="show"]
 [connection signal="pressed" from="Edit/AlbumAll/Butt" to="." method="setAlbumForAll"]

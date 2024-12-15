@@ -3,11 +3,24 @@ class_name Player
 
 var loopStart := 0.0
 
+var srcQueue : Array[MusicData] = []
+var queue : Array[MusicData] = []
+var currentIndex := 0
+
+var loopMode : LOOPMODE = LOOPMODE.LOOP_QUEUE
+enum LOOPMODE {
+	LOOP_QUEUE,
+	LOOP_SINGLE,
+	NO_LOOP
+}
+
 signal NewTrack(stream : AudioStream)
+signal QueueChange()
 
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
+#region Playing
 func PlayFromPath(path : String,emitSignal := true):
 	var loaded = Loader._load(path)
 	if loaded == null or loaded is not MusicData: return
@@ -40,8 +53,56 @@ func PlayNewTrack(music : String,trackName : String,album :String,emitSignal := 
 	
 	if emitSignal: NewTrack.emit(stream)
 	Discord.refresh(trackName,album)
+#endregion
 
-##WAV files don't loop properly when imported 
-##This will fix that
+#region Queue
+func EnqueueFromDataArray(data : Array[MusicData]):
+	var startPlaying := queue.size() <= 0
+	srcQueue.append_array(data)
+	queue.append_array(data)
+	
+	QueueChange.emit()
+	
+	if startPlaying: PlayFromData(queue[currentIndex])
+
+func NextInQueue():
+	currentIndex = wrapi(currentIndex+1,0,queue.size())
+	PlayFromData(queue[currentIndex])
+
+func ClearQueue():
+	srcQueue.clear()
+	queue.clear()
+	self.stop()
+	
+	QueueChange.emit()
+	Discord.refresh()
+
+func Shuffle():
+	var currentTrack := queue[currentIndex]
+	
+	#Restore src
+	if srcQueue != queue:
+		print("restore")
+		queue = srcQueue
+		currentIndex = queue.find(currentTrack)
+	#Shuffle
+	else:
+		print("shuffle")
+		queue.shuffle()
+		queue.remove_at(queue.find(currentTrack))
+		queue.push_front(currentTrack)
+		currentIndex = 0
+	
+	QueueChange.emit()
+
+##Called wg
 func Finished():
-	self.play(loopStart)
+	match(loopMode):
+		LOOPMODE.LOOP_SINGLE:
+			self.play(loopStart)
+		LOOPMODE.LOOP_QUEUE:
+			if queue.size() > 0:
+				NextInQueue()
+			else:
+				self.play(loopStart)
+#endregion

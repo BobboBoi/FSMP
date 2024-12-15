@@ -2,5 +2,9 @@
 
 [resource]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 shadow_color = Color(0.592157, 0.345098, 0.160784, 0.6)
 shadow_size = 10

@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://c58qfhqjvph0j"]
+
+[ext_resource type="Script" path="res://Scripts/TrackLister.gd" id="1_wolvn"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_kk4ka"]
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="3_5qxlq"]
+[ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
+[ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControlTab.tscn" id="5_kwqji"]
+[ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
+[ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
+[ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="8_8y2ii"]
+[ext_resource type="Script" path="res://Scripts/CmdArguments.gd" id="9_fr5kq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4fvh"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Program" type="Control" parent="." groups=["ProgramRoot"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="TrackLister" type="Node" parent="Program" groups=["Lister"]]
+unique_name_in_owner = true
+script = ExtResource("1_wolvn")
+
+[node name="Player" type="AudioStreamPlayer" parent="Program" groups=["Player"]]
+unique_name_in_owner = true
+bus = &"Music"
+script = ExtResource("2_kk4ka")
+
+[node name="MainCont" type="VBoxContainer" parent="Program"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ProgramTabs" type="TabContainer" parent="Program/MainCont"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v4fvh")
+current_tab = 0
+tabs_visible = false
+
+[node name="Visualizer" type="Control" parent="Program/MainCont/ProgramTabs"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("3_5qxlq")
+metadata/_tab_index = 0
+
+[node name="Spectrum" parent="Program/MainCont/ProgramTabs/Visualizer" instance=ExtResource("4_l6lyp")]
+layout_mode = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QuickAccessList" parent="Program/MainCont/ProgramTabs/Visualizer" instance=ExtResource("5_pn0wa")]
+z_index = 1
+layout_mode = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Home" parent="Program/MainCont/ProgramTabs" instance=ExtResource("7_6r1r5")]
+visible = false
+z_index = 0
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MediaControls" parent="Program/MainCont" instance=ExtResource("5_kwqji")]
+z_index = 1
+layout_mode = 2
+
+[node name="Messages" type="Control" parent="."]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_8y2ii")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="VCont" type="VBoxContainer" parent="Messages"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="CmdArguments" type="Node" parent="."]
+script = ExtResource("9_fr5kq")

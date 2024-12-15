@@ -35,6 +35,8 @@ func SortList() -> void:
 func SortItems(a,b) -> bool:
 	if a is MusicSelection and b is MusicSelection:
 		return a.data.name < b.data.name
+	if a is QueueSelection and b is QueueSelection:
+		return a.songName < b.songName
 	if a is AlbumSelection and b is AlbumSelection:
 		return a.data.name.to_lower() < b.data.name.to_lower()
 	if a is Button and b is Button:
@@ -67,6 +69,10 @@ func NewBookmark(letter : String) -> Label:
 	newMark.text = letter
 	newMark.set_meta("BookMark",null)
 	newMark.name = "BookMark "+letter
+	
+	newMark.custom_minimum_size.y = 45
+	newMark.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	
 	return newMark
 
 

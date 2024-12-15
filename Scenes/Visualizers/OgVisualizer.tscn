@@ -1,13 +1,20 @@
-[gd_scene load_steps=88 format=3 uid="uid://cmtqwlk3etxas"]
+[gd_scene load_steps=90 format=3 uid="uid://cmtqwlk3etxas"]
 
 [ext_resource type="PackedScene" uid="uid://dgiof0hu8gf5j" path="res://Scenes/Components/Visualizer/BeatReader.tscn" id="1_mkr3y"]
 [ext_resource type="PackedScene" uid="uid://e2rvldetudgn" path="res://Scenes/Components/SimpleSpectrum.tscn" id="1_pjcxw"]
-[ext_resource type="PackedScene" uid="uid://5jya2i260pb2" path="res://Scenes/Components/BaseProgressBar.tscn" id="2_ibyt5"]
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_yb6pm"]
 [ext_resource type="Texture2D" uid="uid://cqsjp08c7g7s0" path="res://Assets/Sprites/DAWG.png" id="3_4xeou"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeButton.gd" id="3_i80r3"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="4_06o6a"]
 [ext_resource type="Script" path="res://Scripts/Components/AnimatedSpriteSelector.gd" id="4_krs0l"]
 [ext_resource type="Script" path="res://Scripts/Components/AnimatedBeatIndicator.gd" id="6_qy74n"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_g8luf"]
+device = -1
+keycode = 4194334
+
+[sub_resource type="Shortcut" id="Shortcut_tbqwr"]
+events = [SubResource("InputEventKey_g8luf")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4b1m0"]
 atlas = ExtResource("4_06o6a")
@@ -576,6 +583,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_yb6pm")
 metadata/_edit_group_ = true
 
 [node name="DevVis" type="ColorRect" parent="."]
@@ -607,10 +615,6 @@ layout_mode = 2
 layout_mode = 2
 debug = false
 
-[node name="Bar" parent="MainCont" instance=ExtResource("2_ibyt5")]
-custom_minimum_size = Vector2(0, 138)
-layout_mode = 2
-
 [node name="Config" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -625,9 +629,10 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Button" type="Button" parent="Config/VCont"]
+[node name="HomeButton" type="Button" parent="Config/VCont"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_tbqwr")
 text = "Home"
 script = ExtResource("3_i80r3")
 
