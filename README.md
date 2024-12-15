@@ -14,7 +14,7 @@ This is a really bad music player. Please don't use this.
 ## UFAQ
 <ul>
 	<li>Why do some WAV files take so long to load?<br>
-	Godot moment.
+	Godot moment. (will be fixxed with godot 4.4 YIPPEE!!!)
 	</li>
 	<li>Why are there errors about jpegs?<br>
 	Godot moment. (https://github.com/godotengine/godot/issues/45523)
