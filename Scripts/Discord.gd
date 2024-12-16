@@ -9,7 +9,11 @@ func refresh(track = null,album = null,artist = null):
 	if track != null:
 		if !discord_sdk.get_is_discord_working(): return
 		discord_sdk.details = "Listening to: "+track
-		discord_sdk.state = artist+" - "
+		discord_sdk.state = artist
+		if artist != "" and artist != null and album != "" and album != null:
+			discord_sdk.state += " - "
+		else:
+			discord_sdk.state += "I wonder what FSMP stands for...."
 		discord_sdk.state += album
 		discord_sdk.start_timestamp = int(Time.get_unix_time_from_system())
 		

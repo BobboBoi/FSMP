@@ -37,7 +37,7 @@ func Refresh() -> void:
 	%Index.text = str(index)
 
 func ConnectToPlayer(player : Player):
-	Pressed.connect(player.PlayFromData.bind(data))
+	Pressed.connect(player.PlaySingleFromData.bind(data))
 
 func ButtonPressed() -> void:
 	if Input.is_action_pressed("SelectMode"):

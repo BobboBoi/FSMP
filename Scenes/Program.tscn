@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_kk4ka"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="3_5qxlq"]
 [ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
-[ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControlTab.tscn" id="5_kwqji"]
+[ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControlPanel.tscn" id="5_kwqji"]
 [ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
 [ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="8_8y2ii"]

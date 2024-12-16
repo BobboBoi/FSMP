@@ -21,15 +21,34 @@ func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
 #region Playing
+##Similair to [member PlayFromPath] but resets the queue.[br]
+##This is used when a single song is selected to be played.
+func PlaySingleFromPath(path : String,emitSignal := true):
+	var loaded = Loader._load(path)
+	if loaded == null or loaded is not MusicData: return
+	PlaySingleFromData(loaded,emitSignal)
+
+##Plays a new track with the give [param path].
+##[b]Note[/b] the path used is the path to the local userdata and not the music file.
 func PlayFromPath(path : String,emitSignal := true):
 	var loaded = Loader._load(path)
 	if loaded == null or loaded is not MusicData: return
 	PlayFromData(loaded,emitSignal)
 
+##Similair to [member PlayFromData] but resets the queue.[br]
+##This is used when a single song is selected to be played.
+func PlaySingleFromData(data : MusicData,emitSignal := true):
+	srcQueue = [data]
+	queue = srcQueue
+	QueueChange.emit()
+	
+	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
+
+##Plays a track using data from [param data].
 func PlayFromData(data : MusicData,emitSignal := true):
 	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
 
-func PlayNewTrack(music : String,trackName : String,album : String,artist : String, emitSignal := true):
+func PlayNewTrack(music : String,trackName : String = "",album : String = "",artist : String = "", emitSignal := true):
 	self.stop()
 	if music == "": return
 	

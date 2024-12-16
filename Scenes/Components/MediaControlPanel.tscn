@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dsq4lil7y26xw" path="res://Scenes/Components/DefaultMediaControls.tscn" id="1_5jggk"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_aqr20"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControlTab.gd" id="1_r31sv"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControlPanel.gd" id="1_r31sv"]
 [ext_resource type="Script" path="res://Scripts/SongList.gd" id="4_7okx8"]
 
-[node name="MediaControlTab" type="Control" groups=["MediaTab"]]
+[node name="MediaControlPanel" type="Control" groups=["MediaPanel"]]
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 3
 anchor_right = 1.0
@@ -57,13 +57,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SongList" type="VBoxContainer" parent="MainCont/QueuePanel/QueueCont"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("4_7okx8")
-bookMarks = false
-
 [node name="QueueControls" type="HBoxContainer" parent="MainCont/QueuePanel/QueueCont"]
 layout_mode = 2
 
@@ -80,6 +73,13 @@ text = "Clear
 [node name="Playlist" type="Button" parent="MainCont/QueuePanel/QueueCont/QueueControls"]
 layout_mode = 2
 text = "Save To Playlist"
+
+[node name="SongList" type="VBoxContainer" parent="MainCont/QueuePanel/QueueCont"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_7okx8")
+bookMarks = false
 
 [connection signal="resized" from="MainCont/QueuePanel" to="." method="SizeUpdate"]
 [connection signal="pressed" from="MainCont/QueuePanel/QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]

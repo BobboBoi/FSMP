@@ -19,4 +19,4 @@ func _init(newData : MusicData) -> void:
 		text = newData.path
 
 func ConnectToPlayer(player : Player):
-	connect("pressed",player.PlayFromPath.bind("user://Songs/"+path))   
+	connect("pressed",player.PlaySingleFromPath.bind("user://Songs/"+path))   

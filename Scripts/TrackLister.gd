@@ -15,7 +15,7 @@ func _ready() -> void:
 	Reload()
 
 ##Used for performance tests.[br]
-##Same as [TrackLister.Reload] but also prints the load time and amount into the console.
+##Same as [mehtod Reload] but also prints the load time and amount into the console.
 func MeasureReloadSpeed():
 	var time = Time.get_ticks_msec()
 	Reload()

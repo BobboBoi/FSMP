@@ -22,8 +22,13 @@ func Refresh():
 	for i in player.queue:
 		list.add_child(QueueSelection.Create(i.name))
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(event : InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and queueOpen:
+		CloseQueue()
+		get_viewport().set_input_as_handled()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("QuickAccess") and queueOpen:
 		CloseQueue()
 		get_viewport().set_input_as_handled()
 
