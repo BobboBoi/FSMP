@@ -20,6 +20,11 @@ signal QueueChange()
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("Pause"):
+		print("Pause Input")
+		self.stream_paused = !self.stream_paused
+
 #region Playing
 ##Similair to [member PlayFromPath] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
