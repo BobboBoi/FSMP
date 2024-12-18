@@ -53,7 +53,7 @@ Player="The node that plays the music"
 Home="The home menu node"
 ProgramRoot="Root of the main application"
 Lister="The tracklister"
-MediaPanel=""
+ControlPanel=""
 
 [input]
 

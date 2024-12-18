@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://blry2rxlowk06"]
 
-[ext_resource type="Script" path="res://Scripts/Components/QuickAccess.gd" id="1_irfns"]
-[ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_1au3y"]
+[ext_resource type="Script" path="res://Scripts/Components/QuickAccess/QuickAccess.gd" id="1_irfns"]
+[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="2_1au3y"]
 [ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="2_ynxih"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_m7vdc"]

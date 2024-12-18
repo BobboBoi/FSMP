@@ -1,13 +1,13 @@
 [gd_scene load_steps=90 format=3 uid="uid://cmtqwlk3etxas"]
 
 [ext_resource type="PackedScene" uid="uid://dgiof0hu8gf5j" path="res://Scenes/Components/Visualizer/BeatReader.tscn" id="1_mkr3y"]
-[ext_resource type="PackedScene" uid="uid://e2rvldetudgn" path="res://Scenes/Components/SimpleSpectrum.tscn" id="1_pjcxw"]
+[ext_resource type="PackedScene" uid="uid://e2rvldetudgn" path="res://Scenes/Components/Visualizer/SimpleSpectrum.tscn" id="1_pjcxw"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_yb6pm"]
 [ext_resource type="Texture2D" uid="uid://cqsjp08c7g7s0" path="res://Assets/Sprites/DAWG.png" id="3_4xeou"]
-[ext_resource type="Script" path="res://Scripts/Components/HomeButton.gd" id="3_i80r3"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/HomeButton.gd" id="3_i80r3"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="4_06o6a"]
-[ext_resource type="Script" path="res://Scripts/Components/AnimatedSpriteSelector.gd" id="4_krs0l"]
-[ext_resource type="Script" path="res://Scripts/Components/AnimatedBeatIndicator.gd" id="6_qy74n"]
+[ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedSpriteSelector.gd" id="4_krs0l"]
+[ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedBeatIndicator.gd" id="6_qy74n"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_g8luf"]
 device = -1

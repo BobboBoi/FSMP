@@ -30,7 +30,7 @@ func _ready():
 	Reload()
 	
 	lister.ListChanged.connect(Reload)
-	player.NewTrack.connect(hideHome.unbind(1))
+	player.NewTrack.connect(HideHome.unbind(1))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and visible:
@@ -67,10 +67,10 @@ func OpenAlbum(albumData : AlbumData,cover : Texture2D):
 	albumMusicTab.OpenAlbum(albumData,self,cover)
 	tabCont.set_current_tab(TABS.ALBUM_MUSIC)
 
-func editPressed():
+func EditPressed():
 	$Edit.visible = !$Edit.visible
 
-func setAlbumForAll():
+func SetAlbumForAll():
 	var arr : Array[MusicSelection] = []
 	for i in musicList.get_children():
 		if i is MusicSelection:
@@ -86,12 +86,13 @@ func setAlbumForAll():
 	#Load album data or create new data if it doesn't exist.
 	var _garbo = lister.CheckAlbumData(albumEdit.text)
 
-func showHome() -> void:
+func ShowHome() -> void:
 	self.visible = true
 	tabCont.set_current_tab(TABS.MUSIC)
 
-func hideHome() -> void:
+func HideHome() -> void:
 	self.visible = false
+	selected.clear()
 
 #Music selection
 func SelectedItem(item : HomeMenuItem):

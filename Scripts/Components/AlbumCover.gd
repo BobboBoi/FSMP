@@ -19,7 +19,6 @@ enum SIZE_MODES {
 
 const TEXTURE_PADDING = 1.04
 
-
 func SizeUpdate() -> void:
 	match(sizeMode):
 		SIZE_MODES.FIT_HEIGHT:

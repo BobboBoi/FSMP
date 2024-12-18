@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxnsob26m55ef"]
+
+[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="1_du1yx"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
+
+[node name="DefaultQueueControls" type="Panel"]
+custom_minimum_size = Vector2(0, 942)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_type_variation = &"QueueBG"
+script = ExtResource("1_ncq4o")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Queue here"
+horizontal_alignment = 1
+
+[node name="QueueCont" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QueueControls" type="HBoxContainer" parent="QueueCont"]
+layout_mode = 2
+
+[node name="Shuffle" type="Button" parent="QueueCont/QueueControls"]
+layout_mode = 2
+text = "Shuffle
+"
+
+[node name="Clear" type="Button" parent="QueueCont/QueueControls"]
+layout_mode = 2
+text = "Clear
+"
+
+[node name="Playlist" type="Button" parent="QueueCont/QueueControls"]
+layout_mode = 2
+text = "Save To Playlist"
+
+[node name="SongList" type="VBoxContainer" parent="QueueCont" groups=["ControlPanel"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_du1yx")
+bookMarks = false
+
+[connection signal="ready" from="Label" to="Label" method="queue_free"]
+[connection signal="pressed" from="QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]
+[connection signal="pressed" from="QueueCont/QueueControls/Clear" to="." method="ClearQueue"]

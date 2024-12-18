@@ -18,7 +18,7 @@ func _ready() -> void:
 	$AnimationPlayer.stop(true)
 	scrollBar.value_changed.connect(ScrollChanged)
 
-func OpenAlbum(album : AlbumData, newHome : HomeMenu,newCover : Texture2D = null):
+func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = null):
 	#Reset songlist
 	for i in list.get_children():
 		if i is MusicSelection:
@@ -40,7 +40,6 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu,newCover : Texture2D = null
 		var butt := MusicSelection.Create(i,i.albumIndex)
 		list.add_child(butt)
 		butt.ConnectToPlayer(player)
-		butt.button.connect("pressed",home.hideHome)
 		
 		#Connect selection signals
 		butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)

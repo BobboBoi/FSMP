@@ -15,7 +15,7 @@ class_name MusicSelection
 signal Pressed
 
 static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
-	var inst = preload("res://Scenes/MusicSelection.tscn").instantiate()
+	var inst = preload("res://Scenes/Components/HomeMenu/MusicSelection.tscn").instantiate()
 	inst.data = newData
 	inst.index = newIndex
 	inst.name = inst.data.name

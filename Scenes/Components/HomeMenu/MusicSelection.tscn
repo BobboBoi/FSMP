@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://q0nooewms7ui"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_6boet"]
-[ext_resource type="Script" path="res://Scripts/MusicSelection.gd" id="1_bhw46"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/MusicSelection.gd" id="1_bhw46"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
 

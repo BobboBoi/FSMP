@@ -75,6 +75,5 @@ func NewBookmark(letter : String) -> Label:
 	
 	return newMark
 
-
 func IsNumber(par : String) -> bool:
 	return par.substr(0,1).is_valid_int()

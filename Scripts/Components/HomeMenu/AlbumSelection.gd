@@ -10,7 +10,7 @@ var data : AlbumData :
 var cover : ImageTexture = null
 
 static func Create(newData : AlbumData,newCover : ImageTexture = null) -> AlbumSelection:
-	var inst = preload("res://Scenes/AlbumSelection.tscn").instantiate()
+	var inst = preload("res://Scenes/Components/HomeMenu/AlbumSelection.tscn").instantiate()
 	inst.data = newData
 	if newCover != null:
 		inst.cover = newCover

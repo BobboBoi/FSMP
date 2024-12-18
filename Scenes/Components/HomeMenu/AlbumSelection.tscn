@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bj562ggiykkx7"]
+[gd_scene load_steps=10 format=3 uid="uid://c4bg6rulc1uo0"]
 
-[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_hi62c"]
-[ext_resource type="Script" path="res://Scripts/Components/QueueSelection.gd" id="2_wpo0p"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/AlbumSelection.gd" id="1_4fmw8"]
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_hg365"]
+[ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="3_kpjif"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
 
@@ -13,18 +14,20 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkdkr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw5i3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8u8g6"]
 
-[node name="QueueSelection" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="AlbumSelection" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 149)
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.0462963
+anchor_bottom = 0.137963
+offset_right = -0.000244141
+offset_bottom = -21.0
 grow_horizontal = 2
 mouse_filter = 1
-theme = ExtResource("1_hi62c")
+theme = ExtResource("1_hg365")
 theme_type_variation = &"ListItem1"
-script = ExtResource("2_wpo0p")
+script = ExtResource("1_4fmw8")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="."]
@@ -39,16 +42,17 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffgl3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_jkdkr")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cont" type="HBoxContainer" parent="."]
+[node name="MainCont" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CheckParent" type="Control" parent="Cont"]
-custom_minimum_size = Vector2(50, 50)
+[node name="CheckParent" type="Control" parent="MainCont"]
+custom_minimum_size = Vector2(74, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 mouse_filter = 2
 
-[node name="CheckBox" type="CheckBox" parent="Cont/CheckParent"]
+[node name="CheckBox" type="CheckBox" parent="MainCont/CheckParent"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -62,37 +66,38 @@ offset_right = 12.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+scale = Vector2(2, 2)
+pivot_offset = Vector2(12, 12)
 mouse_default_cursor_shape = 2
-alignment = 1
-icon_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="Cont"]
+[node name="AlbumCover" parent="MainCont" instance=ExtResource("3_kpjif")]
+unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_qw5i3")
 
-[node name="Name" type="Label" parent="Cont"]
+[node name="VSeparator" type="VSeparator" parent="MainCont"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8u8g6")
+
+[node name="Name" type="Label" parent="MainCont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Decently long song name here
+text = "Decently album song name here
 "
-clip_text = true
+vertical_alignment = 1
 text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Artist" type="Label" parent="Cont"]
+[node name="Artist" type="Label" parent="MainCont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Artist and other people
 "
-clip_text = true
+vertical_alignment = 1
 text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Button" to="." method="ButtonPressed"]
-[connection signal="toggled" from="Cont/CheckParent/CheckBox" to="." method="Select"]
+[connection signal="toggled" from="MainCont/CheckParent/CheckBox" to="." method="Select"]

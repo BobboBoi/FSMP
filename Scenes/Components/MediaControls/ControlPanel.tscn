@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccybfyb2v8rwy"]
+
+[ext_resource type="PackedScene" uid="uid://dsq4lil7y26xw" path="res://Scenes/Components/MediaControls/DefaultMediaControls.tscn" id="1_5jggk"]
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_aqr20"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ControlPanel.gd" id="1_r31sv"]
+[ext_resource type="PackedScene" uid="uid://bxnsob26m55ef" path="res://Scenes/Components/MediaControls/DefaultQueueControls.tscn" id="4_0ljw6"]
+
+[node name="MediaControlPanel" type="Control" groups=["ControlPanel"]]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.101852
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_aqr20")
+script = ExtResource("1_r31sv")
+metadata/_edit_use_anchors_ = true
+
+[node name="MainCont" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 165.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="DefaultMediaControls" parent="MainCont" instance=ExtResource("1_5jggk")]
+layout_mode = 2
+
+[node name="QueuePanel" parent="MainCont" instance=ExtResource("4_0ljw6")]
+unique_name_in_owner = true
+layout_mode = 2

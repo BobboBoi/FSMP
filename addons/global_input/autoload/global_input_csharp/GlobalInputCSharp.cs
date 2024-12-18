@@ -148,10 +148,10 @@ public partial class GlobalInputCSharp : Node
         _hook.KeyPressed += OnHookKeyPressed;
         _hook.KeyReleased += OnHookKeyReleased;
 
-        _hook.MousePressed += OnHookMousePressed;
-        _hook.MouseReleased += OnHookMouseReleased;
+        //_hook.MousePressed += OnHookMousePressed;
+        //_hook.MouseReleased += OnHookMouseReleased;
 
-        _hook.MouseWheel += OnHookMouseWheel;
+        //_hook.MouseWheel += OnHookMouseWheel;
     }
     #endregion
 
@@ -159,7 +159,6 @@ public partial class GlobalInputCSharp : Node
     void OnHookKeyPressed(object _, KeyboardHookEventArgs args)
     {
         InputEventKey e = GetInputEventKey(args.Data.KeyCode, true);
-        GD.Print(args.Data.KeyCode, " | ", e);
         Input.ParseInputEvent(e);
     }
 

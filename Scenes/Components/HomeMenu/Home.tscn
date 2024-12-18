@@ -1,13 +1,13 @@
 [gd_scene load_steps=22 format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
-[ext_resource type="Script" path="res://Scripts/Home.gd" id="1_uex14"]
-[ext_resource type="Script" path="res://Scripts/SongList.gd" id="2_muooh"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Home.gd" id="1_uex14"]
+[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="2_muooh"]
 [ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="3_sxx7c"]
-[ext_resource type="PackedScene" uid="uid://cugs6ixvklnpn" path="res://Scenes/Components/HomeMenu/AlbumMusicTab.tscn" id="5_dx7ea"]
-[ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/AlbumTab.tscn" id="5_p0xqo"]
+[ext_resource type="PackedScene" uid="uid://cugs6ixvklnpn" path="res://Scenes/Components/HomeMenu/Tabs/AlbumMusicTab.tscn" id="5_dx7ea"]
+[ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/Tabs/AlbumTab.tscn" id="5_p0xqo"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/HomeMenu/Settings.tscn" id="6_xd810"]
-[ext_resource type="Script" path="res://Scenes/Components/HomeMenu/EnqueueButton.gd" id="7_84wqk"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/EnqueueButton.gd" id="7_84wqk"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_bw3fi"]
 device = -1
@@ -170,6 +170,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 script = ExtResource("2_muooh")
+bookMarks = null
 
 [node name="AlbumTab" parent="MainCont/TabCont" instance=ExtResource("5_p0xqo")]
 unique_name_in_owner = true
@@ -310,7 +311,5 @@ layout_mode = 1
 [connection signal="pressed" from="MainCont/Menu/Albums" to="MainCont/TabCont" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="MainCont/Options/Sub1/EditButt" to="." method="editPressed"]
 [connection signal="pressed" from="MainCont/Options/Sub1/Enqueue" to="MainCont/Options/Sub1/Enqueue" method="OnPressed"]
-[connection signal="pressed" from="MainCont/Options/Sub1/Close" to="." method="hideHome"]
+[connection signal="pressed" from="MainCont/Options/Sub1/Close" to="." method="HideHome"]
 [connection signal="pressed" from="MainCont/Options/Sub2/Settings" to="Settings" method="show"]
-[connection signal="pressed" from="Edit/AlbumAll/Butt" to="." method="setAlbumForAll"]
-[connection signal="text_changed" from="Edit/AlbumAll/EditAlbum" to="." method="_on_text_edit_text_changed"]

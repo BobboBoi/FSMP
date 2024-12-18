@@ -1,6 +1,8 @@
 extends AudioStreamPlayer
 class_name Player
 
+@onready var window := get_window()
+
 var loopStart := 0.0
 
 var srcQueue : Array[MusicData] = []
@@ -21,8 +23,12 @@ func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
 func _physics_process(_delta: float) -> void:
+	if window.mode != window.Mode.MODE_MINIMIZED: return
 	if Input.is_action_just_pressed("Pause"):
-		print("Pause Input")
+		self.stream_paused = !self.stream_paused
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("Pause"):
 		self.stream_paused = !self.stream_paused
 
 #region Playing

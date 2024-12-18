@@ -2,7 +2,7 @@ extends Control
 class_name HomeMenuItem
 ##Parent class for selectable items in the home menu.
 ##
-##Used by [MusicSelection] and [AlbumSelection]
+##Used by [MusicSelection], [AlbumSelection] and currently [QueueSelection](Might change in the future!).
 
 var selected := false
 var hovered := false
