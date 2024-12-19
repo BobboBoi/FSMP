@@ -7,6 +7,7 @@ var loopStart := 0.0
 
 var srcQueue : Array[MusicData] = []
 var queue : Array[MusicData] = []
+var shuffled := false
 var currentIndex := 0
 
 var loopMode : LOOPMODE = LOOPMODE.LOOP_QUEUE
@@ -86,7 +87,7 @@ func PlayNewTrack(music : String,trackName : String = "",album : String = "",art
 #endregion
 
 #region Queue
-func EnqueueFromDataArray(data : Array[MusicData]):
+func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 	var startPlaying := queue.size() <= 0
 	srcQueue.append_array(data)
 	queue.append_array(data)
@@ -95,11 +96,19 @@ func EnqueueFromDataArray(data : Array[MusicData]):
 	
 	if startPlaying: PlayFromData(queue[currentIndex])
 
-func NextInQueue():
+func ProgressQueue() -> void:
 	currentIndex = wrapi(currentIndex+1,0,queue.size())
 	PlayFromData(queue[currentIndex])
 
-func ClearQueue():
+func MoveItemInQueue(init : int, new : int) -> void:
+	print("Queue move: ",init," -> ",new)
+	if shuffled:
+		queue.insert(new,queue.pop_at(init))
+	else:
+		srcQueue.insert(new,srcQueue.pop_at(init))
+		queue = srcQueue
+
+func ClearQueue() -> void:
 	srcQueue.clear()
 	queue.clear()
 	self.stop()
@@ -107,22 +116,21 @@ func ClearQueue():
 	QueueChange.emit()
 	Discord.refresh()
 
-func Shuffle():
+func Shuffle() -> void:
 	var currentTrack := queue[currentIndex]
 	
 	#Restore src
-	if srcQueue != queue:
-		print("restore")
+	if shuffled:
 		queue = srcQueue
 		currentIndex = queue.find(currentTrack)
 	#Shuffle
 	else:
-		print("shuffle")
 		queue.shuffle()
 		queue.remove_at(queue.find(currentTrack))
 		queue.push_front(currentTrack)
 		currentIndex = 0
 	
+	shuffled = !shuffled
 	QueueChange.emit()
 
 ##Called wg
@@ -132,7 +140,7 @@ func Finished():
 			self.play(loopStart)
 		LOOPMODE.LOOP_QUEUE:
 			if queue.size() > 0:
-				NextInQueue()
+				ProgressQueue()
 			else:
 				self.play(loopStart)
 #endregion

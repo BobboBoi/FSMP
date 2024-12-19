@@ -2,6 +2,7 @@ extends TextEdit
 class_name SearchBar
 
 @export var target : Control
+@export var refreshPatterns := true
 #var property := "name"
 
 func _init() -> void:
@@ -17,3 +18,6 @@ func Filter():
 			i.visible = !(i.text.to_lower().find(text.to_lower()) == -1 and not text == "")
 		elif i is Label:
 			i.visible = text == ""
+	
+	if target is not SongList: return
+	target.VariationUpdate()

@@ -1,18 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4bg6rulc1uo0"]
+[gd_scene load_steps=5 format=3 uid="uid://c4bg6rulc1uo0"]
 
 [ext_resource type="Script" path="res://Scripts/Components/HomeMenu/AlbumSelection.gd" id="1_4fmw8"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_hg365"]
 [ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="3_kpjif"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyrkb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnhta"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgtip"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffgl3"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkdkr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8u8g6"]
 
@@ -28,18 +18,6 @@ mouse_filter = 1
 theme = ExtResource("1_hg365")
 theme_type_variation = &"ListItem1"
 script = ExtResource("1_4fmw8")
-metadata/_edit_use_anchors_ = true
-
-[node name="Button" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 1
-mouse_default_cursor_shape = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pyrkb")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_mnhta")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pgtip")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffgl3")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jkdkr")
 metadata/_edit_use_anchors_ = true
 
 [node name="MainCont" type="HBoxContainer" parent="."]
@@ -72,6 +50,7 @@ mouse_default_cursor_shape = 2
 
 [node name="AlbumCover" parent="MainCont" instance=ExtResource("3_kpjif")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(149, 0)
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="MainCont"]

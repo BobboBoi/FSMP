@@ -2,6 +2,7 @@ extends VBoxContainer
 class_name SongList
 
 @export var bookMarks := true
+@export var sort := true
 
 func Update():
 	#Remove bookmarks
@@ -10,7 +11,8 @@ func Update():
 			i.queue_free()
 	
 	#Sort the list
-	SortList()
+	if sort:
+		SortList()
 	
 	var numb = 0
 	#Add final details
@@ -22,6 +24,13 @@ func Update():
 			i.SetVariation(1+int(numb % 2 == 0))
 		
 		numb += 1
+
+func VariationUpdate(ignoreInvisible := true):
+	var numb = 0
+	for i in get_children():
+		if i is HomeMenuItem and (i.visible or !ignoreInvisible):
+			i.SetVariation(1+int(numb % 2 == 0))
+			numb += 1
 
 func SortList() -> void:
 	var items := get_children()

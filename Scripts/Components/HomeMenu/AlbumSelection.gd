@@ -1,12 +1,10 @@
 extends HomeMenuItem
 class_name AlbumSelection
 
-@onready var button : Button = %Button
-
 var data : AlbumData :
 	set(value):
 		data = value
-		if button != null: Refresh()
+		if is_inside_tree(): Refresh()
 var cover : ImageTexture = null
 
 static func Create(newData : AlbumData,newCover : ImageTexture = null) -> AlbumSelection:
@@ -31,4 +29,4 @@ func Refresh():
 		%AlbumCover.texture = cover
 
 func ConnectToAlbum(home : HomeMenu) -> void:
-	get_node("Button").connect("pressed",home.OpenAlbum.bind(data,%AlbumCover.texture))
+	Pressed.connect(home.OpenAlbum.bind(data,%AlbumCover.texture))

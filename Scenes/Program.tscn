@@ -91,7 +91,7 @@ z_index = 0
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="MediaControls" parent="Program/MainCont" groups=["ControlPanel"] instance=ExtResource("5_kwqji")]
+[node name="MediaControls" parent="Program/MainCont" instance=ExtResource("5_kwqji")]
 z_index = 1
 layout_mode = 2
 

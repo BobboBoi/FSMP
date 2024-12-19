@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxnsob26m55ef"]
 
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="1_du1yx"]
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
+[ext_resource type="Script" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
 
 [node name="DefaultQueueControls" type="Panel"]
 custom_minimum_size = Vector2(0, 942)
@@ -11,19 +11,6 @@ grow_horizontal = 2
 size_flags_vertical = 3
 theme_type_variation = &"QueueBG"
 script = ExtResource("1_ncq4o")
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Queue here"
-horizontal_alignment = 1
 
 [node name="QueueCont" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -50,13 +37,13 @@ text = "Clear
 layout_mode = 2
 text = "Save To Playlist"
 
-[node name="SongList" type="VBoxContainer" parent="QueueCont" groups=["ControlPanel"]]
+[node name="QueueList" type="VBoxContainer" parent="QueueCont" groups=["ControlPanel"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("1_du1yx")
+script = ExtResource("2_saxjw")
 bookMarks = false
 
-[connection signal="ready" from="Label" to="Label" method="queue_free"]
 [connection signal="pressed" from="QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]
 [connection signal="pressed" from="QueueCont/QueueControls/Clear" to="." method="ClearQueue"]
+[connection signal="MovedIndex" from="QueueCont/QueueList" to="." method="OnQueueItemMoved"]

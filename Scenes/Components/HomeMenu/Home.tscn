@@ -170,7 +170,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 script = ExtResource("2_muooh")
-bookMarks = null
 
 [node name="AlbumTab" parent="MainCont/TabCont" instance=ExtResource("5_p0xqo")]
 unique_name_in_owner = true

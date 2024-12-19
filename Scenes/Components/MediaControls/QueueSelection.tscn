@@ -15,27 +15,18 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw5i3"]
 
-[node name="QueueSelection" type="Control"]
+[node name="Panel" type="PanelContainer"]
 custom_minimum_size = Vector2(0, 50)
-layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 23.0
 grow_horizontal = 2
-script = ExtResource("2_wpo0p")
-
-[node name="Panel" type="PanelContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_hi62c")
 theme_type_variation = &"ListItem1"
+script = ExtResource("2_wpo0p")
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
@@ -47,17 +38,17 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_ffgl3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_jkdkr")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cont" type="HBoxContainer" parent="Panel"]
+[node name="Cont" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CheckParent" type="Control" parent="Panel/Cont"]
+[node name="CheckParent" type="Control" parent="Cont"]
 visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CheckBox" type="CheckBox" parent="Panel/Cont/CheckParent"]
+[node name="CheckBox" type="CheckBox" parent="Cont/CheckParent"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -76,12 +67,12 @@ mouse_default_cursor_shape = 2
 alignment = 1
 icon_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="Panel/Cont"]
+[node name="VSeparator" type="VSeparator" parent="Cont"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_qw5i3")
 
-[node name="Name" type="Label" parent="Panel/Cont"]
+[node name="Name" type="Label" parent="Cont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -92,7 +83,7 @@ text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Artist" type="Label" parent="Panel/Cont"]
+[node name="Artist" type="Label" parent="Cont"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -103,6 +94,4 @@ text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[connection signal="button_down" from="Panel/Button" to="." method="_on_button_button_down"]
-[connection signal="button_up" from="Panel/Button" to="." method="_on_button_button_up"]
-[connection signal="toggled" from="Panel/Cont/CheckParent/CheckBox" to="Panel" method="Select"]
+[connection signal="toggled" from="Cont/CheckParent/CheckBox" to="." method="Select"]

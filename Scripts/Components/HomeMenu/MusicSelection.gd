@@ -1,18 +1,14 @@
 extends HomeMenuItem
 class_name MusicSelection
 
-@onready var button : Button = %Button
-
 @export var data : MusicData :
 	set(value):
 		data = value
-		if button != null: Refresh()
+		if is_inside_tree(): Refresh()
 @export var index : int : 
 	set(value):
 		index = value
-		if button != null: Refresh()
-
-signal Pressed
+		if is_inside_tree(): Refresh()
 
 static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	var inst = preload("res://Scenes/Components/HomeMenu/MusicSelection.tscn").instantiate()
@@ -28,7 +24,6 @@ func _ready() -> void:
 	Refresh()
 
 func Refresh() -> void:
-	if button == null: return
 	%Name.text = data.name
 	%Artist.text = data.artist
 	%Album.text = data.album
@@ -39,7 +34,20 @@ func Refresh() -> void:
 func ConnectToPlayer(player : Player):
 	Pressed.connect(player.PlaySingleFromData.bind(data))
 
-func ButtonPressed() -> void:
+func OnHover():
+	super()
+	SlideSelect()
+
+func OnUnhover():
+	super()
+	SlideSelect()
+
+func SlideSelect():
+	if !Input.is_action_pressed("SelectMode"): return
+	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
+	Select(true)
+
+func Clicked() -> void:
 	if Input.is_action_pressed("SelectMode"):
 		Select(true)
 	else:
