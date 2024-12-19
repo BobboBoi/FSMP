@@ -125,7 +125,7 @@ func Shuffle() -> void:
 	
 	#Restore src
 	if shuffled:
-		queue = srcQueue
+		queue = srcQueue.duplicate()
 		currentIndex = queue.find(currentTrack)
 	#Shuffle
 	else:
