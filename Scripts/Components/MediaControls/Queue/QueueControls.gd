@@ -24,8 +24,10 @@ func Refresh():
 	
 	for i in list.get_children(): i.queue_free()
 	
-	for i in player.queue:
-		list.add_child(QueueSelection.Create(i))
+	for i in player.queue.size():
+		var n := QueueSelection.Create(player.queue[i])
+		list.add_child(n)
+		n.Pressed.connect(player.TravelTo.bind(i))
 	
 	list.Update()
 
@@ -38,6 +40,11 @@ func ShuffleQueue() -> void:
 func OnQueueItemMoved(originalIndex: int, newIndex: int) -> void:
 	ignoreNextUpdate = true
 	player.MoveItemInQueue(originalIndex,newIndex)
+
+func OnItemMoved(item: Control, newIndex: int) -> void:
+	if item is not HomeMenuItem: return
+	item.Pressed.disconnect(player.TravelTo)
+	item.Pressed.connect(player.TravelTo.bind(newIndex))
 
 func SizeUpdate() -> void:
 	if controlPanel == null: return

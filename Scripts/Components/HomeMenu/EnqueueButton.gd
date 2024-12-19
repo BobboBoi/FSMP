@@ -4,12 +4,15 @@ extends Button
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func OnPressed() -> void:
+	var backup = home.selected.duplicate()
 	var data : Array[MusicData] = []
 	for d in home.selected:
 		if d is MusicSelection:
 			data.append(d.data)
 	
 	player.EnqueueFromDataArray(data)
+	#TODO selection vanishes here for some reason
+	home.selected = backup
 	home.ClearSelection()
 
 func CheckSelection() -> void:

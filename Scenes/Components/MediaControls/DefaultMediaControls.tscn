@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsq4lil7y26xw"]
+[gd_scene load_steps=14 format=3 uid="uid://dsq4lil7y26xw"]
 
 [ext_resource type="Texture2D" uid="uid://bwg11s3wfgppi" path="res://Assets/Sprites/Icons/Loop.png" id="1_c4gqo"]
 [ext_resource type="PackedScene" uid="uid://cf0idhr6w37fn" path="res://Scenes/Components/MediaControls/BaseProgressBar.tscn" id="1_n46p1"]
@@ -12,6 +12,14 @@
 bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 border_width_top = 3
 border_color = Color(0.482353, 0.482353, 0.482353, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_b8ecu"]
+device = -1
+keycode = 76
+unicode = 108
+
+[sub_resource type="Shortcut" id="Shortcut_wa540"]
+events = [SubResource("InputEventKey_b8ecu")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i57s"]
 
@@ -54,6 +62,7 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_wa540")
 texture_normal = ExtResource("1_c4gqo")
 stretch_mode = 0
 script = ExtResource("2_3034r")

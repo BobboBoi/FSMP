@@ -4,8 +4,6 @@ class_name HomeMenuItem
 ##
 ##Used by [MusicSelection], [AlbumSelection] and currently [QueueSelection](Might change in the future!).
 
-@onready var list : SongList = get_parent()
-
 var selected := false
 var hovered := false
 var cancelHold := true

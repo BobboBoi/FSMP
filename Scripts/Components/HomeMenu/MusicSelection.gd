@@ -49,6 +49,6 @@ func SlideSelect():
 
 func Clicked() -> void:
 	if Input.is_action_pressed("SelectMode"):
-		Select(true)
+		Select(!selected)
 	else:
 		Pressed.emit()

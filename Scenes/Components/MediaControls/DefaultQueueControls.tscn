@@ -47,3 +47,4 @@ bookMarks = false
 [connection signal="pressed" from="QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]
 [connection signal="pressed" from="QueueCont/QueueControls/Clear" to="." method="ClearQueue"]
 [connection signal="MovedIndex" from="QueueCont/QueueList" to="." method="OnQueueItemMoved"]
+[connection signal="MovedItem" from="QueueCont/QueueList" to="." method="OnItemMoved"]

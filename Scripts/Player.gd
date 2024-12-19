@@ -100,6 +100,10 @@ func ProgressQueue() -> void:
 	currentIndex = wrapi(currentIndex+1,0,queue.size())
 	PlayFromData(queue[currentIndex])
 
+func TravelTo(index : int) -> void:
+	currentIndex = wrapi(index,0,queue.size())
+	PlayFromData(queue[currentIndex])
+
 func MoveItemInQueue(init : int, new : int) -> void:
 	print("Queue move: ",init," -> ",new)
 	if shuffled:
@@ -126,15 +130,14 @@ func Shuffle() -> void:
 	#Shuffle
 	else:
 		queue.shuffle()
-		queue.remove_at(queue.find(currentTrack))
-		queue.push_front(currentTrack)
+		queue.push_front(queue.pop_at(queue.find(currentTrack)))
 		currentIndex = 0
 	
 	shuffled = !shuffled
 	QueueChange.emit()
 
-##Called wg
-func Finished():
+##Called when the current track is finished playing.
+func Finished() -> void:
 	match(loopMode):
 		LOOPMODE.LOOP_SINGLE:
 			self.play(loopStart)
