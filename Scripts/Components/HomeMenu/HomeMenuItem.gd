@@ -88,10 +88,8 @@ func GuiInput(event: InputEvent) -> void:
 		Clicked()
 
 func CheckHold():
-	if !cancelHold:
-		held = true
-	else:
-		Clicked()
+	if !cancelHold: return
+	held = true
 
 func Clicked() -> void:
 	Pressed.emit()

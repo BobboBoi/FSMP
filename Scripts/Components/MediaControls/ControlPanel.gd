@@ -4,7 +4,11 @@ class_name ControlPanel
 
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var queuePanel := %QueuePanel
+@onready var mediaControlPanel := %DefaultMediaControls
 @onready var mainCont := %MainCont
+
+func _ready() -> void:
+	SizeUpdate()
 
 func _unhandled_input(event : InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and queuePanel.open:
@@ -23,9 +27,17 @@ func ToggleQueue():
 func OpenQueue() -> void:
 	queuePanel.open = true
 	var tween := create_tween()
-	tween.tween_property(mainCont,"position",Vector2(0,-queuePanel.size.y),0.4)
+	tween.tween_property(mainCont,"position",Vector2.ZERO,0.4)
 
 func CloseQueue() -> void:
 	var tween := create_tween()
-	tween.tween_property(mainCont,"position",Vector2(0,0),0.3)
+	tween.tween_property(mainCont,"position",Vector2(0,size.y - mediaControlPanel.size.y),0.3)
 	tween.tween_callback(queuePanel.set.bind("open",false))
+
+func SizeUpdate() -> void:
+	if mainCont == null: return
+	
+	if queuePanel.open:
+		mainCont.position.y = 0
+	else:
+		mainCont.position.y = size.y - mediaControlPanel.size.y

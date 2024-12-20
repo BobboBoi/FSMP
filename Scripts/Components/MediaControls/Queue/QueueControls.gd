@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 class_name QueueControls
 
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
@@ -8,14 +8,12 @@ class_name QueueControls
 var ignoreNextUpdate := false
 var open := false :
 	set(value):
-		if value: SizeUpdate()
 		visible = value
 		open = value
 
 func _ready() -> void:
 	player.QueueChange.connect(Refresh)
 	hide()
-	SizeUpdate()
 
 func Refresh():
 	if ignoreNextUpdate: 
@@ -45,7 +43,3 @@ func OnItemMoved(item: Control, newIndex: int) -> void:
 	if item is not HomeMenuItem: return
 	item.Pressed.disconnect(player.TravelTo)
 	item.Pressed.connect(player.TravelTo.bind(newIndex))
-
-func SizeUpdate() -> void:
-	if controlPanel == null: return
-	custom_minimum_size.y = get_viewport().size.y - controlPanel.size.y

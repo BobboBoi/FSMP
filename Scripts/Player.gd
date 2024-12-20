@@ -106,6 +106,9 @@ func TravelTo(index : int) -> void:
 
 func MoveItemInQueue(init : int, new : int) -> void:
 	print("Queue move: ",init," -> ",new)
+	if init == currentIndex:
+		currentIndex = new
+	
 	if shuffled:
 		queue.insert(new,queue.pop_at(init))
 	else:

@@ -78,8 +78,9 @@ func Drop(pos := -1) -> void:
 	placeholder.free()
 	move_child(movingItem,chosenIndex if pos == -1 else pos)
 	
-	MovedIndex.emit(initialIndex,chosenIndex)
-	MovedItem.emit(movingItem,chosenIndex)
+	if chosenIndex != initialIndex:
+		MovedIndex.emit(initialIndex,chosenIndex)
+		MovedItem.emit(movingItem,chosenIndex)
 	
 	placeholder = null
 	movingItem = null

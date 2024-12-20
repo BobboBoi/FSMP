@@ -3,22 +3,18 @@
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
 [ext_resource type="Script" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
 
-[node name="DefaultQueueControls" type="Panel"]
-custom_minimum_size = Vector2(0, 942)
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-size_flags_vertical = 3
-theme_type_variation = &"QueueBG"
-script = ExtResource("1_ncq4o")
-
-[node name="QueueCont" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="DefaultQueueControls" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
+theme_type_variation = &"QueueBG"
+script = ExtResource("1_ncq4o")
+
+[node name="QueueCont" type="VBoxContainer" parent="."]
+layout_mode = 2
 
 [node name="QueueControls" type="HBoxContainer" parent="QueueCont"]
 layout_mode = 2
@@ -37,7 +33,12 @@ text = "Clear
 layout_mode = 2
 text = "Save To Playlist"
 
-[node name="QueueList" type="VBoxContainer" parent="QueueCont" groups=["ControlPanel"]]
+[node name="Scroll" type="ScrollContainer" parent="QueueCont"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" groups=["ControlPanel"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -46,5 +47,5 @@ bookMarks = false
 
 [connection signal="pressed" from="QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]
 [connection signal="pressed" from="QueueCont/QueueControls/Clear" to="." method="ClearQueue"]
-[connection signal="MovedIndex" from="QueueCont/QueueList" to="." method="OnQueueItemMoved"]
-[connection signal="MovedItem" from="QueueCont/QueueList" to="." method="OnItemMoved"]
+[connection signal="MovedIndex" from="QueueCont/Scroll/QueueList" to="." method="OnQueueItemMoved"]
+[connection signal="MovedItem" from="QueueCont/Scroll/QueueList" to="." method="OnItemMoved"]
