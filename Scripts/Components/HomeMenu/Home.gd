@@ -92,7 +92,6 @@ func ShowHome() -> void:
 
 func HideHome() -> void:
 	self.visible = false
-	selected.clear()
 
 #Music selection
 func SelectedItem(item : HomeMenuItem):

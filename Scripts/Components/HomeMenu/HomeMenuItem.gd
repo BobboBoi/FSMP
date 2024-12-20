@@ -10,6 +10,7 @@ var cancelHold := true
 var held := false :
 	set(value):
 		if value != held:
+			print("Holding: ",value)
 			set_process(value)
 			if value: Held.emit()
 			else: Dropped.emit()
@@ -88,7 +89,7 @@ func GuiInput(event: InputEvent) -> void:
 		Clicked()
 
 func CheckHold():
-	if !cancelHold: return
+	if cancelHold: return
 	held = true
 
 func Clicked() -> void:

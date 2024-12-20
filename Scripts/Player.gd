@@ -19,6 +19,7 @@ enum LOOPMODE {
 
 signal NewTrack(stream : AudioStream)
 signal QueueChange()
+signal QueueProgressed(newIndex : int)
 
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
@@ -52,6 +53,7 @@ func PlayFromPath(path : String,emitSignal := true):
 func PlaySingleFromData(data : MusicData,emitSignal := true):
 	srcQueue = [data]
 	queue = srcQueue
+	currentIndex = 0
 	QueueChange.emit()
 	
 	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
@@ -99,10 +101,12 @@ func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 func ProgressQueue() -> void:
 	currentIndex = wrapi(currentIndex+1,0,queue.size())
 	PlayFromData(queue[currentIndex])
+	QueueProgressed.emit(currentIndex)
 
 func TravelTo(index : int) -> void:
 	currentIndex = wrapi(index,0,queue.size())
 	PlayFromData(queue[currentIndex])
+	QueueProgressed.emit(currentIndex)
 
 func MoveItemInQueue(init : int, new : int) -> void:
 	print("Queue move: ",init," -> ",new)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvb5p02mwjhqv"]
+
+[ext_resource type="Script" path="res://Scripts/Components/SpinyDisc.gd" id="1_5oeyj"]
+[ext_resource type="Texture2D" uid="uid://btl2ilw25strr" path="res://Assets/Sprites/Logo.png" id="2_mgjfv"]
+
+[node name="SpinyDisc" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5oeyj")
+pad = 218.0
+
+[node name="Texture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(653.3, 653.3)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -326.65
+offset_top = -326.65
+offset_right = 326.65
+offset_bottom = 326.65
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 12.3546
+pivot_offset = Vector2(326.65, 326.65)
+texture = ExtResource("2_mgjfv")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[connection signal="resized" from="." to="." method="SizeUpdate"]

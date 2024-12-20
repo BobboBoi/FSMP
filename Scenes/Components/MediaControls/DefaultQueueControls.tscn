@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxnsob26m55ef"]
+[gd_scene load_steps=9 format=3 uid="uid://bxnsob26m55ef"]
 
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
+[ext_resource type="Texture2D" uid="uid://ddpewvbyye7yc" path="res://Assets/Sprites/Icons/Shuffle.png" id="2_jg317"]
 [ext_resource type="Script" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ShuffleButton.gd" id="3_5upsm"]
+[ext_resource type="Texture2D" uid="uid://b1tocbsqwk8gq" path="res://Assets/Sprites/Icons/UnShuffled.png" id="4_wpf3l"]
+[ext_resource type="Texture2D" uid="uid://boubfg5pm26io" path="res://Assets/Sprites/Icons/Clear.png" id="5_3cpt4"]
+[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ClearButton.gd" id="6_8mo2s"]
+[ext_resource type="Texture2D" uid="uid://dglb4uy5buxju" path="res://Assets/Sprites/Icons/ClearHover.png" id="6_g1vc4"]
 
 [node name="DefaultQueueControls" type="PanelContainer"]
 anchors_preset = 15
@@ -16,26 +22,46 @@ script = ExtResource("1_ncq4o")
 [node name="QueueCont" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="QueueControls" type="HBoxContainer" parent="QueueCont"]
+[node name="Panel" type="PanelContainer" parent="QueueCont"]
 layout_mode = 2
 
-[node name="Shuffle" type="Button" parent="QueueCont/QueueControls"]
+[node name="QueueControls" type="HBoxContainer" parent="QueueCont/Panel"]
 layout_mode = 2
-text = "Shuffle
-"
 
-[node name="Clear" type="Button" parent="QueueCont/QueueControls"]
+[node name="ShuffleButton" type="TextureButton" parent="QueueCont/Panel/QueueControls"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-text = "Clear
-"
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_jg317")
+stretch_mode = 0
+script = ExtResource("3_5upsm")
+ShuffledTexture = ExtResource("2_jg317")
+UnshuffledTexture = ExtResource("4_wpf3l")
 
-[node name="Playlist" type="Button" parent="QueueCont/QueueControls"]
+[node name="ClearButton" type="TextureButton" parent="QueueCont/Panel/QueueControls"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_3cpt4")
+texture_hover = ExtResource("6_g1vc4")
+stretch_mode = 0
+script = ExtResource("6_8mo2s")
+
+[node name="Pad" type="Control" parent="QueueCont/Panel/QueueControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Playlist" type="Button" parent="QueueCont/Panel/QueueControls"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Save To Playlist"
 
 [node name="Scroll" type="ScrollContainer" parent="QueueCont"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 horizontal_scroll_mode = 0
 
 [node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" groups=["ControlPanel"]]
@@ -45,7 +71,5 @@ size_flags_horizontal = 3
 script = ExtResource("2_saxjw")
 bookMarks = false
 
-[connection signal="pressed" from="QueueCont/QueueControls/Shuffle" to="." method="ShuffleQueue"]
-[connection signal="pressed" from="QueueCont/QueueControls/Clear" to="." method="ClearQueue"]
 [connection signal="MovedIndex" from="QueueCont/Scroll/QueueList" to="." method="OnQueueItemMoved"]
 [connection signal="MovedItem" from="QueueCont/Scroll/QueueList" to="." method="OnItemMoved"]

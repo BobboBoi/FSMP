@@ -19,6 +19,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("QuickAccess") and queuePanel.open:
 		CloseQueue()
 		get_viewport().set_input_as_handled()
+	if event.is_action_pressed("HomeMenu") and queuePanel.open:
+		CloseQueue()
+		get_viewport().set_input_as_handled()
 
 func ToggleQueue():
 	if queuePanel.open: CloseQueue()
