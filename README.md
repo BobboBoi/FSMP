@@ -1,5 +1,6 @@
 # What is this?
 This is a really bad music player. Please don't use this.
+This version will stay the way it was intended for a true authentic experience.
 
 <b>Features</b>
 <ul>
