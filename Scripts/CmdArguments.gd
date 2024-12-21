@@ -2,6 +2,7 @@ extends Node
 
 @onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
+@onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _ready() -> void:
 	var arguments := OS.get_cmdline_args()
@@ -9,32 +10,23 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	if !FileAccess.file_exists(arguments[0]) or !TrackLister.MusicFile(arguments[0]):
+	var index := -1
+	for i in arguments.size():
+		if FileAccess.file_exists(arguments[i]) and TrackLister.MusicFile(arguments[i]):
+			index = i
+			break
 		print("Unsupported cmd argument: \"",arguments[0],"\" supported file formats are MP3,WAV,OGG")
+	
+	if index < 0:
 		queue_free()
 		return
 	
-	var meta := MetaDataReader.GetFromAudioFile(arguments[0],"")
-	var title := ""
+	var fileName := arguments[index].get_slice("\\",arguments[index].count("\\"))
+	var dir := arguments[index].erase(arguments[index].find(fileName),fileName.length())
 	
-	if meta != null:
-		title = meta.Title
-		if title == "":
-			title = arguments[0].get_slice("\\",arguments[0].count("\\"))
+	player.PlaySingleFromData(lister.CheckMusicData(dir,fileName))
 	
-	var filter := lister.music.filter(func(data : MusicData): return data.name == title)
-	
-	if filter.size() > 0:
-		print("DATA:",filter)
-		player.PlayFromData(filter[0])
-	else:
-		print("PATH:",arguments[0])
-		var album := ""
-		var artist := ""
-		if meta != null: 
-			album = meta.Album
-			artist = meta.Artists[0]
-		
-		player.PlayNewTrack(arguments[0],title,album,artist)
+	if home != null:
+		home.HideHome()
 	
 	queue_free()
