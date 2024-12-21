@@ -98,6 +98,16 @@ func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 	
 	if startPlaying: PlayFromData(queue[currentIndex])
 
+func ReplaceQueueWithDataArray(data : Array[MusicData]) -> void:
+	currentIndex = 0
+	shuffled = false
+	srcQueue = data
+	queue = data
+	
+	QueueChange.emit()
+	
+	PlayFromData(queue[currentIndex])
+
 func ProgressQueue() -> void:
 	currentIndex = wrapi(currentIndex+1,0,queue.size())
 	PlayFromData(queue[currentIndex])
@@ -113,15 +123,21 @@ func MoveItemInQueue(init : int, new : int) -> void:
 	if init == currentIndex:
 		currentIndex = new
 	
+	elif new == currentIndex:
+		currentIndex += 1
+	
 	if shuffled:
 		queue.insert(new,queue.pop_at(init))
 	else:
 		srcQueue.insert(new,srcQueue.pop_at(init))
 		queue = srcQueue
+	
+	QueueChange.emit()
 
 func ClearQueue() -> void:
 	srcQueue.clear()
 	queue.clear()
+	shuffled = false
 	self.stop()
 	
 	QueueChange.emit()

@@ -31,8 +31,8 @@ func Refresh() -> void:
 	#%Index.visible = index >= 0
 	%Index.text = str(index)
 
-func ConnectToPlayer(player : Player):
-	Pressed.connect(player.PlaySingleFromData.bind(data))
+func ConnectToPlayTrack(home : HomeMenu):
+	Pressed.connect(home.PlayTrack.bind(data))
 
 func OnHover():
 	super()

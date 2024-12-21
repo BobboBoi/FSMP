@@ -7,7 +7,7 @@ using SkiaSharp;
 [GlobalClass]
 public partial class MetaDataReader : Node
 {
-    public static MetaData GetFromAudioFile(string path)
+    public static MetaData GetFromAudioFile(string path,string altTitle = "")
     {
         try
         {
@@ -16,7 +16,7 @@ public partial class MetaDataReader : Node
 
             MetaData data = new()
             {
-                Title = raw.Tag.Title,
+                Title = raw.Tag.Title is null ? altTitle : raw.Tag.Title,
                 Album = raw.Tag.Album,
                 Index = (int)raw.Tag.Track,
                 Artists = raw.Tag.Performers.Length > 0 ? raw.Tag.Performers : new string[] {""},

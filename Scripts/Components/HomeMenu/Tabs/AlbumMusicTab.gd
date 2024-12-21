@@ -18,7 +18,7 @@ func _ready() -> void:
 	$AnimationPlayer.stop(true)
 	scrollBar.value_changed.connect(ScrollChanged)
 
-func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = null):
+func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = null) -> void:
 	#Reset songlist
 	for i in list.get_children():
 		if i is MusicSelection:
@@ -39,7 +39,7 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = nul
 	for i in files:
 		var butt := MusicSelection.Create(i,i.albumIndex)
 		list.add_child(butt)
-		butt.ConnectToPlayer(player)
+		butt.ConnectToPlayTrack(home)
 		
 		#Connect selection signals
 		butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)
@@ -51,8 +51,31 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = nul
 	
 	list.Update()
 
+func EnqueueAll() -> void:
+	if list.get_child_count() <= 0: return
+	
+	var data : Array[MusicData] = []
+	for i in list.get_children():
+		if i is MusicSelection:
+			data.append(i.data)
+	
+	var hideHome := player.queue.size() > 0
+	player.EnqueueFromDataArray(data)
+	if !hideHome: return
+	home.HideHome()
 
-func ScrollChanged(value : float):
+func PlayAll() -> void:
+	if list.get_child_count() <= 0: return
+	
+	var data : Array[MusicData] = []
+	for i in list.get_children():
+		if i is MusicSelection:
+			data.append(i.data)
+	
+	player.ReplaceQueueWithDataArray(data)
+	home.HideHome()
+
+func ScrollChanged(value : float) -> void:
 	if !visible: return
 	$AnimationPlayer.seek(clamp(value/scrollBar.page*SENSITIVITY,0.0,1.0),true,true)
 

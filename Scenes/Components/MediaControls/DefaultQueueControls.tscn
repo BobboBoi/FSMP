@@ -45,6 +45,7 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("5_3cpt4")
+texture_pressed = ExtResource("5_3cpt4")
 texture_hover = ExtResource("6_g1vc4")
 stretch_mode = 0
 script = ExtResource("6_8mo2s")
@@ -61,13 +62,13 @@ text = "Save To Playlist"
 [node name="Scroll" type="ScrollContainer" parent="QueueCont"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
 horizontal_scroll_mode = 0
 
 [node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" groups=["ControlPanel"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("2_saxjw")
 bookMarks = false
 

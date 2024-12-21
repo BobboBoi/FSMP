@@ -1,9 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://cugs6ixvklnpn"]
+[gd_scene load_steps=12 format=3 uid="uid://cugs6ixvklnpn"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_oqssu"]
 [ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="1_vr22n"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumMusicTab.gd" id="2_mrbvy"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumSongList.gd" id="2_p3o3m"]
+[ext_resource type="Texture2D" uid="uid://do6enw6csg0wt" path="res://Assets/Sprites/Icons/PlayAll.png" id="4_tybvt"]
+[ext_resource type="Texture2D" uid="uid://btwslbows1nin" path="res://Assets/Sprites/Icons/EnqueueAll.png" id="5_t4jpc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afhw7"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.117188, 0.117188, 0.117188, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3xs3"]
 
@@ -64,12 +75,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Sep1" type="HSeparator" parent="MainCont"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-theme_override_constants/separation = 9
-theme_override_styles/separator = SubResource("StyleBoxEmpty_y3xs3")
-
 [node name="AlbumInfo" type="PanelContainer" parent="MainCont"]
 custom_minimum_size = Vector2(0, 275)
 layout_mode = 2
@@ -78,11 +83,44 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="AlbumCover" parent="MainCont/AlbumInfo/Hcont" instance=ExtResource("1_vr22n")]
+[node name="Vcont" type="VBoxContainer" parent="MainCont/AlbumInfo/Hcont"]
+layout_mode = 2
+
+[node name="AlbumCover" parent="MainCont/AlbumInfo/Hcont/Vcont" instance=ExtResource("1_vr22n")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(243, 0)
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="ActionPanel" type="PanelContainer" parent="MainCont/AlbumInfo/Hcont/Vcont"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_afhw7")
+
+[node name="ActionCont" type="HBoxContainer" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel"]
+layout_mode = 2
+
+[node name="PlayAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Play all"
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_tybvt")
+stretch_mode = 0
+
+[node name="Pad" type="Control" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EnqueAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Enque all"
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_t4jpc")
+stretch_mode = 0
 
 [node name="Title" type="Label" parent="MainCont/AlbumInfo/Hcont"]
 unique_name_in_owner = true
@@ -116,3 +154,6 @@ script = ExtResource("2_p3o3m")
 libraries = {
 "": SubResource("AnimationLibrary_2myko")
 }
+
+[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont/PlayAll" to="." method="PlayAll"]
+[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont/EnqueAll" to="." method="EnqueueAll"]

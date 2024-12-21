@@ -7,6 +7,7 @@ class_name ShuffleButton
 @export var UnshuffledTexture : Texture
 
 func _ready() -> void:
+	player.QueueChange.connect(Refresh)
 	Refresh()
 
 func _pressed() -> void:

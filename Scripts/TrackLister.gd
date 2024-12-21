@@ -23,7 +23,7 @@ func MeasureReloadSpeed():
 	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
 
 ##Look for music files in saved directories
-func Reload(forceMetaUpdate = false) -> void:
+func Reload(_forceMetaUpdate = false) -> void:
 	paths = Loader.config.musicPaths
 	music = []
 	albums = []
@@ -32,7 +32,7 @@ func Reload(forceMetaUpdate = false) -> void:
 	
 	for p in paths:
 		var newThread := Thread.new()
-		newThread.start(AddMusicFromPath.bind(p,forceMetaUpdate))
+		newThread.start(AddMusicFromPath.bind(p))
 		threads.append(newThread)
 	
 	for t in threads:
@@ -71,47 +71,24 @@ func FindMusicFiles(path : String) -> Array:
 
 ##Call check music data on every file in the given directory.
 ##And return all data for the music in the directory.
-func AddMusicFromPath(p : String,forceMetaUpdate := false) -> Array[MusicData]:
+func AddMusicFromPath(p : String) -> Array[MusicData]:
 	var files := FindMusicFiles(p)
 	var newMusic : Array[MusicData] = []
 	
 	#Go over files in dir
 	for i in files:
-		var loadedMusic := CheckMusicData(p,i,forceMetaUpdate)
+		var loadedMusic := CheckMusicData(p,i)
 		newMusic.append(loadedMusic)
 	
 	return newMusic
 
-func CheckMusicData(p : String,i : String,forceMetaUpdate := false) -> MusicData:
-	var data := MetaDataReader.GetFromAudioFile(p+"/"+i)
-	
-	#Check wich name should be used for the file name
-	var path = i
-	if data != null:
-		if data.Title.is_valid_filename() and data.Title != "":
-			path = data.Title
-	
-	#Remove unsuported file name characters
-	var illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
-	for c in illegalChars:
-		path = path.replace(c,'')
-	
-	#Load the data
-	var loaded = Loader._load("user://Songs/"+path)
-	
-	#Create new data if there isn't any
-	if loaded == null or forceMetaUpdate:
-		var save : MusicData = null
-		
-		if data != null:
-			save = MusicData.Create(path,p+"/"+i,data.Artists[0],data.Album,data.Index)
-		else:
-			save = MusicData.Create(i,p+"/"+i)
-		
-		Loader._save("user://Songs/"+save.name,save)
-		loaded = save
-	
-	return loaded
+func CheckMusicData(p : String,i : String) -> MusicData:
+	var meta := MetaDataReader.GetFromAudioFile(p+"/"+i,i)
+	if meta == null:
+		return MusicData.Create(i,p+"/"+i,"","")
+	if !(meta.Title == "" and meta.Album == ""):
+		return MusicData.CreateFromMetaData(p+"/"+i,meta)
+	return MusicData.Create(i,p+"/"+i,"","")
 
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:

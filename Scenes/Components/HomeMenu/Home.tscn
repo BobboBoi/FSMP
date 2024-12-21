@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene load_steps=21 format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Home.gd" id="1_uex14"]
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="2_muooh"]
-[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="3_sxx7c"]
+[ext_resource type="PackedScene" uid="uid://gsmdmm4cie0" path="res://Scenes/Components/HomeMenu/Tabs/MusicTab.tscn" id="3_uvy2d"]
 [ext_resource type="PackedScene" uid="uid://cugs6ixvklnpn" path="res://Scenes/Components/HomeMenu/Tabs/AlbumMusicTab.tscn" id="5_dx7ea"]
 [ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/Tabs/AlbumTab.tscn" id="5_p0xqo"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/HomeMenu/Settings.tscn" id="6_xd810"]
@@ -136,40 +135,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_roh73")
 current_tab = 0
 tabs_visible = false
 
-[node name="MusicTab" type="Control" parent="MainCont/TabCont"]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="MainCont" type="VBoxContainer" parent="MainCont/TabCont/MusicTab"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SearchBar" type="TextEdit" parent="MainCont/TabCont/MusicTab/MainCont" node_paths=PackedStringArray("target")]
-z_index = 1
-custom_minimum_size = Vector2(0, 53)
-layout_mode = 2
-placeholder_text = "Search for your garbage here :)
-"
-script = ExtResource("3_sxx7c")
-target = NodePath("../Scroll/MusicList")
-
-[node name="Scroll" type="ScrollContainer" parent="MainCont/TabCont/MusicTab/MainCont"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="MusicList" type="VBoxContainer" parent="MainCont/TabCont/MusicTab/MainCont/Scroll"]
+[node name="MusicTab" parent="MainCont/TabCont" instance=ExtResource("3_uvy2d")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 0
-script = ExtResource("2_muooh")
 
 [node name="AlbumTab" parent="MainCont/TabCont" instance=ExtResource("5_p0xqo")]
 unique_name_in_owner = true

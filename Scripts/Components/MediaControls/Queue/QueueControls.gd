@@ -20,10 +20,6 @@ func _ready() -> void:
 	hide()
 
 func Refresh():
-	if ignoreNextUpdate: 
-		ignoreNextUpdate = false
-		return
-	
 	for i in list.get_children(): i.queue_free()
 	
 	for i in player.queue.size():
@@ -49,7 +45,6 @@ func Speen(new : QueueSelection):
 	new.get_node("%SpinParent").add_child(currentSpeen)
 
 func OnQueueItemMoved(originalIndex: int, newIndex: int) -> void:
-	ignoreNextUpdate = true
 	player.MoveItemInQueue(originalIndex,newIndex)
 
 func OnItemMoved(item: Control, newIndex: int) -> void:

@@ -15,8 +15,6 @@ func _ready() -> void:
 
 func _save(path,nodeToSave):
 	var dir = DirAccess.open("C:/")
-	if not dir.dir_exists("user://Songs"):
-		DirAccess.make_dir_recursive_absolute("user://Songs")
 	if not dir.dir_exists("user://Albums"):
 		DirAccess.make_dir_recursive_absolute("user://Albums")
 	

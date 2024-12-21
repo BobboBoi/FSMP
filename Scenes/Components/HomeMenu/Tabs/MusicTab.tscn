@@ -1,19 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8u27hukg18cw"]
+[gd_scene load_steps=4 format=3 uid="uid://gsmdmm4cie0"]
 
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumTab.gd" id="1_depv2"]
-[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="2_pbqr3"]
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="3_c1di3"]
+[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="1_2b4sg"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/MusicTab.gd" id="1_bpk4h"]
+[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="2_u13nc"]
 
-[node name="AlbumTab" type="Control"]
+[node name="MusicTab" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_depv2")
-metadata/_tab_index = 1
+script = ExtResource("1_bpk4h")
+metadata/_tab_index = 0
 
 [node name="MainCont" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -24,13 +23,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SearchBar" type="TextEdit" parent="MainCont" node_paths=PackedStringArray("target")]
-process_priority = 1
+z_index = 1
 custom_minimum_size = Vector2(0, 53)
 layout_mode = 2
 placeholder_text = "Search for your garbage here :)
 "
-script = ExtResource("2_pbqr3")
-target = NodePath("../Scroll/AlbumList")
+script = ExtResource("1_2b4sg")
+target = NodePath("../Scroll/MusicList")
 
 [node name="Scroll" type="ScrollContainer" parent="MainCont"]
 layout_mode = 2
@@ -38,12 +37,10 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="AlbumList" type="VBoxContainer" parent="MainCont/Scroll"]
+[node name="MusicList" type="VBoxContainer" parent="MainCont/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 2
 theme_override_constants/separation = 0
-script = ExtResource("3_c1di3")
-bookMarks = false
+script = ExtResource("2_u13nc")

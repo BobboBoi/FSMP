@@ -11,6 +11,7 @@ func OnPressed() -> void:
 	
 	player.EnqueueFromDataArray(data)
 	home.ClearSelection()
+	home.HideHome()
 
 func CheckSelection() -> void:
 	if home.selected.size() <= 0: 

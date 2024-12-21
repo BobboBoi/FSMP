@@ -14,7 +14,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	var meta := MetaDataReader.GetFromAudioFile(arguments[0])
+	var meta := MetaDataReader.GetFromAudioFile(arguments[0],"")
 	var title := ""
 	
 	if meta != null:
