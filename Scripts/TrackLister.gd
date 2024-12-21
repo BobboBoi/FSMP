@@ -23,7 +23,7 @@ func MeasureReloadSpeed():
 	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
 
 ##Look for music files in saved directories
-func Reload(_forceMetaUpdate = false) -> void:
+func Reload() -> void:
 	paths = Loader.config.musicPaths
 	music = []
 	albums = []

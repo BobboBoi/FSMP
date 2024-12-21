@@ -6,7 +6,7 @@ extends Tab
 const THREAD_SLICE := 100
 
 func _ready():
-	lister.ListChanged.connect(Reload,CONNECT_DEFERRED)
+	lister.ListChanged.connect(Reload)
 	Reload()
 
 func Reload():
@@ -22,7 +22,7 @@ func Reload():
 	for t in threads:
 		t.wait_to_finish()
 	
-	list.call_deferred("Update")
+	list.call_deferred_thread_group("Update")
 
 ##Add home buttons for music in the given array
 func AddMusicButtons(arr : Array[MusicData]) -> void:

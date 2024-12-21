@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc62yq0jdob04"]
+
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_4jai0"]
+[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Settings/DirectoryItem.gd" id="1_eqdcy"]
+
+[node name="DirectoryItem" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme = ExtResource("1_4jai0")
+theme_type_variation = &"ListItem1"
+script = ExtResource("1_eqdcy")
+
+[node name="Hbox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Hbox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Remove"
+
+[node name="Label" type="Label" parent="Hbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "D:/thingy/thingy/thingy/thingy/thingy/thingbutWAAAAAAYYYYYYLONGER/thingy/thingy"
+autowrap_mode = 1

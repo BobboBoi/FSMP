@@ -1,0 +1,158 @@
+[gd_scene load_steps=7 format=3 uid="uid://yh17p5vo1ynv"]
+
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_8w6qu"]
+[ext_resource type="Script" path="res://Scripts/Components/Settings.gd" id="2_sjl3n"]
+[ext_resource type="PackedScene" uid="uid://dac3riqucf4tm" path="res://Scenes/Components/HomeMenu/Settings/About.tscn" id="3_kn6m5"]
+[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="4_17h2w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eh40"]
+bg_color = Color(0.140625, 0.140625, 0.140625, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1ale"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8w6qu")
+script = ExtResource("2_sjl3n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.303)
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+disable_3d = true
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(960, 540)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="Layer" type="CanvasLayer" parent="."]
+
+[node name="About" parent="Layer" instance=ExtResource("3_kn6m5")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Control" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.212674
+anchor_top = 0.152006
+anchor_right = 0.787326
+anchor_bottom = 0.847994
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Hbox" type="HBoxContainer" parent="Control"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="Control/Hbox"]
+custom_minimum_size = Vector2(313, 419)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
+metadata/_edit_use_anchors_ = true
+
+[node name="VCont" type="VBoxContainer" parent="Control/Hbox/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Pad" type="HSeparator" parent="Control/Hbox/Panel/VCont"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
+
+[node name="Label" type="Label" parent="Control/Hbox/Panel/VCont"]
+layout_mode = 2
+text = "Settings
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicFolder" type="Button" parent="Control/Hbox/Panel/VCont"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Add music folder"
+
+[node name="Refresh" type="Button" parent="Control/Hbox/Panel/VCont"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Refresh"
+
+[node name="About" type="Button" parent="Control/Hbox/Panel/VCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "About"
+
+[node name="Close" type="Button" parent="Control/Hbox/Panel/VCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Close
+"
+
+[node name="DirectoryList" type="PanelContainer" parent="Control/Hbox"]
+custom_minimum_size = Vector2(313, 419)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
+metadata/_edit_use_anchors_ = true
+
+[node name="Scroll" type="ScrollContainer" parent="Control/Hbox/DirectoryList"]
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="Control/Hbox/DirectoryList/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_17h2w")
+bookMarks = false
+sort = false
+
+[node name="Pad" type="HSeparator" parent="Control/Hbox/DirectoryList/Scroll/List"]
+layout_mode = 2
+theme_override_constants/separation = 22
+theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
+
+[node name="Label" type="Label" parent="Control/Hbox/DirectoryList/Scroll/List"]
+layout_mode = 2
+text = "Directories
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="visibility_changed" from="." to="." method="VisUpdate"]
+[connection signal="gui_input" from="ColorRect" to="." method="OnColorRectInput"]
+[connection signal="canceled" from="FileDialog" to="." method="OnCancel"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/MusicFolder" to="." method="MusicFolderPressed"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/Refresh" to="." method="RefreshLister"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/About" to="Layer/About" method="show"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/Close" to="." method="hide"]
