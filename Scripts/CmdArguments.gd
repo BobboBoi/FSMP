@@ -1,6 +1,5 @@
 extends Node
 
-@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
@@ -24,7 +23,7 @@ func _ready() -> void:
 	var fileName := arguments[index].get_slice("\\",arguments[index].count("\\"))
 	var dir := arguments[index].erase(arguments[index].find(fileName),fileName.length())
 	
-	player.PlaySingleFromData(lister.CheckMusicData(dir,fileName))
+	player.PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName))
 	
 	if home != null:
 		home.HideHome()

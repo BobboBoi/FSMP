@@ -12,11 +12,11 @@ func _init(newData : MusicData) -> void:
 	size_flags_horizontal = SizeFlags.SIZE_EXPAND_FILL
 	mouse_default_cursor_shape = CURSOR_POINTING_HAND
 	
-	path = newData.name
+	path = newData.path
 	if newData.name != "":
 		text = newData.name
 	else:
 		text = newData.path
 
 func ConnectToPlayer(player : Player):
-	connect("pressed",player.PlaySingleFromPath.bind("user://Songs/"+path))   
+	connect("pressed",player.PlaySingleFromPath.bind(path))   

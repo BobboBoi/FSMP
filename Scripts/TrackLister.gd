@@ -82,7 +82,7 @@ func AddMusicFromPath(p : String) -> Array[MusicData]:
 	
 	return newMusic
 
-func CheckMusicData(p : String,i : String) -> MusicData:
+static func CheckMusicData(p : String,i : String) -> MusicData:
 	var meta := MetaDataReader.GetFromAudioFile(p+"/"+i,i)
 	if meta == null:
 		return MusicData.Create(i,p+"/"+i,"","")

@@ -37,16 +37,16 @@ func _unhandled_input(event: InputEvent) -> void:
 ##Similair to [member PlayFromPath] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
 func PlaySingleFromPath(path : String,emitSignal := true):
-	var loaded = Loader._load(path)
-	if loaded == null or loaded is not MusicData: return
-	PlaySingleFromData(loaded,emitSignal)
+	var fileName := path.get_slice("\\",path.count("\\"))
+	var dir := path.erase(path.find(fileName),fileName.length())
+	PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName),emitSignal)
 
 ##Plays a new track with the give [param path].
 ##[b]Note[/b] the path used is the path to the local userdata and not the music file.
 func PlayFromPath(path : String,emitSignal := true):
-	var loaded = Loader._load(path)
-	if loaded == null or loaded is not MusicData: return
-	PlayFromData(loaded,emitSignal)
+	var fileName := path.get_slice("\\",path.count("\\"))
+	var dir := path.erase(path.find(fileName),fileName.length())
+	PlayFromData(TrackLister.CheckMusicData(dir,fileName),emitSignal)
 
 ##Similair to [member PlayFromData] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
