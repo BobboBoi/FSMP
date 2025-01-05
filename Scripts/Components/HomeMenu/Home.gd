@@ -42,7 +42,7 @@ func HideHome() -> void:
 
 #Player actions
 func PlayTrack(data : MusicData) -> void:
-	player.PlayFromData(data)
+	player.PlaySingleFromData(data)
 	HideHome()
 
 #Music selection
