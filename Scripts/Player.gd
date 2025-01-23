@@ -71,6 +71,7 @@ func PlayNewTrack(music : String,trackName : String = "",album : String = "",art
 		return
 	
 	print(music)
+	currentPath = music
 	var file = FileAccess.open(music, FileAccess.READ)
 	var bytes = file.get_buffer(file.get_length())
 	
