@@ -1,6 +1,7 @@
 extends Control
 class_name BeatReader
 
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var analyzer : AudioEffectSpectrumAnalyzerInstance
 @onready var window : Window = get_window()
 
@@ -19,10 +20,14 @@ const LERP : float = 0.4
 var lastBeat := 0.0
 var beat := false
 
+var processing := true
+
 signal Beat(energy : float)
 signal Update(mod : float)
 
 func _ready():
+	if !player.Paused.is_connected(Paused): player.Paused.connect(Paused)
+	if !player.Resumed.is_connected(Resumed): player.Resumed.connect(Resumed)
 	analyzer = AudioServer.get_bus_effect_instance(1,0)
 
 func _process(_delta):
@@ -70,3 +75,11 @@ func _draw():
 	
 	lastBeat = final
 	Update.emit(final/(height))
+
+func Paused() -> void:
+	processing = !player.stream_paused
+	set_process(false)
+
+func Resumed() -> void:
+	processing = !player.stream_paused
+	set_process(true)

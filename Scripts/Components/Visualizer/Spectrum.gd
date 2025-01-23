@@ -1,5 +1,6 @@
 extends Control
 
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var analyzer : AudioEffectSpectrumAnalyzerInstance
 @onready var window : Window = get_window()
 @onready var lineObject := %Line
@@ -19,9 +20,13 @@ const LERP : float = 0.4
 
 var lastPos : Array
 var prevHz := 0.0
+var processing := true
 
 func _ready():
 	if !resized.is_connected(SizeUpdate): resized.connect(SizeUpdate)
+	if !player.Paused.is_connected(Paused): player.Paused.connect(Paused)
+	if !player.Resumed.is_connected(Resumed): player.Resumed.connect(Resumed)
+	
 	analyzer = AudioServer.get_bus_effect_instance(1,0)
 	flexOrigin = lineYOrigin
 	
@@ -32,6 +37,7 @@ func _process(_delta):
 	queue_redraw()
 
 func _draw():
+	if !processing: return
 	var division = size.x/(samples-1)
 	prevHz = 0.0
 	#var division = (width*1.015)/samples 
@@ -69,3 +75,16 @@ func SetLine(value : bool) -> void:
 
 func SizeUpdate() -> void:
 	flexOrigin = lineYOrigin * (size.y/1080)
+
+func Paused() -> void:
+	processing = false
+	set_process(false)
+	
+	var division = size.x/(samples-1)
+	lineObject.clear_points()
+	for i in range(0,samples):
+		lineObject.add_point(Vector2(division*i -6,0))
+
+func Resumed() -> void:
+	processing = true
+	set_process(true)

@@ -9,6 +9,7 @@ var srcQueue : Array[MusicData] = []
 var queue : Array[MusicData] = []
 var shuffled := false
 var currentIndex := 0
+var currentPath := ""
 
 var loopMode : LOOPMODE = LOOPMODE.LOOP_QUEUE
 enum LOOPMODE {
@@ -18,20 +19,20 @@ enum LOOPMODE {
 }
 
 signal NewTrack(stream : AudioStream)
+signal Paused()
+signal Resumed()
 signal QueueChange()
 signal QueueProgressed(newIndex : int)
 
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
 
-func _physics_process(_delta: float) -> void:
-	if window.mode != window.Mode.MODE_MINIMIZED: return
-	if Input.is_action_just_pressed("Pause"):
-		self.stream_paused = !self.stream_paused
-
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion: return
 	if event.is_action_pressed("Pause"):
 		self.stream_paused = !self.stream_paused
+		if self.stream_paused: Paused.emit()
+		else: Resumed.emit()
 
 #region Playing
 ##Similair to [member PlayFromPath] but resets the queue.[br]
@@ -52,7 +53,7 @@ func PlayFromPath(path : String,emitSignal := true):
 ##This is used when a single song is selected to be played.
 func PlaySingleFromData(data : MusicData,emitSignal := true):
 	srcQueue = [data]
-	queue = srcQueue
+	queue = srcQueue.duplicate()
 	currentIndex = 0
 	QueueChange.emit()
 	
@@ -65,6 +66,9 @@ func PlayFromData(data : MusicData,emitSignal := true):
 func PlayNewTrack(music : String,trackName : String = "",album : String = "",artist : String = "", emitSignal := true):
 	self.stop()
 	if music == "": return
+	if music == currentPath:
+		self.play()
+		return
 	
 	print(music)
 	var file = FileAccess.open(music, FileAccess.READ)
@@ -102,7 +106,7 @@ func ReplaceQueueWithDataArray(data : Array[MusicData]) -> void:
 	currentIndex = 0
 	shuffled = false
 	srcQueue = data
-	queue = data
+	queue = srcQueue.duplicate()
 	
 	QueueChange.emit()
 	
