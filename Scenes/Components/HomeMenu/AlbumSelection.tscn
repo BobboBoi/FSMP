@@ -14,6 +14,7 @@ anchor_bottom = 0.137963
 offset_right = -0.000244141
 offset_bottom = -21.0
 grow_horizontal = 2
+focus_mode = 2
 mouse_filter = 1
 theme = ExtResource("1_hg365")
 theme_type_variation = &"ListItem1"
@@ -46,6 +47,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(12, 12)
+focus_mode = 0
 mouse_default_cursor_shape = 2
 
 [node name="AlbumCover" parent="MainCont" instance=ExtResource("3_kpjif")]
