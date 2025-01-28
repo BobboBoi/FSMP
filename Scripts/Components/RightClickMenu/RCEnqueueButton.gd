@@ -1,13 +1,14 @@
 extends Button
-class_name EnqueueButton
-##Enqueues the current selection of the home menu
+##This is just an [EnqueueButton] but we can't extend two classes so fuck
+##
+##>:(
 
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _ready() -> void:
-	if !pressed.is_connected(OnPressed): pressed.connect(OnPressed)
-	if !home.SelectionUpdated.is_connected(CheckSelection): home.SelectionUpdated.connect(CheckSelection)
+	if pressed.is_connected(OnPressed): pressed.connect(OnPressed)
+	if home.SelectionUpdated.is_connected(CheckSelection): home.SelectionUpdated.connect(CheckSelection)
 
 func OnPressed() -> void:
 	var data : Array[MusicData] = []
@@ -15,10 +16,8 @@ func OnPressed() -> void:
 		if d is MusicSelection:
 			data.append(d.data)
 	
-	var hideHome := player.queue.size() <= 0
 	player.EnqueueFromDataArray(data)
 	home.ClearSelection()
-	if !hideHome: return
 	home.HideHome()
 
 func CheckSelection() -> void:

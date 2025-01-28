@@ -1,6 +1,6 @@
 extends Button
-class_name EnqueueButton
-##Enqueues the current selection of the home menu
+class_name EnqueueNextButton
+##Enqueues the current selection of the home menu and puts it behind the currently playing track
 
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
@@ -16,7 +16,7 @@ func OnPressed() -> void:
 			data.append(d.data)
 	
 	var hideHome := player.queue.size() <= 0
-	player.EnqueueFromDataArray(data)
+	player.EnqueueNextFromDataArray(data)
 	home.ClearSelection()
 	if !hideHome: return
 	home.HideHome()

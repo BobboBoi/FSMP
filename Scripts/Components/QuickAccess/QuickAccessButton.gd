@@ -19,5 +19,11 @@ func _init(newData : MusicData) -> void:
 	else:
 		text = newData.path
 
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("RightClick"):
+		var rcm := get_tree().get_first_node_in_group("RightClickMenu")
+		if rcm == null: return
+		rcm.Open(self)
+
 func ConnectToPlayer(player : Player):
 	connect("pressed",player.PlaySingleFromPath.bind(path))   

@@ -63,7 +63,7 @@ func FindMusicFiles(path : String) -> Array:
 		var file = dir.get_next()
 		if file == "":
 			break
-		elif MusicFile(file) and not file.begins_with("."):
+		elif IsMusicFile(file) and not file.begins_with("."):
 			files.append(file)
 	
 	dir.list_dir_end()
@@ -81,14 +81,6 @@ func AddMusicFromPath(p : String) -> Array[MusicData]:
 		newMusic.append(loadedMusic)
 	
 	return newMusic
-
-static func CheckMusicData(p : String,i : String) -> MusicData:
-	var meta := MetaDataReader.GetFromAudioFile(p+"/"+i,i)
-	if meta == null:
-		return MusicData.Create(i,p+"/"+i,"","")
-	if !(meta.Title == "" and meta.Album == ""):
-		return MusicData.CreateFromMetaData(p+"/"+i,meta)
-	return MusicData.Create(i,p+"/"+i,"","")
 
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
@@ -130,8 +122,27 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 	
 	return null;
 
-static func MusicFile(file) -> bool:
+func GetAlbumData(album : String) -> AlbumData:
+	var a := albums.filter(func (d : AlbumData): return d.name == album)
+	if a.size() <= 0: return null
+	return a.front()
+
+static func CheckMusicDataFromPath(p : String) -> MusicData:
+	var fileName := p.get_slice("\\",p.count("\\"))
+	fileName = fileName.get_slice("/",p.count("/"))
+	var dir := p.erase(p.find(fileName),fileName.length())
+	return CheckMusicData(dir,fileName)
+
+static func CheckMusicData(p : String,i : String) -> MusicData:
+	var meta := MetaDataReader.GetFromAudioFile(p+"/"+i,i)
+	if meta == null:
+		return MusicData.Create(i,p+"/"+i,"","")
+	if !(meta.Title == "" and meta.Album == ""):
+		return MusicData.CreateFromMetaData(p+"/"+i,meta)
+	return MusicData.Create(i,p+"/"+i,"","")
+
+static func IsMusicFile(file) -> bool:
 	return file.ends_with(".wav") or file.ends_with(".mp3") or file.ends_with(".ogg")
 
-static func ImageFile(file : String) -> bool:
+static func IsImageFile(file : String) -> bool:
 	return file.ends_with(".png") or file.ends_with(".jpg")

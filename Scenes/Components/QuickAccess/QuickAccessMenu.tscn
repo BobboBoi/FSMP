@@ -43,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 
-[node name="Searchbar" type="TextEdit" parent="Root/Vcont" node_paths=PackedStringArray("target")]
+[node name="Searchbar" type="LineEdit" parent="Root/Vcont" node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -79,5 +79,5 @@ mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_6vhid")
 text = ">"
 
-[connection signal="resized" from="." to="." method="SizeUpdate"]
+[connection signal="ListChanged" from="Root/Vcont/Scroll/List" to="." method="ListChanged"]
 [connection signal="pressed" from="Root/ListButton" to="." method="OnListButtonPressed"]

@@ -28,9 +28,10 @@ func _init() -> void:
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
 
 func _ready() -> void:
-	gui_input.connect(GuiInput)
 	mouse_entered.connect(OnHover)
+	focus_entered.connect(OnHover)
 	mouse_exited.connect(OnUnhover)
+	focus_exited.connect(OnUnhover)
 	set_process(false)
 
 func _process(_delta: float) -> void:
@@ -40,6 +41,31 @@ func _process(_delta: float) -> void:
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		held = false
 		set_process(false)
+
+func _gui_input(event: InputEvent) -> void:
+	if !hovered: return
+	
+	if event.is_action("LeftClick"):
+		if get_parent() is CustomizableList:
+			if event.is_pressed():
+				cancelHold = false
+				get_tree().create_timer(0.15).timeout.connect(CheckHold)
+			elif event.is_released():
+				cancelHold = true
+				if held:
+					held = false
+				else:
+					Clicked()
+		elif event.is_released():
+			Clicked()
+	
+	elif event.is_action_pressed("ui_accept"):
+			Clicked()
+	
+	elif event.is_action_pressed("RightClick"):
+		var rcm := get_tree().get_first_node_in_group("RightClickMenu")
+		if rcm == null: return
+		rcm.Open(self)
 
 func Select(value : bool) -> void:
 	if selected == value: return
@@ -68,24 +94,6 @@ func OnHover():
 func OnUnhover():
 	hovered = false
 	RefreshTheme()
-
-func GuiInput(event: InputEvent) -> void:
-	if event is not InputEventMouseButton: return
-	if event.button_index != MOUSE_BUTTON_LEFT: return
-	if !hovered: return
-	
-	if get_parent() is CustomizableList:
-		if event.is_pressed():
-			cancelHold = false
-			get_tree().create_timer(0.15).timeout.connect(CheckHold)
-		elif event.is_released():
-			cancelHold = true
-			if held:
-				held = false
-			else:
-				Clicked()
-	elif event.is_released():
-		Clicked()
 
 func CheckHold():
 	if cancelHold: return

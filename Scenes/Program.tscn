@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c58qfhqjvph0j"]
+[gd_scene load_steps=13 format=3 uid="uid://c58qfhqjvph0j"]
 
 [ext_resource type="Script" path="res://Scripts/TrackLister.gd" id="1_wolvn"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_kk4ka"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
 [ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="8_8y2ii"]
 [ext_resource type="Script" path="res://Scripts/CmdArguments.gd" id="9_fr5kq"]
+[ext_resource type="PackedScene" uid="uid://f7dm2bawj3y0" path="res://Scenes/Components/RightClickMenu.tscn" id="10_u6kvq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4fvh"]
 
@@ -123,6 +124,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 alignment = 2
+
+[node name="RightClick" parent="." instance=ExtResource("10_u6kvq")]
+layout_mode = 0
 
 [node name="CmdArguments" type="Node" parent="."]
 script = ExtResource("9_fr5kq")

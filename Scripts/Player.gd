@@ -38,16 +38,12 @@ func _input(event: InputEvent) -> void:
 ##Similair to [member PlayFromPath] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
 func PlaySingleFromPath(path : String,emitSignal := true):
-	var fileName := path.get_slice("\\",path.count("\\"))
-	var dir := path.erase(path.find(fileName),fileName.length())
-	PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName),emitSignal)
+	PlaySingleFromData(TrackLister.CheckMusicDataFromPath(path),emitSignal)
 
 ##Plays a new track with the give [param path].
 ##[b]Note[/b] the path used is the path to the local userdata and not the music file.
 func PlayFromPath(path : String,emitSignal := true):
-	var fileName := path.get_slice("\\",path.count("\\"))
-	var dir := path.erase(path.find(fileName),fileName.length())
-	PlayFromData(TrackLister.CheckMusicData(dir,fileName),emitSignal)
+	PlayFromData(TrackLister.CheckMusicDataFromPath(path),emitSignal)
 
 ##Similair to [member PlayFromData] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
@@ -102,6 +98,33 @@ func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 	QueueChange.emit()
 	
 	if startPlaying: PlayFromData(queue[currentIndex])
+
+func EnqueueFromPathArray(paths : Array[String]):
+	var data : Array[MusicData] = []
+	for p in paths:
+		data.append(TrackLister.CheckMusicDataFromPath(p))
+	EnqueueFromDataArray(data)
+
+func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
+	var startPlaying := queue.size() <= 0
+	if shuffled:
+		for i in range(data.size()):
+			queue.insert(currentIndex+i+1,data[i])
+		srcQueue.append_array(data)
+	else:
+		for i in range(data.size()):
+			srcQueue.insert(currentIndex+i+1,data[i])
+		queue = srcQueue.duplicate()
+	
+	QueueChange.emit()
+	
+	if startPlaying: PlayFromData(queue[currentIndex])
+
+func EnqueueNextFromPathArray(paths : Array[String]):
+	var data : Array[MusicData] = []
+	for p in paths:
+		data.append(TrackLister.CheckMusicDataFromPath(p))
+	EnqueueNextFromDataArray(data)
 
 func ReplaceQueueWithDataArray(data : Array[MusicData]) -> void:
 	currentIndex = 0

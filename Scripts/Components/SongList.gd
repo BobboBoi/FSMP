@@ -4,6 +4,8 @@ class_name SongList
 @export var bookMarks := true
 @export var sort := true
 
+signal ListChanged()
+
 func Update():
 	#Remove bookmarks
 	for i in get_children():
@@ -14,16 +16,17 @@ func Update():
 	if sort:
 		SortList()
 	
-	var numb = 0
 	#Add final details
+	var numb = 0
 	for i in get_children():
 		if bookMarks: numb = CheckBookmark(i,numb)
 		
 		#Add color patern
 		if i is HomeMenuItem:
 			i.SetVariation(1+int(numb % 2 == 0))
-		
 		numb += 1
+	
+	ListChanged.emit()
 
 func VariationUpdate(ignoreInvisible := true):
 	var numb = 0
@@ -31,6 +34,7 @@ func VariationUpdate(ignoreInvisible := true):
 		if i is HomeMenuItem and (i.visible or !ignoreInvisible):
 			i.SetVariation(1+int(numb % 2 == 0))
 			numb += 1
+	ListChanged.emit()
 
 func SortList() -> void:
 	var items := get_children()
@@ -83,6 +87,13 @@ func NewBookmark(letter : String) -> Label:
 	newMark.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	
 	return newMark
+
+func GetVisibleChildren() -> Array:
+	var arr := []
+	for i in get_children():
+		if i.visible and !i.has_meta("BookMark"):
+			arr.append(i)
+	return arr
 
 func IsNumber(par : String) -> bool:
 	return par.substr(0,1).is_valid_int()

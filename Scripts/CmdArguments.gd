@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	var index := -1
 	for i in arguments.size():
-		if FileAccess.file_exists(arguments[i]) and TrackLister.MusicFile(arguments[i]):
+		if FileAccess.file_exists(arguments[i]) and TrackLister.IsMusicFile(arguments[i]):
 			index = i
 			break
 		print("Unsupported cmd argument: \"",arguments[0],"\" supported file formats are MP3,WAV,OGG")

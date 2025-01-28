@@ -5,7 +5,7 @@ class_name QuickAccessMenu
 @onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var listButton := %ListButton
 @onready var searchbar := %Searchbar
-@onready var list := %List
+@onready var list : SongList = %List
 @onready var root := %Root
 
 var status := STATES.CLOSED
@@ -17,6 +17,18 @@ enum STATES {
 func _ready() -> void:
 	Reload()
 	lister.ListChanged.connect(Reload)
+
+#func _input(event: InputEvent) -> void:
+	#if !event.is_action_pressed("ui_down"): return
+	#
+	#var focusOwner = get_viewport().gui_get_focus_owner()
+	#if !(focusOwner == searchbar): return
+	#
+	#var butts := list.GetVisibleChildren()
+	#if butts.size() <= 0: return
+	#
+	#butts[0].grab_focus()
+	#get_viewport().set_input_as_handled()
 
 func Reload() -> void:
 	for i in list.get_children(): i.free()
@@ -40,6 +52,14 @@ func AddButtonsToMenu(arr : Array[MusicData]) -> void:
 		butt.ConnectToPlayer(player)
 		list.call_deferred_thread_group("add_child",butt)
 
+func HideList() -> void:
+	status = STATES.CLOSED
+	%Vcont.hide()
+
+func ShowList() -> void:
+	status = STATES.OPEN
+	%Vcont.show()
+
 func OnListButtonPressed() -> void:
 	if !visible: return
 	
@@ -54,14 +74,6 @@ func OnListButtonPressed() -> void:
 		tween.tween_property(root,"position",Vector2(0.0,0.0),0.4)
 		ShowList()
 		listButton.text = "<"
-
-func HideList():
-	status = STATES.CLOSED
-	%Vcont.hide()
-
-func ShowList():
-	status = STATES.OPEN
-	%Vcont.show()
 
 func SizeUpdate() -> void:
 	if root == null: return

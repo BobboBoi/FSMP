@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://f7dm2bawj3y0"]
+
+[ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_7io7r"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RightClickMenu.gd" id="2_76rx4"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCEnqueue.gd" id="3_y7nv1"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCEnqueueNext.gd" id="4_8v41r"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueSingle.gd" id="4_fm61j"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueNextSingle.gd" id="5_ht8hk"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/OpenAlbum.gd" id="7_ym6ns"]
+
+[node name="RCMenu" type="PanelContainer" groups=["RightClickMenu"]]
+z_index = 20
+custom_minimum_size = Vector2(100, 0)
+offset_right = 100.0
+offset_bottom = 18.0
+focus_mode = 2
+script = ExtResource("2_76rx4")
+
+[node name="Cont" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_7io7r")
+theme_override_constants/separation = 3
+
+[node name="Enqueue" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Enqueue
+"
+alignment = 0
+script = ExtResource("3_y7nv1")
+
+[node name="EnqueueSingle" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Enqueue
+"
+alignment = 0
+script = ExtResource("4_fm61j")
+
+[node name="EnqueueNext" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Enqueue Next"
+alignment = 0
+script = ExtResource("4_8v41r")
+
+[node name="EnqueueNextSingle" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Enqueue Next
+"
+alignment = 0
+script = ExtResource("5_ht8hk")
+
+[node name="OpenAlbum" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Open Album
+"
+alignment = 0
+script = ExtResource("7_ym6ns")
+
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

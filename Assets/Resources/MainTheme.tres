@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d27558cdkugpr"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://d27558cdkugpr"]
 
 [ext_resource type="StyleBox" uid="uid://yeaxdaapw84d" path="res://Assets/Resources/StyleBoxxes/CoverBorder.tres" id="1_5wgfc"]
 [ext_resource type="StyleBox" uid="uid://cwq7cvqyt1w5c" path="res://Assets/Resources/StyleBoxxes/ButtonHover.tres" id="1_i6cwk"]
@@ -12,6 +12,8 @@
 [ext_resource type="StyleBox" uid="uid://ppopdgw0xjhk" path="res://Assets/Resources/StyleBoxxes/ProgressBar/BaseProgressBarFill.tres" id="10_cynk7"]
 [ext_resource type="StyleBox" uid="uid://db1mym2jkuh3h" path="res://Assets/Resources/StyleBoxxes/QueueBG.tres" id="11_ca37p"]
 [ext_resource type="StyleBox" uid="uid://dh43h5ee24tn" path="res://Assets/Resources/StyleBoxxes/ToolTip.tres" id="12_0her2"]
+[ext_resource type="StyleBox" uid="uid://cms7pslkmkvv0" path="res://Assets/Resources/StyleBoxxes/RCBoxHover.tres" id="12_0qyre"]
+[ext_resource type="StyleBox" uid="uid://dsvylrsh7c4iq" path="res://Assets/Resources/StyleBoxxes/RCBox.tres" id="13_mjqwo"]
 
 [resource]
 Button/styles/hover = ExtResource("1_i6cwk")
@@ -33,4 +35,8 @@ ProgressBar/styles/background = ExtResource("9_ckflk")
 ProgressBar/styles/fill = ExtResource("10_cynk7")
 QueueBG/base_type = &"Panel"
 QueueBG/styles/panel = ExtResource("11_ca37p")
+RCMenuButton/base_type = &"Button"
+RCMenuButton/font_sizes/font_size = 13
+RCMenuButton/styles/hover = ExtResource("12_0qyre")
+RCMenuButton/styles/normal = ExtResource("13_mjqwo")
 TooltipPanel/styles/panel = ExtResource("12_0her2")
