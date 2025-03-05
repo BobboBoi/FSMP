@@ -18,6 +18,10 @@ func _ready() -> void:
 	$AnimationPlayer.stop(true)
 	scrollBar.value_changed.connect(ScrollChanged)
 
+func _OnTabClosed() -> void:
+	if list == null: return
+	for i in list.get_children(): i.queue_free()
+
 func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = null) -> void:
 	#Reset songlist
 	for i in list.get_children():
@@ -78,7 +82,3 @@ func PlayAll() -> void:
 func ScrollChanged(value : float) -> void:
 	if !visible: return
 	$AnimationPlayer.seek(clamp(value/scrollBar.page*SENSITIVITY,0.0,1.0),true,true)
-
-func OnTabClosed() -> void:
-	if list == null: return
-	for i in list.get_children(): i.queue_free()

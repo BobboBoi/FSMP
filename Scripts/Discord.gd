@@ -12,7 +12,7 @@ func refresh(track = null,album = null,artist = null):
 		discord_sdk.state = artist
 		if artist != "" and artist != null and album != "" and album != null:
 			discord_sdk.state += " - "
-		else:
+		elif (artist == null or artist == "") and (album == null or album == ""):
 			discord_sdk.state += "I wonder what FSMP stands for...."
 		discord_sdk.state += album
 		discord_sdk.start_timestamp = int(Time.get_unix_time_from_system())

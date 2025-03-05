@@ -1,6 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://dsq4lil7y26xw"]
 
 [ext_resource type="Texture2D" uid="uid://bwg11s3wfgppi" path="res://Assets/Sprites/Icons/Loop.png" id="1_c4gqo"]
+[ext_resource type="Script" path="res://Scripts/Components/MusicInfo.gd" id="1_jpt1u"]
 [ext_resource type="PackedScene" uid="uid://cf0idhr6w37fn" path="res://Scenes/Components/MediaControls/BaseProgressBar.tscn" id="1_n46p1"]
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/LoopButton.gd" id="2_3034r"]
 [ext_resource type="Texture2D" uid="uid://dl7dkx7pdn220" path="res://Assets/Sprites/Icons/List.png" id="3_ciw4t"]
@@ -9,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://x6er6mf5ocbr" path="res://Assets/Sprites/Icons/NoLoop.png" id="4_sjwuw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbfk"]
+content_margin_left = 60.0
+content_margin_top = 10.0
+content_margin_right = 60.0
+content_margin_bottom = 10.0
 bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 border_width_top = 3
 border_color = Color(0.482353, 0.482353, 0.482353, 1)
@@ -20,8 +25,6 @@ unicode = 108
 
 [sub_resource type="Shortcut" id="Shortcut_wa540"]
 events = [SubResource("InputEventKey_b8ecu")]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i57s"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ewgbj"]
 device = -1
@@ -39,28 +42,31 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ewbfk")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VCont" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="RichTextLabel" parent="VCont"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "#Cool music - by person"
+script = ExtResource("1_jpt1u")
+
+[node name="ProgressBar" parent="VCont" instance=ExtResource("1_n46p1")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PadL" type="Control" parent="HBoxContainer"]
+[node name="Controls" type="CenterContainer" parent="VCont"]
 custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 
-[node name="LoopButton" type="TextureButton" parent="HBoxContainer/PadL"]
+[node name="Hcont" type="HBoxContainer" parent="VCont/Controls"]
+layout_mode = 2
+
+[node name="LoopButton" type="TextureButton" parent="VCont/Controls/Hcont"]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_wa540")
 texture_normal = ExtResource("1_c4gqo")
@@ -70,39 +76,16 @@ LoopQueueTexture = ExtResource("1_c4gqo")
 LoopSingleTexture = ExtResource("3_hcu6x")
 NoLoopTexture = ExtResource("4_sjwuw")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Sep" type="Control" parent="VCont/Controls/Hcont"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 18
-theme_override_styles/separator = SubResource("StyleBoxEmpty_8i57s")
-
-[node name="ProgressBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_n46p1")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-
-[node name="PadR" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(290, 0)
-layout_mode = 2
-
-[node name="QueueButton" type="TextureButton" parent="HBoxContainer/PadR"]
+[node name="QueueButton" type="TextureButton" parent="VCont/Controls/Hcont"]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_ialpq")
 texture_normal = ExtResource("3_ciw4t")

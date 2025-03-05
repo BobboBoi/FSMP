@@ -31,11 +31,11 @@ func Refresh():
 func ConnectToAlbum(home : HomeMenu) -> void:
 	Pressed.connect(home.OpenAlbum.bind(data,%AlbumCover.texture))
 
-func OnHover():
+func _OnHover():
 	super()
 	SlideSelect()
 
-func OnUnhover():
+func _OnUnhover():
 	super()
 	SlideSelect()
 

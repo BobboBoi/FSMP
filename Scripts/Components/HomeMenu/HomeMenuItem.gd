@@ -28,10 +28,10 @@ func _init() -> void:
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
 
 func _ready() -> void:
-	mouse_entered.connect(OnHover)
-	focus_entered.connect(OnHover)
-	mouse_exited.connect(OnUnhover)
-	focus_exited.connect(OnUnhover)
+	mouse_entered.connect(_OnMouseHover)
+	focus_entered.connect(_OnHover)
+	mouse_exited.connect(_OnMouseUnhover)
+	focus_exited.connect(_OnUnhover)
 	set_process(false)
 
 func _process(_delta: float) -> void:
@@ -60,7 +60,7 @@ func _gui_input(event: InputEvent) -> void:
 			Clicked()
 	
 	elif event.is_action_pressed("ui_accept"):
-			Clicked()
+		Clicked()
 	
 	elif event.is_action_pressed("RightClick"):
 		var rcm := get_tree().get_first_node_in_group("RightClickMenu")
@@ -87,11 +87,19 @@ func RefreshTheme() -> void:
 	else: z_index = 0
 	theme_type_variation = newTheme
 
-func OnHover():
+func _OnHover():
 	hovered = true
 	RefreshTheme()
 
-func OnUnhover():
+func _OnUnhover():
+	hovered = false
+	RefreshTheme()
+
+func _OnMouseHover():
+	hovered = true
+	RefreshTheme()
+
+func _OnMouseUnhover():
 	hovered = false
 	RefreshTheme()
 

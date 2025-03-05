@@ -24,6 +24,13 @@ func _gui_input(event: InputEvent) -> void:
 		var rcm := get_tree().get_first_node_in_group("RightClickMenu")
 		if rcm == null: return
 		rcm.Open(self)
+	elif event.is_action_pressed("EnqueueNext"):
+		var player : Player = get_tree().get_first_node_in_group("Player")
+		player.EnqueueNextFromPathArray([path])
+	elif event.is_action_pressed("Enqueue"):
+		var player : Player = get_tree().get_first_node_in_group("Player")
+		player.EnqueueFromPathArray([path])
 
-func ConnectToPlayer(player : Player):
+func ConnectToPlayer(player : Player,menu : QuickAccessMenu):
 	connect("pressed",player.PlaySingleFromPath.bind(path))   
+	connect("pressed",menu.OnListButtonPressed)

@@ -6,6 +6,8 @@ var albums : Array[AlbumData] = []
 var albumCovers : Array[ImageTexture] = []
 var paths : Array[String] = []
 
+var threads : Array[Thread] = []
+
 #Seems to not work with threading?
 #const illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
 
@@ -13,6 +15,10 @@ signal ListChanged
 
 func _ready() -> void:
 	Reload()
+
+func _exit_tree() -> void:
+	for t in threads:
+		t.wait_to_finish()
 
 ##Used for performance tests.[br]
 ##Same as [mehtod Reload] but also prints the load time and amount into the console.
@@ -27,16 +33,16 @@ func Reload() -> void:
 	paths = Loader.config.musicPaths
 	music = []
 	albums = []
+	threads = []
 	
-	var threads : Array[Thread] = []
-	
-	for p in paths:
+	for p in range(paths.size()):
 		var newThread := Thread.new()
-		newThread.start(AddMusicFromPath.bind(p))
-		threads.append(newThread)
+		threads.push_back(newThread)
+		threads[p].start(AddMusicFromPath.bind(paths[p]))
 	
 	for t in threads:
 		var result : Array[MusicData] = t.wait_to_finish()
+		
 		for i in result:
 			if music.filter(func(d): return d.name == i.name).size() == 0:
 				music.append(i)
@@ -50,24 +56,9 @@ func Reload() -> void:
 	for i in uniqueAlbums:
 		var loadedAlbum := CheckAlbumData(i)
 		albums.append(loadedAlbum)
-	albums.sort_custom(func(a,b): return a.name < b.name)
+	albums.sort_custom(func(a,b): return a.name.to_lower() < b.name.to_lower())
 	
 	ListChanged.emit()
-
-func FindMusicFiles(path : String) -> Array:
-	var files := []
-	var dir := DirAccess.open(path)
-	dir.list_dir_begin()
-	
-	while true:
-		var file = dir.get_next()
-		if file == "":
-			break
-		elif IsMusicFile(file) and not file.begins_with("."):
-			files.append(file)
-	
-	dir.list_dir_end()
-	return files
 
 ##Call check music data on every file in the given directory.
 ##And return all data for the music in the directory.
@@ -81,6 +72,25 @@ func AddMusicFromPath(p : String) -> Array[MusicData]:
 		newMusic.append(loadedMusic)
 	
 	return newMusic
+
+func FindMusicFiles(path : String) -> Array:
+	if !DirAccess.dir_exists_absolute(path):
+		Messages.call_deferred_thread_group("TextMessage",path+" does not exist")
+		return []
+	
+	var files := []
+	var dir := DirAccess.open(path)
+	dir.list_dir_begin()
+	
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif IsMusicFile(file) and not file.begins_with("."):
+			files.append(file)
+	
+	dir.list_dir_end()
+	return files
 
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:

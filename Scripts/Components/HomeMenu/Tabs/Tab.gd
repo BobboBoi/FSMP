@@ -11,14 +11,14 @@ func _init() -> void:
 
 func _VisChange() -> void:
 	if visible:
-		OnTabOpened()
+		_OnTabOpened()
 		TabOpened.emit()
 	else:
-		OnTabClosed()
+		_OnTabClosed()
 		TabClosed.emit()
 
-func OnTabOpened() -> void:
+func _OnTabOpened() -> void:
 	pass
 
-func OnTabClosed() -> void:
+func _OnTabClosed() -> void:
 	pass

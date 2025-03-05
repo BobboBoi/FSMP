@@ -19,6 +19,7 @@ public partial class MetaDataReader : Node
                 Title = raw.Tag.Title is null ? altTitle : raw.Tag.Title,
                 Album = raw.Tag.Album,
                 Index = (int)raw.Tag.Track,
+                Disc = (int)raw.Tag.Disc,
                 Artists = raw.Tag.Performers.Length > 0 ? raw.Tag.Performers : new string[] {""},
             };
 

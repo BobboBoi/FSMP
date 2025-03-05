@@ -31,4 +31,5 @@ public partial class MetaData : GodotObject
     public string Album { get; set; } = "";
     public string[] Artists { get; set; } = new string[0];
     public int Index { get; set; } = 0;
+    public int Disc { get; set; } = 0;
 }

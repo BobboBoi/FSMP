@@ -32,7 +32,7 @@ func _process(_delta : float) -> void:
 	
 	if prevPos.y == movingItem.global_position.y: return
 	
-	var reverse = prevPos.y - movingItem.global_position.y > 0
+	var reverse := prevPos.y - movingItem.global_position.y > 0
 	var items := get_children()
 	var currentIndex := items.find(placeholder)
 	var newIndex := 0

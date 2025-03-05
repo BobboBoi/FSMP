@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://f7dm2bawj3y0"]
+[gd_scene load_steps=9 format=3 uid="uid://f7dm2bawj3y0"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_7io7r"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RightClickMenu.gd" id="2_76rx4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueSingle.gd" id="4_fm61j"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueNextSingle.gd" id="5_ht8hk"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/OpenAlbum.gd" id="7_ym6ns"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCRemoveFromQueue.gd" id="8_awvae"]
 
 [node name="RCMenu" type="PanelContainer" groups=["RightClickMenu"]]
 z_index = 20
@@ -71,5 +72,14 @@ text = "Open Album
 "
 alignment = 0
 script = ExtResource("7_ym6ns")
+
+[node name="RemoveFromQueue" type="Button" parent="Cont"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"RCMenuButton"
+text = "Remove From Queue"
+alignment = 0
+script = ExtResource("8_awvae")
 
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

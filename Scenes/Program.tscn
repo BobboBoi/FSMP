@@ -1,14 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://c58qfhqjvph0j"]
+[gd_scene load_steps=12 format=3 uid="uid://c58qfhqjvph0j"]
 
-[ext_resource type="Script" path="res://Scripts/TrackLister.gd" id="1_wolvn"]
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_kk4ka"]
+[ext_resource type="PackedScene" uid="uid://bg0bvxru4s61v" path="res://Scenes/Components/TrackLister.tscn" id="1_1jijj"]
+[ext_resource type="PackedScene" uid="uid://suayqllcri8b" path="res://Scenes/Components/Player.tscn" id="2_4pmrq"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="3_5qxlq"]
 [ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
 [ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControls/ControlPanel.tscn" id="5_kwqji"]
 [ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/ControlPanelPadding.gd" id="7_0isjx"]
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
-[ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="8_8y2ii"]
 [ext_resource type="Script" path="res://Scripts/CmdArguments.gd" id="9_fr5kq"]
 [ext_resource type="PackedScene" uid="uid://f7dm2bawj3y0" path="res://Scenes/Components/RightClickMenu.tscn" id="10_u6kvq"]
 
@@ -45,14 +44,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="TrackLister" type="Node" parent="Program" groups=["Lister"]]
+[node name="TrackLister" parent="Program" instance=ExtResource("1_1jijj")]
 unique_name_in_owner = true
-script = ExtResource("1_wolvn")
 
-[node name="Player" type="AudioStreamPlayer" parent="Program" groups=["Player"]]
+[node name="Player" parent="Program" instance=ExtResource("2_4pmrq")]
 unique_name_in_owner = true
-bus = &"Music"
-script = ExtResource("2_kk4ka")
 
 [node name="MainCont" type="VBoxContainer" parent="Program"]
 layout_mode = 1
@@ -100,30 +96,6 @@ script = ExtResource("7_0isjx")
 [node name="ControlPanel" parent="Program" instance=ExtResource("5_kwqji")]
 z_index = 1
 layout_mode = 1
-
-[node name="Messages" type="Control" parent="."]
-z_index = 10
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("8_8y2ii")
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="VCont" type="VBoxContainer" parent="Messages"]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-alignment = 2
 
 [node name="RightClick" parent="." instance=ExtResource("10_u6kvq")]
 layout_mode = 0

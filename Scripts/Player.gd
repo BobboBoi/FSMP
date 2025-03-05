@@ -1,8 +1,6 @@
 extends AudioStreamPlayer
 class_name Player
 
-@onready var window := get_window()
-
 var loopStart := 0.0
 
 var srcQueue : Array[MusicData] = []
@@ -158,7 +156,7 @@ func MoveItemInQueue(init : int, new : int) -> void:
 		queue.insert(new,queue.pop_at(init))
 	else:
 		srcQueue.insert(new,srcQueue.pop_at(init))
-		queue = srcQueue
+		queue = srcQueue.duplicate()
 	
 	QueueChange.emit()
 
@@ -170,6 +168,20 @@ func ClearQueue() -> void:
 	
 	QueueChange.emit()
 	Discord.refresh()
+
+func RemoveFromQueue(i : int) -> void:
+	if shuffled:
+		srcQueue.remove_at(srcQueue.find(queue[i]))
+		queue.remove_at(i)
+	else:
+		srcQueue.remove_at(i)
+		queue = srcQueue.duplicate()
+	
+	if i == currentIndex:
+		currentIndex -= 1 #WII BALL
+		ProgressQueue()
+	
+	QueueChange.emit()
 
 func Shuffle() -> void:
 	var currentTrack := queue[currentIndex]
@@ -197,4 +209,8 @@ func Finished() -> void:
 				ProgressQueue()
 			else:
 				self.play(loopStart)
+		LOOPMODE.NO_LOOP:
+			if queue.size() > 0:
+				if queue.size()-1 != currentIndex:
+					ProgressQueue()
 #endregion

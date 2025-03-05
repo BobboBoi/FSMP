@@ -8,7 +8,9 @@ class_name QuickAccessMenu
 @onready var list : SongList = %List
 @onready var root := %Root
 
+var threads : Array[Thread] = []
 var status := STATES.CLOSED
+
 enum STATES {
 	OPEN,
 	CLOSED
@@ -18,39 +20,37 @@ func _ready() -> void:
 	Reload()
 	lister.ListChanged.connect(Reload)
 
-#func _input(event: InputEvent) -> void:
-	#if !event.is_action_pressed("ui_down"): return
-	#
-	#var focusOwner = get_viewport().gui_get_focus_owner()
-	#if !(focusOwner == searchbar): return
-	#
-	#var butts := list.GetVisibleChildren()
-	#if butts.size() <= 0: return
-	#
-	#butts[0].grab_focus()
-	#get_viewport().set_input_as_handled()
+func _exit_tree() -> void:
+	for t in threads:
+		t.wait_to_finish()
 
 func Reload() -> void:
-	for i in list.get_children(): i.free()
-	
-	var threads : Array[Thread] = []
+	for i in list.get_children(): i.queue_free()
+	await get_tree().process_frame
+	threads = []
 	
 	for s in range(ceil(float(lister.music.size()) / 100)):
 		var t := Thread.new()
-		t.start(AddButtonsToMenu.bind(lister.music.slice(100*s,100*(s+1))))
+		t.start(AddButtonsToMenu.bind(lister.music.slice(100*s,100*(s+1))),Thread.PRIORITY_LOW)
 		threads.append(t)
 	
-	for t in threads:
-		t.wait_to_finish()
+	await get_tree().process_frame
 	
-	list.call_deferred("Update")
+	var butts : Array[QuickAccessButton] = []
+	for t in threads:
+		butts.append_array(await t.wait_to_finish())
+	
+	for b in butts:
+		list.add_child(b)
 
-func AddButtonsToMenu(arr : Array[MusicData]) -> void:
+func AddButtonsToMenu(arr : Array[MusicData]) -> Array[QuickAccessButton]:
+	var butts : Array[QuickAccessButton] = []
 	for i in arr:
 		var butt := QuickAccessButton.new(i)
 		butt.custom_minimum_size = Vector2(0,75)
-		butt.ConnectToPlayer(player)
-		list.call_deferred_thread_group("add_child",butt)
+		butt.ConnectToPlayer(player,self)
+		butts.append(butt)
+	return butts
 
 func HideList() -> void:
 	status = STATES.CLOSED

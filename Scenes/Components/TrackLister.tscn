@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg0bvxru4s61v"]
+
+[ext_resource type="Script" path="res://Scripts/TrackLister.gd" id="1_c6hc2"]
+
+[node name="TrackLister" type="Node" groups=["Lister"]]
+script = ExtResource("1_c6hc2")

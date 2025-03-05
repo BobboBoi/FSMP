@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1x2w08gs3uqk"]
+
+[ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="1_23i6c"]
+
+[node name="Messages" type="Control"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_23i6c")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="MsgCont" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 2

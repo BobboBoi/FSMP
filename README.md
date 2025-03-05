@@ -1,4 +1,11 @@
-# What is this?
+<p align="center">
+  <img src="Assets\Sprites\FSMPLogo.png" alt="logo"/>
+</p>
+
+<br>
+~<i>still beats media player lol</i>
+
+## What is this?
 This is a really bad music player. Please don't use this.
 
 <b>Features</b>
@@ -10,6 +17,8 @@ This is a really bad music player. Please don't use this.
 <li>Discord support</li>
 <li>And more useless features</li>
 </ul>
+
+<b>Tip</b>: f1 go brrrrr.
 
 ## UFAQ
 <ul>

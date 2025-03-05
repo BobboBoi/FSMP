@@ -2,8 +2,14 @@ extends Tab
 
 @onready var lister : TrackLister
 @onready var list := %AlbumList
+@onready var search := %SearchBar
 
-func OnTabOpened():
+func _OnTabClosed():
+	if list == null: return
+	for i in list.get_children(): i.free()
+	search.text = ""
+
+func _OnTabOpened():
 	for i in list.get_children(): i.free()
 	
 	if lister == null:
@@ -27,7 +33,3 @@ func OnTabOpened():
 		numb += 1
 	
 	list.Update()
-
-func OnTabClosed():
-	if list == null: return
-	for i in list.get_children(): i.free()

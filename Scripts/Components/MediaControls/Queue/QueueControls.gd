@@ -20,10 +20,11 @@ func _ready() -> void:
 	hide()
 
 func Refresh():
-	for i in list.get_children(): i.queue_free()
+	await get_tree().process_frame
+	for i in list.get_children(): i.free()
 	
 	for i in player.queue.size():
-		var n := QueueSelection.Create(player.queue[i])
+		var n := QueueSelection.Create(player.queue[i],i)
 		list.add_child(n)
 		n.Pressed.connect(player.TravelTo.bind(i))
 		

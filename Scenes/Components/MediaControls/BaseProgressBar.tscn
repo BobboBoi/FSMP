@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://jqyfi8itqtb8" path="res://Assets/Sprites/FunnyThingIStoleFromTheSrcCodeSMH.tres" id="2_qjasa"]
 
 [node name="ProgressBar" type="ProgressBar"]
-custom_minimum_size = Vector2(0, 28)
-mouse_filter = 2
+custom_minimum_size = Vector2(0, 20)
+focus_mode = 1
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_3gv3f")
 show_percentage = false
 script = ExtResource("1_c5x2m")

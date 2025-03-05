@@ -3,10 +3,6 @@ class_name RightClickMenu
 
 @onready var cont := %Cont
 var currentSelection = null
-var menuDict := {
-	"MusicSelection" : ["Enqueue","EnqueueNext","EnqueueSingle","EnqueueNextSingle","OpenAlbum"],
-	"QuickAccessButton" : ["EnqueueSingle","EnqueueNextSingle","OpenAlbum"]
-}
 
 func _ready() -> void:
 	Close()
@@ -32,11 +28,7 @@ func Open(src : Control) -> void:
 		return
 	currentSelection = src
 	
-	var script : Script = src.get_script()
-	if script != null:
-		OpenButtons(script.get_global_name(),src)
-	else:
-		OpenButtons(src.get_class(),src)
+	OpenButtons(src)
 	
 	var c := false
 	for i in cont.get_children():
@@ -55,14 +47,11 @@ func Close() -> void:
 	for i in cont.get_children(): i.hide()
 	hide()
 
-func OpenButtons(value : String,src : Node) -> void:
-	if menuDict.has(value):
-		for i in menuDict[value]:
-			var option = cont.get_node_or_null(i)
-			if option != null:
-				if option is RightClickItem: option.Show(src)
-				if option.has_method("Show"): option.Show(src)
-				else: option.show()
+func OpenButtons(src : Node) -> void:
+	for i in cont.get_children():
+		if i is RightClickItem: i.Show(src)
+		if i.has_method("Show"): i.Show(src)
+		else: i.show()
 
 func _on_focus_exited() -> void:
 	Close()

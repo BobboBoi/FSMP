@@ -15,7 +15,12 @@ static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	inst.data = newData
 	inst.index = newIndex
 	inst.name = inst.data.name
-	return inst;
+	return inst
+
+func Setup(newData : MusicData,newIndex := 0) -> void:
+	data = newData
+	index = newIndex
+	name = data.name
 
 func _ready() -> void:
 	super()
@@ -34,11 +39,11 @@ func Refresh() -> void:
 func ConnectToPlayTrack(home : HomeMenu):
 	Pressed.connect(home.PlayTrack.bind(data))
 
-func OnHover():
+func _OnMouseHover():
 	super()
 	SlideSelect()
 
-func OnUnhover():
+func _OnMouseUnhover():
 	super()
 	SlideSelect()
 
