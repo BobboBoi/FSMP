@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCEnqueueNext.gd" id="4_8v41r"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueSingle.gd" id="4_fm61j"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueNextSingle.gd" id="5_ht8hk"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/OpenAlbum.gd" id="7_ym6ns"]
+[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCOpenAlbum.gd" id="7_ym6ns"]
 [ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCRemoveFromQueue.gd" id="8_awvae"]
 
 [node name="RCMenu" type="PanelContainer" groups=["RightClickMenu"]]

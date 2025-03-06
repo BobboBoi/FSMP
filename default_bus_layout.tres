@@ -2,6 +2,7 @@
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_cex42"]
 resource_name = "SpectrumAnalyzer"
+tap_back_pos = 0.2
 
 [resource]
 bus/1/name = &"Music"

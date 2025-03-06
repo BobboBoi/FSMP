@@ -1,6 +1,5 @@
 extends Tab
 
-@onready var lister : TrackLister
 @onready var list := %AlbumList
 @onready var search := %SearchBar
 
@@ -12,13 +11,10 @@ func _OnTabClosed():
 func _OnTabOpened():
 	for i in list.get_children(): i.free()
 	
-	if lister == null:
-		lister = home.lister
-	
 	var numb = 0
 	#List Albums
-	for i in lister.albums:
-		var butt := AlbumSelection.Create(i,home.lister.LoadAlbumCover(i))
+	for i in Lister.albums:
+		var butt := AlbumSelection.Create(i,Lister.LoadAlbumCover(i))
 		list.add_child(butt)
 		butt.ConnectToAlbum(home)
 		

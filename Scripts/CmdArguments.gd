@@ -1,6 +1,5 @@
 extends Node
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _ready() -> void:
@@ -14,7 +13,7 @@ func _ready() -> void:
 		if FileAccess.file_exists(arguments[i]) and TrackLister.IsMusicFile(arguments[i]):
 			index = i
 			break
-		print("Unsupported cmd argument: \"",arguments[0],"\" supported file formats are MP3,WAV,OGG")
+		print("Unsupported cmd argument: \"",arguments[i],"\" supported file formats are MP3,WAV,OGG")
 	
 	if index < 0:
 		queue_free()
@@ -23,9 +22,11 @@ func _ready() -> void:
 	var fileName := arguments[index].get_slice("\\",arguments[index].count("\\"))
 	var dir := arguments[index].erase(arguments[index].find(fileName),fileName.length())
 	
-	player.PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName))
+	Player.PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName))
 	
 	if home != null:
+		if !home.is_inside_tree():
+			await home.ready
 		home.HideHome()
 	
 	queue_free()

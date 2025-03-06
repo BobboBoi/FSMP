@@ -1,9 +1,6 @@
 extends Control
 class_name HomeMenu
 
-@onready var lister : TrackLister = %TrackLister
-@onready var player : Player = %Player
-
 @onready var tabCont : TabContainer = %TabCont
 @onready var musicTab := %MusicTab
 @onready var albumTab := %AlbumTab
@@ -21,9 +18,6 @@ enum TABS {
 
 signal SelectionUpdated
 
-func _ready():
-	visible = true
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and visible:
 		get_parent().select_previous_available()
@@ -39,10 +33,12 @@ func ShowHome() -> void:
 
 func HideHome() -> void:
 	self.visible = false
+	get_parent().set_current_tab(0)
+
 
 #Player actions
 func PlayTrack(data : MusicData) -> void:
-	player.PlaySingleFromData(data)
+	Player.PlaySingleFromData(data)
 	HideHome()
 
 #Music selection
@@ -82,5 +78,5 @@ func SetAlbumForAll():
 		i.data = newData
 	
 	#Load album data or create new data if it doesn't exist.
-	var _garbo = lister.CheckAlbumData(albumEdit.text)
+	var _garbo = Lister.CheckAlbumData(albumEdit.text)
 #endregion

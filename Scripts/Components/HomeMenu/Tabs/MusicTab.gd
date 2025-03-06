@@ -1,6 +1,5 @@
 extends Tab
 
-@onready var lister := get_tree().get_first_node_in_group("Lister")
 @onready var list := %MusicList
 @onready var search := %SearchBar
 
@@ -9,7 +8,7 @@ const THREAD_SLICE := 100
 var threads : Array[Thread] = []
 
 func _ready():
-	lister.ListChanged.connect(Reload)
+	Lister.ListChanged.connect(Reload)
 	Reload()
 
 func _exit_tree() -> void:
@@ -22,13 +21,15 @@ func _OnTabClosed():
 
 func Reload():
 	for i in list.get_children(): i.queue_free()
+	for t in threads:
+		t.wait_to_finish()
 	threads = []
 	
 	#List Music
-	for s in range(ceil(float(lister.music.size()) / THREAD_SLICE)):
+	for s in range(ceil(float(Lister.music.size()) / THREAD_SLICE)):
 		var t := Thread.new()
 		threads.push_back(t)
-		t.start(AddMusicButtons.bind(lister.music.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))),Thread.Priority.PRIORITY_LOW)
+		t.start(AddMusicButtons.bind(Lister.music.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))),Thread.Priority.PRIORITY_LOW)
 	
 	await get_tree().process_frame
 	

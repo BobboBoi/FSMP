@@ -1,6 +1,5 @@
 extends RightClickItem
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _pressed() -> void:
@@ -11,8 +10,8 @@ func _pressed() -> void:
 		hide()
 		return
 	
-	if player.queue.size() > 0:
-		player.RemoveFromQueue(owner.currentSelection.queueIndex)
+	if Player.queue.size() > 0:
+		Player.RemoveFromQueue(owner.currentSelection.queueIndex)
 
 func _Show(src : Node) -> void:
 	if owner is not RightClickMenu: return

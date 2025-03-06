@@ -1,8 +1,5 @@
 extends Tab
 
-@onready var lister : TrackLister
-@onready var player : Player
-
 @onready var scrollBar : VScrollBar = %Scroll.get_v_scroll_bar()
 @onready var list : SongList = %AlbumMusicList
 @onready var cover := %AlbumCover
@@ -11,9 +8,6 @@ extends Tab
 const SENSITIVITY := 1.5
 
 func _ready() -> void:
-	lister = home.lister
-	player = home.player
-	
 	$AnimationPlayer.current_animation = "Scroll"
 	$AnimationPlayer.stop(true)
 	scrollBar.value_changed.connect(ScrollChanged)
@@ -28,14 +22,12 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = nul
 		if i is MusicSelection:
 				i.free()
 	
-	if lister == null:
+	if home == null:
 		home = newHome
-		lister = home.lister
-		player = home.player
 	
 	#Fetch Songs
 	var files : Array = []
-	for i in lister.music:
+	for i in Lister.music:
 			if i.album == album.name:
 				files.append(i)
 	
@@ -63,8 +55,8 @@ func EnqueueAll() -> void:
 		if i is MusicSelection:
 			data.append(i.data)
 	
-	var hideHome := player.queue.size() > 0
-	player.EnqueueFromDataArray(data)
+	var hideHome := Player.queue.size() > 0
+	Player.EnqueueFromDataArray(data)
 	if !hideHome: return
 	home.HideHome()
 
@@ -76,7 +68,7 @@ func PlayAll() -> void:
 		if i is MusicSelection:
 			data.append(i.data)
 	
-	player.ReplaceQueueWithDataArray(data)
+	Player.ReplaceQueueWithDataArray(data)
 	home.HideHome()
 
 func ScrollChanged(value : float) -> void:

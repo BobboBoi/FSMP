@@ -1,14 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c58qfhqjvph0j"]
+[gd_scene load_steps=9 format=3 uid="uid://c58qfhqjvph0j"]
 
-[ext_resource type="PackedScene" uid="uid://bg0bvxru4s61v" path="res://Scenes/Components/TrackLister.tscn" id="1_1jijj"]
-[ext_resource type="PackedScene" uid="uid://suayqllcri8b" path="res://Scenes/Components/Player.tscn" id="2_4pmrq"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="3_5qxlq"]
 [ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
 [ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControls/ControlPanel.tscn" id="5_kwqji"]
 [ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
 [ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/ControlPanelPadding.gd" id="7_0isjx"]
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
-[ext_resource type="Script" path="res://Scripts/CmdArguments.gd" id="9_fr5kq"]
 [ext_resource type="PackedScene" uid="uid://f7dm2bawj3y0" path="res://Scenes/Components/RightClickMenu.tscn" id="10_u6kvq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4fvh"]
@@ -44,12 +41,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="TrackLister" parent="Program" instance=ExtResource("1_1jijj")]
-unique_name_in_owner = true
-
-[node name="Player" parent="Program" instance=ExtResource("2_4pmrq")]
-unique_name_in_owner = true
-
 [node name="MainCont" type="VBoxContainer" parent="Program"]
 layout_mode = 1
 anchors_preset = 15
@@ -63,10 +54,11 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v4fvh")
-current_tab = 0
+current_tab = 1
 tabs_visible = false
 
 [node name="Visualizer" type="Control" parent="Program/MainCont/ProgramTabs"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("3_5qxlq")
@@ -84,7 +76,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Home" parent="Program/MainCont/ProgramTabs" instance=ExtResource("7_6r1r5")]
-visible = false
 z_index = 0
 layout_mode = 2
 metadata/_tab_index = 1
@@ -99,6 +90,3 @@ layout_mode = 1
 
 [node name="RightClick" parent="." instance=ExtResource("10_u6kvq")]
 layout_mode = 0
-
-[node name="CmdArguments" type="Node" parent="."]
-script = ExtResource("9_fr5kq")

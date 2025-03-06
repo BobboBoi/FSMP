@@ -1,7 +1,5 @@
 extends RightClickItem
 
-@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _pressed() -> void:
@@ -11,7 +9,7 @@ func _pressed() -> void:
 		var data = owner.currentSelection.data
 		if data.album == "": return
 		
-		var albumData := lister.GetAlbumData(data.album)
+		var albumData := Lister.GetAlbumData(data.album)
 		if albumData == null: return
 		
 		var cover := GetCover(albumData)
@@ -21,7 +19,7 @@ func _pressed() -> void:
 		var data := TrackLister.CheckMusicDataFromPath(owner.currentSelection.path)
 		if data.album == "": return
 		
-		var albumData := lister.GetAlbumData(data.album)
+		var albumData := Lister.GetAlbumData(data.album)
 		if albumData == null: return
 		
 		var cover := GetCover(albumData)
@@ -45,7 +43,7 @@ func _Show(src : Node) -> void:
 	show()
 
 func GetCover(albumData : AlbumData) -> Texture2D:
-	var cover := lister.LoadAlbumCover(albumData)
+	var cover := Lister.LoadAlbumCover(albumData)
 	if cover == null:
 		return load("res://Assets/Sprites/Logo.png")
 	return cover

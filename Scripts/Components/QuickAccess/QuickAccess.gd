@@ -1,8 +1,6 @@
 extends Control
 class_name QuickAccessMenu
 
-@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var listButton := %ListButton
 @onready var searchbar := %Searchbar
 @onready var list : SongList = %List
@@ -18,7 +16,8 @@ enum STATES {
 
 func _ready() -> void:
 	Reload()
-	lister.ListChanged.connect(Reload)
+	Lister.ListChanged.connect(Reload)
+	%Vcont.hide()
 
 func _exit_tree() -> void:
 	for t in threads:
@@ -29,9 +28,9 @@ func Reload() -> void:
 	await get_tree().process_frame
 	threads = []
 	
-	for s in range(ceil(float(lister.music.size()) / 100)):
+	for s in range(ceil(float(Lister.music.size()) / 100)):
 		var t := Thread.new()
-		t.start(AddButtonsToMenu.bind(lister.music.slice(100*s,100*(s+1))),Thread.PRIORITY_LOW)
+		t.start(AddButtonsToMenu.bind(Lister.music.slice(100*s,100*(s+1))),Thread.PRIORITY_LOW)
 		threads.append(t)
 	
 	await get_tree().process_frame
@@ -48,7 +47,7 @@ func AddButtonsToMenu(arr : Array[MusicData]) -> Array[QuickAccessButton]:
 	for i in arr:
 		var butt := QuickAccessButton.new(i)
 		butt.custom_minimum_size = Vector2(0,75)
-		butt.ConnectToPlayer(player,self)
+		butt.ConnectToPlayer(self)
 		butts.append(butt)
 	return butts
 

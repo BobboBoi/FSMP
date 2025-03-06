@@ -16,5 +16,3 @@ unique_name_in_owner = true
 points = PackedVector2Array(43, -133)
 width = 4.0
 joint_mode = 2
-
-[connection signal="resized" from="." to="." method="SizeUpdate"]

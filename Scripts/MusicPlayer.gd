@@ -1,5 +1,5 @@
 extends AudioStreamPlayer
-class_name Player
+class_name MusicPlayer
 
 var loopStart := 0.0
 
@@ -24,6 +24,10 @@ signal QueueProgressed(newIndex : int)
 
 func _init() -> void:
 	if !finished.is_connected(Finished): finished.connect(Finished)
+	bus = "Music"
+
+func _exit_tree() -> void:
+	stop()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: return
@@ -31,6 +35,7 @@ func _input(event: InputEvent) -> void:
 		self.stream_paused = !self.stream_paused
 		if self.stream_paused: Paused.emit()
 		else: Resumed.emit()
+
 
 #region Playing
 ##Similair to [member PlayFromPath] but resets the queue.[br]
@@ -170,6 +175,7 @@ func ClearQueue() -> void:
 	Discord.refresh()
 
 func RemoveFromQueue(i : int) -> void:
+	print("Queue remove: ",i)
 	if shuffled:
 		srcQueue.remove_at(srcQueue.find(queue[i]))
 		queue.remove_at(i)

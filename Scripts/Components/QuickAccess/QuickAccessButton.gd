@@ -25,12 +25,10 @@ func _gui_input(event: InputEvent) -> void:
 		if rcm == null: return
 		rcm.Open(self)
 	elif event.is_action_pressed("EnqueueNext"):
-		var player : Player = get_tree().get_first_node_in_group("Player")
-		player.EnqueueNextFromPathArray([path])
+		Player.EnqueueNextFromPathArray([path])
 	elif event.is_action_pressed("Enqueue"):
-		var player : Player = get_tree().get_first_node_in_group("Player")
-		player.EnqueueFromPathArray([path])
+		Player.EnqueueFromPathArray([path])
 
-func ConnectToPlayer(player : Player,menu : QuickAccessMenu):
-	connect("pressed",player.PlaySingleFromPath.bind(path))   
+func ConnectToPlayer(menu : QuickAccessMenu):
+	connect("pressed",Player.PlaySingleFromPath.bind(path))   
 	connect("pressed",menu.OnListButtonPressed)

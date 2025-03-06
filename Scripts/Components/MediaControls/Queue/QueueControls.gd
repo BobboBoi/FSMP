@@ -2,7 +2,6 @@ extends Control
 class_name QueueControls
 
 @onready var speenLoad := preload("res://Scenes/Components/SpinyDisc.tscn")
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var controlPanel : ControlPanel = get_tree().get_first_node_in_group("ControlPanel")
 @onready var list := %QueueList
 
@@ -15,20 +14,20 @@ var open := false :
 		open = value
 
 func _ready() -> void:
-	player.QueueChange.connect(Refresh)
-	player.QueueProgressed.connect(ProgressQueue)
+	Player.QueueChange.connect(Refresh)
+	Player.QueueProgressed.connect(ProgressQueue)
 	hide()
 
 func Refresh():
 	await get_tree().process_frame
 	for i in list.get_children(): i.free()
 	
-	for i in player.queue.size():
-		var n := QueueSelection.Create(player.queue[i],i)
+	for i in Player.queue.size():
+		var n := QueueSelection.Create(Player.queue[i],i)
 		list.add_child(n)
-		n.Pressed.connect(player.TravelTo.bind(i))
+		n.Pressed.connect(Player.TravelTo.bind(i))
 		
-		if(player.currentIndex) == i:
+		if(Player.currentIndex) == i:
 			currentlyPlaying = n
 			Speen(n)
 	
@@ -46,9 +45,9 @@ func Speen(new : QueueSelection):
 	new.get_node("%SpinParent").add_child(currentSpeen)
 
 func OnQueueItemMoved(originalIndex: int, newIndex: int) -> void:
-	player.MoveItemInQueue(originalIndex,newIndex)
+	Player.MoveItemInQueue(originalIndex,newIndex)
 
 func OnItemMoved(item: Control, newIndex: int) -> void:
 	if item is not HomeMenuItem: return
-	item.Pressed.disconnect(player.TravelTo)
-	item.Pressed.connect(player.TravelTo.bind(newIndex))
+	item.Pressed.disconnect(Player.TravelTo)
+	item.Pressed.connect(Player.TravelTo.bind(newIndex))

@@ -1,16 +1,15 @@
 extends RightClickItem
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
 
 func _pressed() -> void:
 	if owner is not RightClickMenu: return
-	var hideHome := player.queue.size() <= 0
+	var hideHome := Player.queue.size() <= 0
 	
 	if owner.currentSelection is MusicSelection:
-		player.EnqueueNextFromDataArray([owner.currentSelection.data])
+		Player.EnqueueNextFromDataArray([owner.currentSelection.data])
 	elif owner.currentSelection is QuickAccessButton:
-		player.EnqueueNextFromPathArray([owner.currentSelection.path])
+		Player.EnqueueNextFromPathArray([owner.currentSelection.path])
 	else:
 		return
 	

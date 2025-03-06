@@ -1,13 +1,19 @@
-[gd_scene load_steps=90 format=3 uid="uid://cmtqwlk3etxas"]
+[gd_scene load_steps=92 format=3 uid="uid://cmtqwlk3etxas"]
 
 [ext_resource type="PackedScene" uid="uid://dgiof0hu8gf5j" path="res://Scenes/Components/Visualizer/BeatReader.tscn" id="1_mkr3y"]
 [ext_resource type="PackedScene" uid="uid://e2rvldetudgn" path="res://Scenes/Components/Visualizer/SimpleSpectrum.tscn" id="1_pjcxw"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_yb6pm"]
 [ext_resource type="Texture2D" uid="uid://cqsjp08c7g7s0" path="res://Assets/Sprites/DAWG.png" id="3_4xeou"]
+[ext_resource type="Curve" uid="uid://be1ni00ypuvfe" path="res://Assets/Resources/SpectrumCurve.tres" id="3_a8621"]
 [ext_resource type="Script" path="res://Scripts/Components/HomeMenu/HomeButton.gd" id="3_i80r3"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="4_06o6a"]
 [ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedSpriteSelector.gd" id="4_krs0l"]
 [ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedBeatIndicator.gd" id="6_qy74n"]
+
+[sub_resource type="Curve" id="Curve_168ce"]
+min_value = 0.8
+_data = [Vector2(0, 0.8), 0.0, 0.0, 0, 0, Vector2(0.397094, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="InputEventKey" id="InputEventKey_g8luf"]
 device = -1
@@ -610,6 +616,8 @@ alignment = 2
 
 [node name="Spectrum" parent="MainCont" instance=ExtResource("1_pjcxw")]
 layout_mode = 2
+freqCurve = ExtResource("3_a8621")
+heightCurve = SubResource("Curve_168ce")
 
 [node name="BeatReader" parent="MainCont" instance=ExtResource("1_mkr3y")]
 layout_mode = 2
@@ -640,12 +648,6 @@ script = ExtResource("3_i80r3")
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="CheckBox" type="CheckBox" parent="Config/VCont"]
-layout_mode = 2
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-button_pressed = true
-
 [node name="OptionButton" type="OptionButton" parent="Config/VCont" node_paths=PackedStringArray("target")]
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -654,6 +656,33 @@ item_count = 1
 popup/item_0/text = "#NAME#"
 script = ExtResource("4_krs0l")
 target = NodePath("../../../Sprite")
+
+[node name="Line" type="HBoxContainer" parent="Config/VCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Config/VCont/Line"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Line: "
+
+[node name="CheckBox" type="CheckBox" parent="Config/VCont/Line"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+button_pressed = true
+
+[node name="Boost" type="HBoxContainer" parent="Config/VCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Config/VCont/Boost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Boost:"
+
+[node name="CheckBox" type="CheckBox" parent="Config/VCont/Boost"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -668,4 +697,5 @@ one_shot = true
 
 [connection signal="Beat" from="MainCont/BeatReader" to="Sprite" method="OnBeat" unbinds=1]
 [connection signal="Update" from="MainCont/BeatReader" to="Sprite" method="Update"]
-[connection signal="toggled" from="Config/VCont/CheckBox" to="MainCont/Spectrum" method="SetLine"]
+[connection signal="toggled" from="Config/VCont/Line/CheckBox" to="MainCont/Spectrum" method="SetLine"]
+[connection signal="toggled" from="Config/VCont/Boost/CheckBox" to="MainCont/Spectrum" method="SetBoost"]
