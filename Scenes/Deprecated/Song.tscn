@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ccpngkc6lftvk"]
 
-[ext_resource type="Script" path="res://Scripts/Deprecated/QuickMusicSelection.tres.gd" id="1_aj70s"]
+[ext_resource type="Script" uid="uid://c6ojujl8ha06c" path="res://Scripts/Deprecated/QuickMusicSelection.tres.gd" id="1_aj70s"]
 
 [node name="Song" type="Button"]
 clip_text = true

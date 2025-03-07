@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://c8u27hukg18cw"]
 
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumTab.gd" id="1_depv2"]
-[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="2_pbqr3"]
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="3_c1di3"]
+[ext_resource type="Script" uid="uid://cogkefb70eufo" path="res://Scripts/Components/HomeMenu/Tabs/AlbumTab.gd" id="1_depv2"]
+[ext_resource type="Script" uid="uid://hfbpgn27i08f" path="res://Scripts/Components/SearchBar.gd" id="2_pbqr3"]
+[ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="3_c1di3"]
 
 [node name="AlbumTab" type="Control"]
 layout_mode = 3

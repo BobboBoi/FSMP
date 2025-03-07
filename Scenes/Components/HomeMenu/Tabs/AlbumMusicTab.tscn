@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_oqssu"]
 [ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="1_vr22n"]
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumMusicTab.gd" id="2_mrbvy"]
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Tabs/AlbumSongList.gd" id="2_p3o3m"]
+[ext_resource type="Script" uid="uid://cueoii41myyu7" path="res://Scripts/Components/HomeMenu/Tabs/AlbumMusicTab.gd" id="2_mrbvy"]
+[ext_resource type="Script" uid="uid://cfl0ojh14wkwj" path="res://Scripts/Components/HomeMenu/Tabs/AlbumSongList.gd" id="2_p3o3m"]
 [ext_resource type="Texture2D" uid="uid://do6enw6csg0wt" path="res://Assets/Sprites/Icons/PlayAll.png" id="4_tybvt"]
 [ext_resource type="Texture2D" uid="uid://btwslbows1nin" path="res://Assets/Sprites/Icons/EnqueueAll.png" id="5_t4jpc"]
 
@@ -50,8 +50,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2myko"]
 _data = {
-"RESET": SubResource("Animation_5r307"),
-"Scroll": SubResource("Animation_73bat")
+&"RESET": SubResource("Animation_5r307"),
+&"Scroll": SubResource("Animation_73bat")
 }
 
 [node name="AlbumMusicTab" type="Control"]

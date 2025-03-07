@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dsq4lil7y26xw" path="res://Scenes/Components/MediaControls/DefaultMediaControls.tscn" id="1_5jggk"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_aqr20"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ControlPanel.gd" id="1_r31sv"]
+[ext_resource type="Script" uid="uid://bevvvbl8dwvc" path="res://Scripts/Components/MediaControls/ControlPanel.gd" id="1_r31sv"]
 [ext_resource type="PackedScene" uid="uid://bxnsob26m55ef" path="res://Scenes/Components/MediaControls/DefaultQueueControls.tscn" id="4_0ljw6"]
 
 [node name="MediaControlPanel" type="Control" groups=["ControlPanel"]]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc62yq0jdob04"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_4jai0"]
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/Settings/DirectoryItem.gd" id="1_eqdcy"]
+[ext_resource type="Script" uid="uid://c8ebemfo83yle" path="res://Scripts/Components/HomeMenu/Settings/DirectoryItem.gd" id="1_eqdcy"]
 
 [node name="DirectoryItem" type="PanelContainer"]
 anchors_preset = 10

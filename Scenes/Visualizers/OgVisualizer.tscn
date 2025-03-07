@@ -5,13 +5,13 @@
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_yb6pm"]
 [ext_resource type="Texture2D" uid="uid://cqsjp08c7g7s0" path="res://Assets/Sprites/DAWG.png" id="3_4xeou"]
 [ext_resource type="Curve" uid="uid://be1ni00ypuvfe" path="res://Assets/Resources/SpectrumCurve.tres" id="3_a8621"]
-[ext_resource type="Script" path="res://Scripts/Components/HomeMenu/HomeButton.gd" id="3_i80r3"]
+[ext_resource type="Script" uid="uid://co5fwdldrfm4i" path="res://Scripts/Components/HomeMenu/HomeButton.gd" id="3_i80r3"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="4_06o6a"]
-[ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedSpriteSelector.gd" id="4_krs0l"]
-[ext_resource type="Script" path="res://Scripts/Components/Visualizer/AnimatedBeatIndicator.gd" id="6_qy74n"]
+[ext_resource type="Script" uid="uid://cr4vbjck43tbt" path="res://Scripts/Components/Visualizer/AnimatedSpriteSelector.gd" id="4_krs0l"]
+[ext_resource type="Script" uid="uid://dexa241j7r25j" path="res://Scripts/Components/Visualizer/AnimatedBeatIndicator.gd" id="6_qy74n"]
 
 [sub_resource type="Curve" id="Curve_168ce"]
-min_value = 0.8
+_limits = [0.8, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 0.8), 0.0, 0.0, 0, 0, Vector2(0.397094, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
 point_count = 3
 

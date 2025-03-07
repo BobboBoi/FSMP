@@ -31,6 +31,7 @@ func _ready():
 
 func _process(_delta):
 	if window.mode == window.Mode.MODE_MINIMIZED: return
+	
 	var division = size.x/(samples)
 	var prevHz := 0.0
 	var final := 0.0

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
 [ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControls/ControlPanel.tscn" id="5_kwqji"]
 [ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/ControlPanelPadding.gd" id="7_0isjx"]
+[ext_resource type="Script" uid="uid://jxwkpei5rai7" path="res://Scripts/Components/MediaControls/Queue/ControlPanelPadding.gd" id="7_0isjx"]
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
 [ext_resource type="PackedScene" uid="uid://f7dm2bawj3y0" path="res://Scenes/Components/RightClickMenu.tscn" id="10_u6kvq"]
 

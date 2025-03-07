@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxnsob26m55ef"]
 
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
+[ext_resource type="Script" uid="uid://bvnnwfb2jsq4i" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
 [ext_resource type="Texture2D" uid="uid://ddpewvbyye7yc" path="res://Assets/Sprites/Icons/Shuffle.png" id="2_jg317"]
-[ext_resource type="Script" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ShuffleButton.gd" id="3_5upsm"]
+[ext_resource type="Script" uid="uid://duujkqlwst61t" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
+[ext_resource type="Script" uid="uid://cgrpgaghvws5h" path="res://Scripts/Components/MediaControls/ShuffleButton.gd" id="3_5upsm"]
 [ext_resource type="Texture2D" uid="uid://b1tocbsqwk8gq" path="res://Assets/Sprites/Icons/UnShuffled.png" id="4_wpf3l"]
 [ext_resource type="Texture2D" uid="uid://boubfg5pm26io" path="res://Assets/Sprites/Icons/Clear.png" id="5_3cpt4"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ClearButton.gd" id="6_8mo2s"]
+[ext_resource type="Script" uid="uid://c4d2qqscc43x1" path="res://Scripts/Components/MediaControls/ClearButton.gd" id="6_8mo2s"]
 [ext_resource type="Texture2D" uid="uid://dglb4uy5buxju" path="res://Assets/Sprites/Icons/ClearHover.png" id="6_g1vc4"]
 
 [node name="DefaultQueueControls" type="PanelContainer"]

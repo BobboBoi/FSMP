@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b1x2w08gs3uqk"]
 
-[ext_resource type="Script" path="res://Scripts/Components/MessageMaster.gd" id="1_23i6c"]
+[ext_resource type="Script" uid="uid://d060wm1jg21f3" path="res://Scripts/Components/MessageMaster.gd" id="1_23i6c"]
 
 [node name="Messages" type="Control"]
 z_index = 10

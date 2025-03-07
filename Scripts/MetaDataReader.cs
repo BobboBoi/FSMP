@@ -3,6 +3,7 @@ using System.IO;
 using TagLib;
 using File = TagLib.File;
 using SkiaSharp;
+using System;
 
 [GlobalClass]
 public partial class MetaDataReader : Node
@@ -40,7 +41,6 @@ public partial class MetaDataReader : Node
             if (raw is null) return null;
 
             IPicture[] result = raw.Tag.Pictures;
-
             if (index > result.Length - 1 || result.Length == 0) return null;
 
             try
@@ -77,6 +77,32 @@ public partial class MetaDataReader : Node
         {
             return null;
         }
+    }
+
+    public static string GetImageTypeFromAudioFile(string path,int index)
+    {
+        if (index < 0) return String.Empty;
+        
+        var raw = File.Create(path);
+        if (raw is null) return String.Empty;
+
+        IPicture[] result = raw.Tag.Pictures;
+
+        if (index > result.Length - 1 || result.Length == 0) return String.Empty;
+        return result[index].MimeType;
+    }
+
+    public static byte[] GetImageBytesFromAudioFile(string path,int index)
+    {
+        if (index < 0) return [];
+        
+        var raw = File.Create(path);
+        if (raw is null) return [];
+
+        IPicture[] result = raw.Tag.Pictures;
+
+        if (index > result.Length - 1 || result.Length == 0) return [];
+        return result[index].Data.Data;
     }
 
     private static bool IsValidGDIPlusImage(byte[] imageData)

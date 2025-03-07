@@ -39,7 +39,9 @@ func _process(_delta):
 	queue_redraw()
 
 func _draw():
+	if window.mode == window.Mode.MODE_MINIMIZED: return
 	if !processing: return
+	
 	var division = size.x/(samples-1)
 	var prevHz := 0.
 	var mindb := float(MIN_DB + 10*int(spectrumBoost))

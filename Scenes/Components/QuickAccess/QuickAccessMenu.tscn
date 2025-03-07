@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://blry2rxlowk06"]
 
-[ext_resource type="Script" path="res://Scripts/Components/QuickAccess/QuickAccess.gd" id="1_irfns"]
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="2_1au3y"]
-[ext_resource type="Script" path="res://Scripts/Components/SearchBar.gd" id="2_ynxih"]
+[ext_resource type="Script" uid="uid://dnod2jgecw8ff" path="res://Scripts/Components/QuickAccess/QuickAccess.gd" id="1_irfns"]
+[ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="2_1au3y"]
+[ext_resource type="Script" uid="uid://hfbpgn27i08f" path="res://Scripts/Components/SearchBar.gd" id="2_ynxih"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_m7vdc"]
 device = -1
