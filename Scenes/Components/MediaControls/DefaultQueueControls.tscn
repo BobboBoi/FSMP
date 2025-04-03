@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxnsob26m55ef"]
+[gd_scene load_steps=13 format=3 uid="uid://bxnsob26m55ef"]
 
 [ext_resource type="Script" uid="uid://bvnnwfb2jsq4i" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
 [ext_resource type="Texture2D" uid="uid://ddpewvbyye7yc" path="res://Assets/Sprites/Icons/Shuffle.png" id="2_jg317"]
@@ -8,6 +8,20 @@
 [ext_resource type="Texture2D" uid="uid://boubfg5pm26io" path="res://Assets/Sprites/Icons/Clear.png" id="5_3cpt4"]
 [ext_resource type="Script" uid="uid://c4d2qqscc43x1" path="res://Scripts/Components/MediaControls/ClearButton.gd" id="6_8mo2s"]
 [ext_resource type="Texture2D" uid="uid://dglb4uy5buxju" path="res://Assets/Sprites/Icons/ClearHover.png" id="6_g1vc4"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="8_hqli5"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="9_y1tws"]
+
+[sub_resource type="Resource" id="Resource_u7clm"]
+script = ExtResource("9_y1tws")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_p41j7"]
+script = ExtResource("9_y1tws")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [node name="DefaultQueueControls" type="PanelContainer"]
 anchors_preset = 15
@@ -63,12 +77,17 @@ text = "Save To Playlist"
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+script = ExtResource("8_hqli5")
+wheel_scroll_damper = SubResource("Resource_u7clm")
+dragging_scroll_damper = SubResource("Resource_p41j7")
+allow_horizontal_scroll = false
+hide_scrollbar_over_time = true
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
 [node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" groups=["ControlPanel"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
 script = ExtResource("2_saxjw")
 bookMarks = false
 

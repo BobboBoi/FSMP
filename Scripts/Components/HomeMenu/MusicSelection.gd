@@ -1,14 +1,18 @@
 extends HomeMenuItem
 class_name MusicSelection
 
+@onready var content = preload("uid://dnabikjgn0f5x")
+
 @export var data : MusicData :
 	set(value):
 		data = value
-		if is_inside_tree(): Refresh()
+		if is_inside_tree() and get_child_count() > 1: 
+			get_child(1).Refresh(self)
 @export var index : int : 
 	set(value):
 		index = value
-		if is_inside_tree(): Refresh()
+		if is_inside_tree() and get_child_count() > 1: 
+			get_child(1).Refresh(self)
 
 static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	var inst = preload("res://Scenes/Components/HomeMenu/MusicSelection.tscn").instantiate()
@@ -24,20 +28,8 @@ func Setup(newData : MusicData,newIndex := 0) -> void:
 
 func _ready() -> void:
 	super()
-	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
-	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
-	Refresh()
-
-func Refresh() -> void:
-	%Name.text = data.name
-	%Artist.text = data.artist
-	%Album.text = data.album
-	
-	#%Index.visible = index >= 0
-	%Index.text = str(index)
-
-func ConnectToPlayTrack(home : HomeMenu):
-	Pressed.connect(home.PlayTrack.bind(data))
+	%VisNotifier.screen_entered.connect(VisUpdate.bind(true))
+	%VisNotifier.screen_exited.connect(VisUpdate.bind(false))
 
 func _OnMouseHover():
 	super()
@@ -46,6 +38,18 @@ func _OnMouseHover():
 func _OnMouseUnhover():
 	super()
 	SlideSelect()
+
+func VisUpdate(vis : bool) -> void:
+	if vis:
+		var c := content.instantiate()
+		add_child(c)
+		c.Refresh(self)
+	else:
+		if get_child_count() > 1:
+			get_child(1).free()
+
+func ConnectToPlayTrack(home : HomeMenu):
+	Pressed.connect(home.PlayTrack.bind(data))
 
 func SlideSelect():
 	if !Input.is_action_pressed("SelectMode"): return
