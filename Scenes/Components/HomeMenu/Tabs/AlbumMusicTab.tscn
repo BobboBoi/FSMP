@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cugs6ixvklnpn"]
+[gd_scene load_steps=16 format=3 uid="uid://cugs6ixvklnpn"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_oqssu"]
 [ext_resource type="PackedScene" uid="uid://42pus6g3tefj" path="res://Scenes/Components/AlbumCover.tscn" id="1_vr22n"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://cfl0ojh14wkwj" path="res://Scripts/Components/HomeMenu/Tabs/AlbumSongList.gd" id="2_p3o3m"]
 [ext_resource type="Texture2D" uid="uid://do6enw6csg0wt" path="res://Assets/Sprites/Icons/PlayAll.png" id="4_tybvt"]
 [ext_resource type="Texture2D" uid="uid://btwslbows1nin" path="res://Assets/Sprites/Icons/EnqueueAll.png" id="5_t4jpc"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_ifexn"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_7fb87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afhw7"]
 content_margin_left = 4.0
@@ -17,6 +19,18 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3xs3"]
+
+[sub_resource type="Resource" id="Resource_5xi47"]
+script = ExtResource("7_7fb87")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_iyv1o"]
+script = ExtResource("7_7fb87")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [sub_resource type="Animation" id="Animation_5r307"]
 length = 0.001
@@ -88,19 +102,36 @@ layout_mode = 2
 
 [node name="AlbumCover" parent="MainCont/AlbumInfo/Hcont/Vcont" instance=ExtResource("1_vr22n")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(175, 0)
+custom_minimum_size = Vector2(193, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ActionPanel" type="PanelContainer" parent="MainCont/AlbumInfo/Hcont/Vcont"]
+[node name="Vcont2" type="VBoxContainer" parent="MainCont/AlbumInfo/Hcont"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="MainCont/AlbumInfo/Hcont/Vcont2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 34
+text = "AlbumName"
+metadata/_edit_use_anchors_ = true
+
+[node name="Placeholder" type="Control" parent="MainCont/AlbumInfo/Hcont/Vcont2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActionPanel" type="PanelContainer" parent="MainCont/AlbumInfo/Hcont/Vcont2"]
+layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_afhw7")
 
-[node name="ActionCont" type="HBoxContainer" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel"]
+[node name="ActionCont" type="HBoxContainer" parent="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel"]
 layout_mode = 2
 
-[node name="PlayAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+[node name="PlayAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel/ActionCont"]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -109,11 +140,11 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("4_tybvt")
 stretch_mode = 0
 
-[node name="Pad" type="Control" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+[node name="Pad" type="Control" parent="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel/ActionCont"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EnqueAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont"]
+[node name="EnqueAll" type="TextureButton" parent="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel/ActionCont"]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -121,14 +152,6 @@ tooltip_text = "Enque all"
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("5_t4jpc")
 stretch_mode = 0
-
-[node name="Title" type="Label" parent="MainCont/AlbumInfo/Hcont"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 34
-text = "AlbumName"
-metadata/_edit_use_anchors_ = true
 
 [node name="Sep2" type="HSeparator" parent="MainCont"]
 custom_minimum_size = Vector2(0, 20)
@@ -140,20 +163,27 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+script = ExtResource("6_ifexn")
+wheel_scroll_damper = SubResource("Resource_5xi47")
+dragging_scroll_damper = SubResource("Resource_iyv1o")
+drag_with_mouse = false
+drag_with_touch = false
+allow_horizontal_scroll = false
+hide_scrollbar_over_time = true
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
 [node name="AlbumMusicList" type="VBoxContainer" parent="MainCont/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 2
 theme_override_constants/separation = 0
 script = ExtResource("2_p3o3m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2myko")
+&"": SubResource("AnimationLibrary_2myko")
 }
 
-[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont/PlayAll" to="." method="PlayAll"]
-[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont/ActionPanel/ActionCont/EnqueAll" to="." method="EnqueueAll"]
+[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel/ActionCont/PlayAll" to="." method="PlayAll"]
+[connection signal="pressed" from="MainCont/AlbumInfo/Hcont/Vcont2/ActionPanel/ActionCont/EnqueAll" to="." method="EnqueueAll"]
