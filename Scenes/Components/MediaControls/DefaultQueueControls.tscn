@@ -80,6 +80,8 @@ horizontal_scroll_mode = 0
 script = ExtResource("8_hqli5")
 wheel_scroll_damper = SubResource("Resource_u7clm")
 dragging_scroll_damper = SubResource("Resource_p41j7")
+drag_with_mouse = false
+drag_with_touch = false
 allow_horizontal_scroll = false
 hide_scrollbar_over_time = true
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
@@ -89,6 +91,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_saxjw")
+autoScrollSensitivity = 25.0
 bookMarks = false
 
 [connection signal="MovedIndex" from="QueueCont/Scroll/QueueList" to="." method="OnQueueItemMoved"]

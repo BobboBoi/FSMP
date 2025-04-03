@@ -13,9 +13,10 @@ func Refresh(selection : MusicSelection) -> void:
 	%Name.text = selection.data.name
 	%Artist.text = selection.data.artist
 	%Album.text = selection.data.album
-	
 	%Index.visible = selection.index >= 0
 	%Index.text = str(selection.index)
+	
+	%CheckBox.button_pressed = selection.selected
 	
 	if !selection.Selected.is_connected(%CheckBox.set_pressed_no_signal):
 		selection.Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))

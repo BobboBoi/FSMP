@@ -16,8 +16,6 @@ static func Create(newData : AlbumData,newCover : ImageTexture = null) -> AlbumS
 
 func _ready() -> void:
 	super()
-	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
-	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
 	Refresh()
 
 func Refresh():
@@ -30,22 +28,3 @@ func Refresh():
 
 func ConnectToAlbum(home : HomeMenu) -> void:
 	Pressed.connect(home.OpenAlbum.bind(data,%AlbumCover.texture))
-
-func _OnHover():
-	super()
-	SlideSelect()
-
-func _OnUnhover():
-	super()
-	SlideSelect()
-
-func SlideSelect():
-	if !Input.is_action_pressed("SelectMode"): return
-	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
-	Select(true)
-
-func Clicked() -> void:
-	if Input.is_action_pressed("SelectMode"):
-		Select(!selected)
-	else:
-		Pressed.emit()

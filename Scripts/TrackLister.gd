@@ -95,25 +95,12 @@ func FindMusicFiles(path : String) -> Array:
 
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
-	var path := albumName
-	
-	#Remove unsuported file name characters
-	var illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
-	for c in illegalChars:
-		path = path.replace(c,'')
-	
-	#Load the data
-	var loaded = Loader._load("user://Albums/"+path)
-	
-	#Create new data if there isn't any
-	if loaded == null:
-		var save = AlbumData.Create(albumName) #TODO Artists aren't listed yet
-		Loader._save("user://Albums/"+path,save)
-		loaded = save
-	
-	return loaded
+	return AlbumData.Create(albumName) #TODO Artists aren't listed yet
 
 func LoadAlbumCover(data : AlbumData) -> ImageTexture:
+	if data.coverStatus == AlbumData.COVER_STATUS.CORRUPT_ERROR: return null
+	if data.coverStatus == AlbumData.COVER_STATUS.NO_COVER: return null
+	
 	var list := music.filter(func(d): return d.album == data.name)
 	if list.size() <= 0: return null
 	
@@ -122,8 +109,13 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 		
 		if result != null:
 			if result is ImageTexture:
+				data.coverStatus = AlbumData.COVER_STATUS.HAS_COVER
 				result.resource_name = data.name
 				return result
+			else:
+				data.coverStatus = AlbumData.COVER_STATUS.CORRUPT_ERROR
+		else:
+			data.coverStatus = AlbumData.COVER_STATUS.NO_COVER
 	
 	return null;
 
