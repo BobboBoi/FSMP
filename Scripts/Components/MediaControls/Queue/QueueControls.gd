@@ -13,6 +13,11 @@ var open := false :
 		visible = value
 		open = value
 
+func _exit_tree() -> void:
+	for i in list.get_children():
+		i.free()
+	await get_tree().process_frame
+
 func _ready() -> void:
 	Player.QueueChange.connect(Refresh)
 	Player.QueueProgressed.connect(ProgressQueue)

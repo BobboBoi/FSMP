@@ -22,6 +22,10 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	for t in threads:
 		t.wait_to_finish()
+	
+	for i in list.get_children():
+		i.free()
+	await get_tree().process_frame
 
 func Reload() -> void:
 	for i in list.get_children(): i.queue_free()
@@ -36,8 +40,9 @@ func Reload() -> void:
 	await get_tree().process_frame
 	
 	var butts : Array[QuickAccessButton] = []
-	for t in threads:
-		butts.append_array(await t.wait_to_finish())
+	for t in range(threads.size()):
+		butts.append_array(await threads.front().wait_to_finish())
+		threads.remove_at(0)
 	
 	for b in butts:
 		list.add_child(b)

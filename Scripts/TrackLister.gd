@@ -18,6 +18,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	for t in threads:
 		t.wait_to_finish()
+	
+	music.clear()
 
 ##Used for performance tests.[br]
 ##Same as [mehtod Reload] but also prints the load time and amount into the console.
@@ -43,7 +45,7 @@ func Reload() -> void:
 		var result : Array[MusicData] = t.wait_to_finish()
 		
 		for i in result:
-			if music.filter(func(d): return d.name == i.name).size() == 0:
+			if music.filter(func(d : MusicData): return d.name == i.name && d.artist == i.artist).size() == 0:
 				music.append(i)
 	
 	var uniqueAlbums : Array = []

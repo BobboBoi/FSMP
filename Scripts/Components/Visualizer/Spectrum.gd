@@ -36,10 +36,6 @@ func _ready():
 
 func _process(_delta):
 	if window.mode == window.Mode.MODE_MINIMIZED: return
-	queue_redraw()
-
-func _draw():
-	if window.mode == window.Mode.MODE_MINIMIZED: return
 	if !processing: return
 	
 	var division = size.x/(samples-1)
@@ -72,8 +68,8 @@ func _draw():
 		
 		if line:
 			lineObject.add_point(Vector2(division*i -6,lerpHeight*-1 + flexOrigin))
-		else:
-			draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.WHITE)
+		#else:
+			#draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.WHITE)
 		
 		prevHz = hz
 

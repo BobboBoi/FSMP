@@ -1,6 +1,5 @@
 extends Control
 
-@onready var lister : TrackLister = get_tree().get_first_node_in_group("Lister")
 @onready var fileDialog : FileDialog = %FileDialog
 @onready var dirList := %List
 
@@ -45,7 +44,7 @@ func CloseLayer():
 		get_window().set_input_as_handled()
 
 func RefreshLister() -> void:
-	lister.Reload()
+	Lister.Reload()
 
 func MusicFolderPressed() -> void:
 	fileDialog.dir_selected.connect(AddMusicFolder)
@@ -61,7 +60,7 @@ func RemoveMusicFolder(dir : String):
 	
 	await get_tree().process_frame
 	
-	lister.Reload()
+	Lister.Reload()
 	Loader._save("user://config",Loader.config.duplicate())
 
 func AddMusicFolder(dir : String):
@@ -72,5 +71,5 @@ func AddMusicFolder(dir : String):
 	
 	await get_tree().process_frame
 	
-	lister.Reload()
+	Lister.Reload()
 	Loader._save("user://config",Loader.config.duplicate())
