@@ -7,16 +7,22 @@ var data : AlbumData :
 		if is_inside_tree(): Refresh()
 var cover : ImageTexture = null
 
-static func Create(newData : AlbumData,newCover : ImageTexture = null) -> AlbumSelection:
+static func Create(newData : AlbumData) -> AlbumSelection:
 	var inst = preload("res://Scenes/Components/HomeMenu/AlbumSelection.tscn").instantiate()
 	inst.data = newData
-	if newCover != null:
-		inst.cover = newCover
 	return inst
 
 func _ready() -> void:
 	super()
 	Refresh()
+	%VisNotifier.screen_entered.connect(VisUpdate.bind(true))
+	%VisNotifier.screen_exited.connect(VisUpdate.bind(false))
+
+func VisUpdate(vis : bool) -> void:
+	if vis and cover == null:
+		cover = await Lister.LoadAlbumCover(data)
+		if cover == null: return
+		%AlbumCover.FadeIn(cover)
 
 func Refresh():
 	%Name.text = data.name
@@ -27,4 +33,4 @@ func Refresh():
 		%AlbumCover.texture = cover
 
 func ConnectToAlbum(home : HomeMenu) -> void:
-	Pressed.connect(home.OpenAlbum.bind(data,%AlbumCover.texture))
+	Pressed.connect(home.OpenAlbumSelection.bind(self))

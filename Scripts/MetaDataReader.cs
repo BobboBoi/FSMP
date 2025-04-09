@@ -36,13 +36,13 @@ public partial class MetaDataReader : Node
         }
     }
 
-    public async void GetImageFromAudioFile(string path,int index)
+    public async void GetImageFromAudioFileAsync(string path,int index)
     {
-        ImageTexture img = await Task.Run(() => GetImageFromAudioFileTask(path, index));
+        ImageTexture img = await Task.Run(() => GetImageFromAudioFile(path, index));
         EmitSignal(SignalName.CoverLoaded, img);
     }
 
-    public ImageTexture GetImageFromAudioFileTask(string path,int index)
+    public ImageTexture GetImageFromAudioFile(string path,int index)
     {
         if (index < 0) return null;
         try

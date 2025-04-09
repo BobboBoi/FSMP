@@ -11,6 +11,8 @@ class_name AlbumCover
 		texture = value
 		if get_node_or_null("%Texture") == null: return
 		%Texture.texture = texture
+var fadeTween : Tween
+
 
 enum SIZE_MODES {
 	FIT_HEIGHT,
@@ -18,6 +20,16 @@ enum SIZE_MODES {
 }
 
 const TEXTURE_PADDING = 1.04
+
+func FadeIn(t : ImageTexture, speed := 0.3) -> void:
+	if fadeTween:
+		fadeTween.kill()
+	
+	texture = t
+	%Texture.modulate = Color(1,1,1,0)
+	
+	fadeTween = create_tween()
+	fadeTween.tween_property(%Texture, "modulate", Color(1,1,1,1), speed)
 
 func SizeUpdate() -> void:
 	match(sizeMode):

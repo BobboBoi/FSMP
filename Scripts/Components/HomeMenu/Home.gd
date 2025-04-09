@@ -26,6 +26,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func OpenAlbum(albumData : AlbumData,cover : Texture2D):
 	albumMusicTab.OpenAlbum(albumData,self,cover)
 	tabCont.set_current_tab(TABS.ALBUM_MUSIC)
+func OpenAlbumSelection(album : AlbumSelection):
+	albumMusicTab.OpenAlbum(album.data,self,album.cover)
+	tabCont.set_current_tab(TABS.ALBUM_MUSIC)
 
 func ShowHome() -> void:
 	self.visible = true

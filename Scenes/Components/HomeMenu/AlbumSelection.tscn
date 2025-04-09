@@ -44,7 +44,6 @@ mouse_filter = 2
 
 [node name="AlbumCover" parent="MainCont" instance=ExtResource("3_kpjif")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(149, 0)
 layout_mode = 2
 size_flags_horizontal = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdk5g")
@@ -76,5 +75,6 @@ max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="VisNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(576, 74.5)
 scale = Vector2(57.6, 7.45)
