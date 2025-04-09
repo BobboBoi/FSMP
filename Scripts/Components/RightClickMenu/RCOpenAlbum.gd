@@ -12,7 +12,7 @@ func _pressed() -> void:
 		var albumData := Lister.GetAlbumData(data.album)
 		if albumData == null: return
 		
-		var cover := GetCover(albumData)
+		var cover := await GetCover(albumData)
 		home.OpenAlbum(albumData,cover)
 	
 	elif owner.currentSelection is QuickAccessButton:
@@ -22,7 +22,7 @@ func _pressed() -> void:
 		var albumData := Lister.GetAlbumData(data.album)
 		if albumData == null: return
 		
-		var cover := GetCover(albumData)
+		var cover := await GetCover(albumData)
 		home.ShowHome()
 		home.OpenAlbum(albumData,cover)
 	else:
@@ -43,7 +43,7 @@ func _Show(src : Node) -> void:
 	show()
 
 func GetCover(albumData : AlbumData) -> Texture2D:
-	var cover := Lister.LoadAlbumCover(albumData)
+	var cover := await Lister.LoadAlbumCover(albumData)
 	if cover == null:
 		return load("res://Assets/Sprites/Logo.png")
 	return cover

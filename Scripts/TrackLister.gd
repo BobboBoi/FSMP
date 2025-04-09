@@ -105,7 +105,9 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 	if list.size() <= 0: return null
 	
 	for i in list:
-		var result = MetaDataReader.GetImageFromAudioFile(i.path,0) #Causes errors for some JPEG's
+		var reader := MetaDataReader.new()
+		reader.GetImageFromAudioFile(i.path,0) #Causes errors for some JPEG's
+		var result = await reader.CoverLoaded
 		
 		if result != null:
 			if result is ImageTexture:

@@ -14,18 +14,13 @@ func _OnTabOpened():
 	var numb = 0
 	#List Albums
 	for i in Lister.albums:
-		var butt := AlbumSelection.Create(i,Lister.LoadAlbumCover(i))
+		var butt := await AlbumSelection.Create(i, await Lister.LoadAlbumCover(i))
 		list.add_child(butt)
 		butt.ConnectToAlbum(home)
 		
 		#Connect selection signals
 		butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)
 		butt.Unselected.connect(home.UnselectedItem.bind(butt),CONNECT_DEFERRED)
-		
-		if(numb % 20 == 0):
-			list.Update()
-			await get_tree().process_frame
+		list.Update()
 		
 		numb += 1
-	
-	list.Update()

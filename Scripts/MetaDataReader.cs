@@ -4,10 +4,14 @@ using TagLib;
 using File = TagLib.File;
 using SkiaSharp;
 using System;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class MetaDataReader : Node
 {
+    [Signal]
+    public delegate void CoverLoadedEventHandler(ImageTexture img);
+
     public static MetaData GetFromAudioFile(string path,string altTitle = "")
     {
         try
@@ -32,7 +36,13 @@ public partial class MetaDataReader : Node
         }
     }
 
-    public static ImageTexture GetImageFromAudioFile(string path,int index)
+    public async void GetImageFromAudioFile(string path,int index)
+    {
+        ImageTexture img = await Task.Run(() => GetImageFromAudioFileTask(path, index));
+        EmitSignal(SignalName.CoverLoaded, img);
+    }
+
+    public ImageTexture GetImageFromAudioFileTask(string path,int index)
     {
         if (index < 0) return null;
         try
