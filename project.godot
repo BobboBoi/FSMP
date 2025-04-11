@@ -31,6 +31,10 @@ Player="*res://Scripts/MusicPlayer.gd"
 CmdArg="*res://Scripts/CmdArguments.gd"
 Messages="*res://Scenes/Components/MessageMaster.tscn"
 
+[display]
+
+window/vsync/vsync_mode=2
+
 [dotnet]
 
 project/assembly_name="F.S.M.P."

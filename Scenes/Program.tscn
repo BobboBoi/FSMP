@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c58qfhqjvph0j"]
+[gd_scene load_steps=10 format=3 uid="uid://c58qfhqjvph0j"]
 
+[ext_resource type="Script" uid="uid://d4cx0g7smapa5" path="res://Scripts/Components/Program.gd" id="1_re7uy"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="3_5qxlq"]
 [ext_resource type="PackedScene" uid="uid://cmtqwlk3etxas" path="res://Scenes/Visualizers/OgVisualizer.tscn" id="4_l6lyp"]
 [ext_resource type="PackedScene" uid="uid://ccybfyb2v8rwy" path="res://Scenes/Components/MediaControls/ControlPanel.tscn" id="5_kwqji"]
@@ -18,6 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_re7uy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -3
