@@ -5,8 +5,6 @@ extends Control
 var fps := 0.
 var windowMode := Window.Mode.MODE_WINDOWED
 
-const MINIMIZED_FPS := 10
-
 func _ready() -> void:
 	fps = DisplayServer.screen_get_refresh_rate()
 	add_child(timer)
