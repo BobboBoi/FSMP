@@ -68,10 +68,11 @@ func _process(_delta):
 		
 		if line:
 			lineObject.add_point(Vector2(division*i -6,lerpHeight*-1 + flexOrigin))
-		#else:
+		#else: ye will take more effort then I thought
 			#draw_rect(Rect2(division * i, size.y, division, -lerpHeight), Color.WHITE)
 		
 		prevHz = hz
+
 
 func SetBoost(value : bool) -> void:
 	spectrumBoost = value

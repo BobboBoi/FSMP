@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsq4lil7y26xw"]
+[gd_scene load_steps=16 format=3 uid="uid://dsq4lil7y26xw"]
 
+[ext_resource type="Script" uid="uid://bwtavhgc7ntg1" path="res://Scripts/Components/MusicTimeStamp.gd" id="1_7cqot"]
 [ext_resource type="Texture2D" uid="uid://bwg11s3wfgppi" path="res://Assets/Sprites/Icons/Loop.png" id="1_c4gqo"]
 [ext_resource type="Script" uid="uid://dv0vgjaxwgkqx" path="res://Scripts/Components/MusicInfo.gd" id="1_jpt1u"]
 [ext_resource type="PackedScene" uid="uid://cf0idhr6w37fn" path="res://Scenes/Components/MediaControls/BaseProgressBar.tscn" id="1_n46p1"]
@@ -18,6 +19,8 @@ bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 border_width_top = 3
 border_color = Color(0.482353, 0.482353, 0.482353, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdihf"]
+
 [sub_resource type="InputEventKey" id="InputEventKey_b8ecu"]
 device = -1
 keycode = 76
@@ -34,7 +37,7 @@ keycode = 4194333
 events = [SubResource("InputEventKey_ewgbj")]
 
 [node name="DefaultMediaControls" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 132)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 53.0
@@ -56,14 +59,25 @@ script = ExtResource("1_jpt1u")
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Controls" type="CenterContainer" parent="VCont"]
+[node name="BottomControls" type="PanelContainer" parent="VCont"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jdihf")
+
+[node name="Timstamp" type="RichTextLabel" parent="VCont/BottomControls"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "0:00 - 0:00"
+script = ExtResource("1_7cqot")
+
+[node name="Controls" type="CenterContainer" parent="VCont/BottomControls"]
 custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Hcont" type="HBoxContainer" parent="VCont/Controls"]
+[node name="Hcont" type="HBoxContainer" parent="VCont/BottomControls/Controls"]
 layout_mode = 2
 
-[node name="LoopButton" type="TextureButton" parent="VCont/Controls/Hcont"]
+[node name="LoopButton" type="TextureButton" parent="VCont/BottomControls/Controls/Hcont"]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -76,12 +90,12 @@ LoopQueueTexture = ExtResource("1_c4gqo")
 LoopSingleTexture = ExtResource("3_hcu6x")
 NoLoopTexture = ExtResource("4_sjwuw")
 
-[node name="Sep" type="Control" parent="VCont/Controls/Hcont"]
+[node name="Sep" type="Control" parent="VCont/BottomControls/Controls/Hcont"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="QueueButton" type="TextureButton" parent="VCont/Controls/Hcont"]
+[node name="QueueButton" type="TextureButton" parent="VCont/BottomControls/Controls/Hcont"]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2

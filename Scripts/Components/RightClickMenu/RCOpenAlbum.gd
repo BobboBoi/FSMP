@@ -1,11 +1,12 @@
 extends RightClickItem
 
 @onready var home : HomeMenu = get_tree().get_first_node_in_group("Home")
+@onready var ctrlPanel = get_tree().get_first_node_in_group("ControlPanel")
 
 func _pressed() -> void:
 	if owner is not RightClickMenu: return
 	
-	if owner.currentSelection is MusicSelection:
+	if owner.currentSelection is MusicSelection or owner.currentSelection is QueueSelection:
 		var data = owner.currentSelection.data
 		if data.album == "": return
 		
@@ -13,6 +14,10 @@ func _pressed() -> void:
 		if albumData == null: return
 		
 		var cover := await GetCover(albumData)
+		if ctrlPanel.queuePanel.open:
+			ctrlPanel.CloseQueue()
+		if !home.visible:
+			home.ShowHome()
 		home.OpenAlbum(albumData,cover)
 	
 	elif owner.currentSelection is QuickAccessButton:
@@ -30,10 +35,10 @@ func _pressed() -> void:
 
 func _Show(src : Node) -> void:
 	if owner is not RightClickMenu: return
-	if !(src is MusicSelection or src is QuickAccessButton): return
+	if !(src is MusicSelection or src is QueueSelection or src is QuickAccessButton): return
 	if home.selected.size() > 0: return
 	
-	if src is MusicSelection:
+	if src is MusicSelection or src is QueueSelection:
 		var data = src.data
 		if data.album == "": return
 	elif src is QuickAccessButton:

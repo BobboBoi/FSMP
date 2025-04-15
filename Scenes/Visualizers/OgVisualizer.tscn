@@ -614,14 +614,14 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 alignment = 2
 
+[node name="BeatReader" parent="MainCont" instance=ExtResource("1_mkr3y")]
+layout_mode = 2
+debug = false
+
 [node name="Spectrum" parent="MainCont" instance=ExtResource("1_pjcxw")]
 layout_mode = 2
 freqCurve = ExtResource("3_a8621")
 heightCurve = SubResource("Curve_168ce")
-
-[node name="BeatReader" parent="MainCont" instance=ExtResource("1_mkr3y")]
-layout_mode = 2
-debug = false
 
 [node name="Config" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -654,10 +654,12 @@ mouse_default_cursor_shape = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "#NAME#"
+popup/item_0/id = 0
 script = ExtResource("4_krs0l")
 target = NodePath("../../../Sprite")
 
 [node name="Line" type="HBoxContainer" parent="Config/VCont"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Config/VCont/Line"]
@@ -686,14 +688,11 @@ mouse_default_cursor_shape = 2
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-z_index = 1
+z_index = -1
 position = Vector2(576, 324)
 sprite_frames = SubResource("SpriteFrames_itlep")
 animation = &"Pug"
 script = ExtResource("6_qy74n")
-
-[node name="Timer" type="Timer" parent="Sprite"]
-one_shot = true
 
 [connection signal="Beat" from="MainCont/BeatReader" to="Sprite" method="OnBeat" unbinds=1]
 [connection signal="Update" from="MainCont/BeatReader" to="Sprite" method="Update"]

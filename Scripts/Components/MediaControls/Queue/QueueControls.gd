@@ -34,7 +34,7 @@ func Refresh():
 		
 		if(Player.currentIndex) == i:
 			currentlyPlaying = n
-			Speen(n)
+			n.ContentLoaded.connect(Speen.bind(n))
 	
 	list.Update()
 
@@ -47,7 +47,7 @@ func Speen(new : QueueSelection):
 		currentSpeen.free()
 	
 	currentSpeen = speenLoad.instantiate()
-	new.get_node("%SpinParent").add_child(currentSpeen)
+	new.get_node("Cont/SpinParent").add_child(currentSpeen)
 
 func OnQueueItemMoved(originalIndex: int, newIndex: int) -> void:
 	Player.MoveItemInQueue(originalIndex,newIndex)

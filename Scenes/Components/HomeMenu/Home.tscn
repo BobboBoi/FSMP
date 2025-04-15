@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene load_steps=22 format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" uid="uid://wnbjws0i3q0t" path="res://Scripts/Components/HomeMenu/Home.gd" id="1_uex14"]
@@ -42,8 +42,6 @@ unicode = 50
 
 [sub_resource type="Shortcut" id="Shortcut_mxejl"]
 events = [SubResource("InputEventKey_hbtkb")]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uyyr7"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y64le"]
 content_margin_left = 22.0
@@ -157,11 +155,6 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Settings
 "
-
-[node name="HSeparator" type="HSeparator" parent="MainCont/Navigation/Options"]
-layout_mode = 2
-theme_override_constants/separation = 10
-theme_override_styles/separator = SubResource("StyleBoxEmpty_uyyr7")
 
 [node name="Sep" type="VSeparator" parent="MainCont"]
 layout_mode = 2

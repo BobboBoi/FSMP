@@ -1,10 +1,13 @@
 extends AnimatedSprite2D
 
+@onready var timer := Timer.new()
 @onready var part = preload("res://Scenes/particles.tscn")
 @onready var p : Node = get_parent()
 
 func _ready() -> void:
 	play("Pug")
+	timer.one_shot = true
+	add_child(timer)
 	
 	if p is not Control: return
 	if !p.resized.is_connected(SizeChanged): p.resized.connect(SizeChanged)
@@ -20,8 +23,8 @@ func Update(mod : float):
 		scale = Vector2(lerp(scale.x, 1 + mod*0.75 ,0.4) , lerp(scale.y, 1 + mod*0.75,0.4)) 
 
 func OnBeat():
-	if $Timer.time_left > 0.0: return
+	if timer.time_left > 0.0: return
 	var particles = part.instantiate()
 	particles.emitting = true
 	add_child(particles)
-	$Timer.start(0.1)
+	timer.start(0.1)
