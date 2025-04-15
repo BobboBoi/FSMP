@@ -52,7 +52,6 @@ func Refresh():
 			
 			currentlyPlaying = n
 			n.ContentLoaded.connect(Speen.bind(n))
-			print("Connect: ",n.data.name)
 		
 		numb += 1
 	
