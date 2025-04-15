@@ -16,23 +16,16 @@ static func Create(d : MusicData, qi : int) -> QueueSelection:
 
 func _ready() -> void:
 	super()
-	await get_tree().process_frame
-	if visNot.is_on_screen():
-		var c := content.instantiate()
-		add_child(c)
-		c.Refresh(self,false)
-		ContentLoaded.emit()
-	
 	visNot.screen_entered.connect(VisUpdate.bind(true))
 	visNot.screen_exited.connect(VisUpdate.bind(false))
 
-func VisUpdate(vis : bool) -> void:
+func VisUpdate(vis : bool, fade := true) -> void:
 	if vis:
 		if get_child_count() > 1: return
 		
 		var c := content.instantiate()
 		add_child(c)
-		c.Refresh(self)
+		c.Refresh(self,fade)
 		ContentLoaded.emit()
 	else:
 		if get_child_count() > 1:
