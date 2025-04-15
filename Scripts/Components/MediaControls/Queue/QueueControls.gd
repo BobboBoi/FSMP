@@ -42,27 +42,40 @@ func Refresh():
 		nRect.position.y += (nRect.size.y+4) * numb
 		if nRect.intersects(rect):
 			n.VisUpdate(true, false)
-			if(Player.currentIndex) == i:
-				Speen.call_deferred(n)
+			if Player.currentIndex == i:
+				Speen(n)
 		
-		if(Player.currentIndex) == i:
+		if Player.currentIndex == i:
+			if currentlyPlaying != null:
+				if currentlyPlaying.ContentLoaded.is_connected(Speen):
+					currentlyPlaying.ContentLoaded.disconnect(Speen)
+			
 			currentlyPlaying = n
 			n.ContentLoaded.connect(Speen.bind(n))
+			print("Connect: ",n.data.name)
 		
 		numb += 1
 	
 	list.Update()
 
 func ProgressQueue(index : int):
+	if currentlyPlaying != null:
+		if currentlyPlaying.ContentLoaded.is_connected(Speen):
+			currentlyPlaying.ContentLoaded.disconnect(Speen)
+	
 	currentlyPlaying = list.get_child(index)
+	currentlyPlaying.ContentLoaded.connect(Speen.bind(currentlyPlaying))
 	Speen(currentlyPlaying)
 
 func Speen(new : QueueSelection):
 	if currentSpeen != null:
 		currentSpeen.free()
 	
+	var target = new.get_node_or_null("Cont/SpinParent")
+	if target == null: return
+	
 	currentSpeen = speenLoad.instantiate()
-	new.get_node("Cont/SpinParent").add_child(currentSpeen)
+	target.add_child(currentSpeen)
 
 func OnQueueItemMoved(originalIndex: int, newIndex: int) -> void:
 	Player.MoveItemInQueue(originalIndex,newIndex)
