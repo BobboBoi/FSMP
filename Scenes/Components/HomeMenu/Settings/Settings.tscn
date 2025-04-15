@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://yh17p5vo1ynv"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_8w6qu"]
-[ext_resource type="Script" path="res://Scripts/Components/Settings.gd" id="2_sjl3n"]
+[ext_resource type="Script" uid="uid://coo5ne6qqjaxw" path="res://Scripts/Components/Settings.gd" id="2_sjl3n"]
 [ext_resource type="PackedScene" uid="uid://dac3riqucf4tm" path="res://Scenes/Components/HomeMenu/Settings/About.tscn" id="3_kn6m5"]
-[ext_resource type="Script" path="res://Scripts/Components/SongList.gd" id="4_17h2w"]
+[ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="4_17h2w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eh40"]
 bg_color = Color(0.140625, 0.140625, 0.140625, 1)

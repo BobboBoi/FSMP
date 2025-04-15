@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://e2rvldetudgn"]
 
-[ext_resource type="Script" path="res://Scripts/Components/Visualizer/Spectrum.gd" id="1_rowst"]
+[ext_resource type="Script" uid="uid://dwekdmhv2hupe" path="res://Scripts/Components/Visualizer/Spectrum.gd" id="1_rowst"]
 
 [node name="Spectrum" type="Control"]
 layout_mode = 3

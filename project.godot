@@ -15,9 +15,9 @@ config/description="The worst music player you'll ever use.
 "
 config/tags=PackedStringArray("mainproject")
 run/main_scene="res://Scenes/Program.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-boot_splash/image="res://Assets/Sprites/FSMPLogo.png"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/fullsize=false
+boot_splash/image="res://Assets/Sprites/FSMPLogo.png"
 config/icon="res://Assets/Sprites/Logo.png"
 
 [autoload]
@@ -33,7 +33,7 @@ Messages="*res://Scenes/Components/MessageMaster.tscn"
 
 [display]
 
-window/stretch/aspect="expand"
+window/vsync/vsync_mode=2
 
 [dotnet]
 
@@ -41,7 +41,7 @@ project/assembly_name="F.S.M.P."
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord-sdk-gd/plugin.cfg")
+enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/discord-sdk-gd/plugin.cfg")
 
 [file_customization]
 
@@ -110,3 +110,7 @@ LeftClick={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(355, 19),"global_position":Vector2(364, 65),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[rendering]
+
+renderer/rendering_method="mobile"

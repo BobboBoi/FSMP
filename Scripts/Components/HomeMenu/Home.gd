@@ -27,14 +27,17 @@ func OpenAlbum(albumData : AlbumData,cover : Texture2D):
 	albumMusicTab.OpenAlbum(albumData,self,cover)
 	tabCont.set_current_tab(TABS.ALBUM_MUSIC)
 
+func OpenAlbumSelection(album : AlbumSelection):
+	albumMusicTab.OpenAlbum(album.data,self,album.cover)
+	tabCont.set_current_tab(TABS.ALBUM_MUSIC)
+
 func ShowHome() -> void:
 	self.visible = true
 	tabCont.set_current_tab(TABS.MUSIC)
 
 func HideHome() -> void:
 	self.visible = false
-	get_parent().set_current_tab(0)
-
+	tabCont.set_current_tab(TABS.MUSIC)
 
 #Player actions
 func PlayTrack(data : MusicData) -> void:

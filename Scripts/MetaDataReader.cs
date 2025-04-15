@@ -3,10 +3,15 @@ using System.IO;
 using TagLib;
 using File = TagLib.File;
 using SkiaSharp;
+using System;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class MetaDataReader : Node
 {
+    [Signal]
+    public delegate void CoverLoadedEventHandler(ImageTexture img);
+
     public static MetaData GetFromAudioFile(string path,string altTitle = "")
     {
         try
@@ -31,7 +36,13 @@ public partial class MetaDataReader : Node
         }
     }
 
-    public static ImageTexture GetImageFromAudioFile(string path,int index)
+    public async void GetImageFromAudioFileAsync(string path,int index)
+    {
+        ImageTexture img = await Task.Run(() => GetImageFromAudioFile(path, index));
+        EmitSignal(SignalName.CoverLoaded, img);
+    }
+
+    public ImageTexture GetImageFromAudioFile(string path,int index)
     {
         if (index < 0) return null;
         try
@@ -40,7 +51,6 @@ public partial class MetaDataReader : Node
             if (raw is null) return null;
 
             IPicture[] result = raw.Tag.Pictures;
-
             if (index > result.Length - 1 || result.Length == 0) return null;
 
             try
@@ -77,6 +87,32 @@ public partial class MetaDataReader : Node
         {
             return null;
         }
+    }
+
+    public static string GetImageTypeFromAudioFile(string path,int index)
+    {
+        if (index < 0) return String.Empty;
+        
+        var raw = File.Create(path);
+        if (raw is null) return String.Empty;
+
+        IPicture[] result = raw.Tag.Pictures;
+
+        if (index > result.Length - 1 || result.Length == 0) return String.Empty;
+        return result[index].MimeType;
+    }
+
+    public static byte[] GetImageBytesFromAudioFile(string path,int index)
+    {
+        if (index < 0) return [];
+        
+        var raw = File.Create(path);
+        if (raw is null) return [];
+
+        IPicture[] result = raw.Tag.Pictures;
+
+        if (index > result.Length - 1 || result.Length == 0) return [];
+        return result[index].Data.Data;
     }
 
     private static bool IsValidGDIPlusImage(byte[] imageData)

@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://f7dm2bawj3y0"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_7io7r"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RightClickMenu.gd" id="2_76rx4"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCEnqueue.gd" id="3_y7nv1"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCEnqueueNext.gd" id="4_8v41r"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueSingle.gd" id="4_fm61j"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/EnqueueNextSingle.gd" id="5_ht8hk"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCOpenAlbum.gd" id="7_ym6ns"]
-[ext_resource type="Script" path="res://Scripts/Components/RightClickMenu/RCRemoveFromQueue.gd" id="8_awvae"]
+[ext_resource type="Script" uid="uid://blaf36xye0q6m" path="res://Scripts/Components/RightClickMenu/RightClickMenu.gd" id="2_76rx4"]
+[ext_resource type="Script" uid="uid://dj08g2t8b40dx" path="res://Scripts/Components/RightClickMenu/RCEnqueue.gd" id="3_y7nv1"]
+[ext_resource type="Script" uid="uid://bkcwcdiga83g3" path="res://Scripts/Components/RightClickMenu/RCEnqueueNext.gd" id="4_8v41r"]
+[ext_resource type="Script" uid="uid://ode5wxf5nsbb" path="res://Scripts/Components/RightClickMenu/EnqueueSingle.gd" id="4_fm61j"]
+[ext_resource type="Script" uid="uid://bnsvi5b07boh8" path="res://Scripts/Components/RightClickMenu/EnqueueNextSingle.gd" id="5_ht8hk"]
+[ext_resource type="Script" uid="uid://bu1oovkee0k3o" path="res://Scripts/Components/RightClickMenu/RCOpenAlbum.gd" id="7_ym6ns"]
+[ext_resource type="Script" uid="uid://bqouxp82o0vs2" path="res://Scripts/Components/RightClickMenu/RCRemoveFromQueue.gd" id="8_awvae"]
 
 [node name="RCMenu" type="PanelContainer" groups=["RightClickMenu"]]
 z_index = 20

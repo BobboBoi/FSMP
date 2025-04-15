@@ -1,6 +1,6 @@
 [gd_scene load_steps=64 format=3 uid="uid://d3a33j6h312qa"]
 
-[ext_resource type="Shader" path="res://Assets/Shaders/DaMan.gdshader" id="1_2ugys"]
+[ext_resource type="Shader" uid="uid://dji4w1xgcowpi" path="res://Assets/Shaders/DaMan.gdshader" id="1_2ugys"]
 [ext_resource type="Texture2D" uid="uid://bik1ff4o78pdy" path="res://Assets/Sprites/brink2.png" id="2_bkwln"]
 [ext_resource type="Texture2D" uid="uid://diw24sy7mj73k" path="res://Assets/Sprites/DAMAN.png" id="3_2w6bc"]
 

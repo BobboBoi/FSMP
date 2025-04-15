@@ -3,7 +3,6 @@ class_name TrackLister
 
 var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
-var albumCovers : Array[ImageTexture] = []
 var paths : Array[String] = []
 
 var threads : Array[Thread] = []
@@ -19,6 +18,8 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	for t in threads:
 		t.wait_to_finish()
+	
+	music.clear()
 
 ##Used for performance tests.[br]
 ##Same as [mehtod Reload] but also prints the load time and amount into the console.
@@ -44,7 +45,7 @@ func Reload() -> void:
 		var result : Array[MusicData] = t.wait_to_finish()
 		
 		for i in result:
-			if music.filter(func(d): return d.name == i.name).size() == 0:
+			if music.filter(func(d : MusicData): return d.name == i.name && d.artist == i.artist).size() == 0:
 				music.append(i)
 	
 	var uniqueAlbums : Array = []
@@ -94,41 +95,29 @@ func FindMusicFiles(path : String) -> Array:
 
 ##Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
-	var path := albumName
-	
-	#Remove unsuported file name characters
-	var illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
-	for c in illegalChars:
-		path = path.replace(c,'')
-	
-	#Load the data
-	var loaded = Loader._load("user://Albums/"+path)
-	
-	#Create new data if there isn't any
-	if loaded == null:
-		var save = AlbumData.Create(albumName) #TODO Artists aren't listed yet
-		Loader._save("user://Albums/"+path,save)
-		loaded = save
-	
-	return loaded
+	return AlbumData.Create(albumName) #TODO Artists aren't listed yet
 
 func LoadAlbumCover(data : AlbumData) -> ImageTexture:
+	if data.coverStatus == AlbumData.COVER_STATUS.CORRUPT_ERROR: return null
+	if data.coverStatus == AlbumData.COVER_STATUS.NO_COVER: return null
+	
 	var list := music.filter(func(d): return d.album == data.name)
 	if list.size() <= 0: return null
 	
-	var cache = albumCovers.filter(func(c): return c.resource_name == data.name)
-	if cache.size() > 0:
-		return cache.front()
-	
 	for i in list:
-		var result = MetaDataReader.GetImageFromAudioFile(i.path,0) #Causes errors for some JPEG's
+		var reader := MetaDataReader.new()
+		reader.GetImageFromAudioFileAsync(i.path,0) #Causes errors for some JPEG's
+		var result = await reader.CoverLoaded
 		
 		if result != null:
 			if result is ImageTexture:
+				data.coverStatus = AlbumData.COVER_STATUS.HAS_COVER
 				result.resource_name = data.name
-				albumCovers.append(result)
-				
 				return result
+			else:
+				data.coverStatus = AlbumData.COVER_STATUS.CORRUPT_ERROR
+		else:
+			data.coverStatus = AlbumData.COVER_STATUS.NO_COVER
 	
 	return null;
 

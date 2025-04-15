@@ -1,14 +1,18 @@
 extends HomeMenuItem
 class_name MusicSelection
 
+@onready var content = preload("uid://dnabikjgn0f5x")
+@onready var visNot := %VisNotifier
 @export var data : MusicData :
 	set(value):
 		data = value
-		if is_inside_tree(): Refresh()
+		if is_inside_tree() and get_child_count() > 1: 
+			get_child(1).Refresh(self)
 @export var index : int : 
 	set(value):
 		index = value
-		if is_inside_tree(): Refresh()
+		if is_inside_tree() and get_child_count() > 1: 
+			get_child(1).Refresh(self)
 
 static func Create(newData : MusicData,newIndex := 0) -> MusicSelection:
 	var inst = preload("res://Scenes/Components/HomeMenu/MusicSelection.tscn").instantiate()
@@ -24,20 +28,17 @@ func Setup(newData : MusicData,newIndex := 0) -> void:
 
 func _ready() -> void:
 	super()
-	Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
-	Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
-	Refresh()
+	visNot.screen_entered.connect(VisUpdate.bind(true))
+	visNot.screen_exited.connect(VisUpdate.bind(false))
 
-func Refresh() -> void:
-	%Name.text = data.name
-	%Artist.text = data.artist
-	%Album.text = data.album
+func _gui_input(event: InputEvent) -> void:
+	if !hovered: return
+	if event.is_action_pressed("EnqueueNext"):
+		Player.EnqueueNextFromDataArray([data])
+	elif event.is_action_pressed("Enqueue"):
+		Player.EnqueueFromDataArray([data])
 	
-	#%Index.visible = index >= 0
-	%Index.text = str(index)
-
-func ConnectToPlayTrack(home : HomeMenu):
-	Pressed.connect(home.PlayTrack.bind(data))
+	super(event)
 
 func _OnMouseHover():
 	super()
@@ -46,6 +47,20 @@ func _OnMouseHover():
 func _OnMouseUnhover():
 	super()
 	SlideSelect()
+
+func VisUpdate(vis : bool) -> void:
+	if vis:
+		if get_child_count() > 1: return
+		
+		var c := content.instantiate()
+		add_child(c)
+		c.Refresh(self)
+	else:
+		if get_child_count() > 1:
+			get_child(1).free()
+
+func ConnectToPlayTrack(home : HomeMenu):
+	Pressed.connect(home.PlayTrack.bind(data))
 
 func SlideSelect():
 	if !Input.is_action_pressed("SelectMode"): return

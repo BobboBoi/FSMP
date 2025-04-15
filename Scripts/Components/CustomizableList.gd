@@ -1,15 +1,21 @@
 extends SongList
 class_name CustomizableList
 
+@export_range(0,100) var autoScrollSensitivity := 30.
+@export var autoScrollSpeed := 20.
+var scrollCont : ScrollContainer
 var movingItem : HomeMenuItem = null
 var placeholder : Control = null
 var initialIndex := -1
 var chosenIndex := -1
+var scrollSpeed := 0.
 
 signal MovedIndex(originalIndex : int,newIndex : int)
 signal MovedItem(item : Control,newIndex : int)
 
 func _ready() -> void:
+	if get_parent() is ScrollContainer:
+		scrollCont = get_parent()
 	sort = false
 	hidden.connect(CancelHold)
 
@@ -22,15 +28,34 @@ func Update():
 			if !i.Held.is_connected(StartHolding):
 				i.Held.connect(StartHolding.bind(i))
 
-func _process(_delta : float) -> void:
+func _process(delta : float) -> void:
 	if movingItem == null:
+		scrollSpeed = 0.
 		set_process(false)
 		return
+	
+	if autoScrollSpeed != 0. and scrollCont != null:
+		scrollCont.scroll_vertical += roundi(scrollSpeed*(1./60./delta))
 	
 	var prevPos := movingItem.global_position
 	movingItem.global_position = get_global_mouse_position() - movingItem.size / 2
 	
-	if prevPos.y == movingItem.global_position.y: return
+	if prevPos.y == movingItem.global_position.y and scrollSpeed == 0.: return
+	
+	if autoScrollSpeed != 0. and scrollCont != null:
+		var scrollMargin := autoScrollSensitivity/100 * scrollCont.size.y
+		var bottom := scrollCont.global_position.y + scrollCont.size.y
+		var top := scrollCont.global_position.y
+		var mouse := clampf(get_global_mouse_position().y,top-1,bottom-1)
+		
+		#Scroll Down
+		if mouse > bottom-scrollMargin:
+			scrollSpeed = autoScrollSpeed * smoothstep(bottom-scrollMargin,bottom,mouse)
+		#Scroll Up
+		elif mouse < top+scrollMargin:
+			scrollSpeed = -autoScrollSpeed * smoothstep(top+scrollMargin,top,mouse)
+		else:
+			scrollSpeed = 0
 	
 	var reverse := prevPos.y - movingItem.global_position.y > 0
 	var items := get_children()
@@ -73,6 +98,7 @@ func Drop(pos := -1) -> void:
 	movingItem.top_level = false
 	movingItem.z_index = 0
 	set_process(false)
+	scrollSpeed = 0.
 	
 	movingItem.reparent(self)
 	placeholder.free()

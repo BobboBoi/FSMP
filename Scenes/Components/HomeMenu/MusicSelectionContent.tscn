@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnabikjgn0f5x"]
+
+[sub_resource type="GDScript" id="GDScript_l7wph"]
+resource_name = "MusicSelectionContent"
+script/source = "extends HBoxContainer
+
+func _ready() -> void:
+	modulate = Color(1,1,1,0)
+	var tween := create_tween()
+	tween.tween_property(self,\"modulate\",Color(1,1,1,1),0.15)
+
+func Refresh(selection : MusicSelection) -> void:
+	%Name.text = selection.data.name
+	%Artist.text = selection.data.artist
+	%Album.text = selection.data.album
+	%Index.visible = selection.index >= 0
+	%Index.text = str(selection.index)
+	
+	%CheckBox.button_pressed = selection.selected
+	
+	if !selection.Selected.is_connected(%CheckBox.set_pressed_no_signal):
+		selection.Selected.connect(%CheckBox.set_pressed_no_signal.bind(true))
+	if !selection.Unselected.is_connected(%CheckBox.set_pressed_no_signal):
+		selection.Unselected.connect(%CheckBox.set_pressed_no_signal.bind(false))
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw5i3"]
+
+[node name="Cont" type="HBoxContainer"]
+mouse_filter = 2
+script = SubResource("GDScript_l7wph")
+
+[node name="CheckParent" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CheckBox" type="CheckBox" parent="CheckParent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+alignment = 1
+icon_alignment = 1
+
+[node name="Index" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "###"
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qw5i3")
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Decently long song name here
+"
+clip_text = true
+text_overrun_behavior = 1
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Artist and other people
+"
+clip_text = true
+text_overrun_behavior = 1
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Album" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Decently Long Album name here
+"
+text_overrun_behavior = 1
+max_lines_visible = 1
+metadata/_edit_use_anchors_ = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvb5p02mwjhqv"]
 
-[ext_resource type="Script" path="res://Scripts/Components/SpinyDisc.gd" id="1_5oeyj"]
+[ext_resource type="Script" uid="uid://drkq3cl6hhxjs" path="res://Scripts/Components/SpinyDisc.gd" id="1_5oeyj"]
 [ext_resource type="Texture2D" uid="uid://btl2ilw25strr" path="res://Assets/Sprites/Logo.png" id="2_mgjfv"]
 
 [node name="SpinyDisc" type="Control"]

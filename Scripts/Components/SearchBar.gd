@@ -6,13 +6,23 @@ class_name SearchBar
 #var property := "name"
 
 func _init() -> void:
-	if text_changed.is_connected(Filter): return
-	text_changed.connect(Filter)
+	if !text_changed.is_connected(Filter):
+		text_changed.connect(Filter)
+	if !text_submitted.is_connected(Submitted):
+		text_submitted.connect(Submitted.unbind(1))
 
 func _gui_input(event: InputEvent) -> void:
 	if !has_focus(): return
 	if target is not SongList: return
-	if !(event.is_action_pressed("ui_down") or event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_text_submit")): return
+	if !(event.is_action_pressed("ui_down") or event.is_action_pressed("ui_focus_next")): return
+	
+	get_window().set_input_as_handled()
+	var butts = target.GetVisibleChildren()
+	if butts.size() <= 0: return
+	butts[0].grab_focus()
+
+func Submitted() -> void:
+	if target is not SongList: return
 	
 	var butts = target.GetVisibleChildren()
 	if butts.size() <= 0: return

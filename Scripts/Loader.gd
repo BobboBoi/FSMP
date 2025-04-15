@@ -21,7 +21,7 @@ func _save(path,nodeToSave):
 	print(nodeToSave," "+path+".tres")
 	ResourceSaver.save(nodeToSave,path+".tres")
 
-func _load(loadFile,debug = false):
+func _load(loadFile : String, debug := false):
 	if debug:
 		print("loading... "+loadFile+".tres")
 	if ResourceLoader.exists(loadFile+".tres"):

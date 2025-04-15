@@ -4,13 +4,13 @@ extends Control
 
 func _ready() -> void:
 	controlPanel.resized.connect(SizeUpdate)
-	controlPanel.minimum_size_changed.connect(MinSizeUpdate)
+	#controlPanel.minimum_size_changed.connect(MinSizeUpdate)
 	SizeUpdate()
 
 func SizeUpdate() -> void:
-	if controlPanel.mediaControlPanel == null: return
-	size = controlPanel.mediaControlPanel.size
+	if controlPanel.mediaControlPanel == null: await controlPanel.ready
+	custom_minimum_size = controlPanel.mediaControlPanel.size
 
 func MinSizeUpdate() -> void:
-	if controlPanel.mediaControlPanel == null: return
+	if controlPanel.mediaControlPanel == null: await controlPanel.ready
 	custom_minimum_size = controlPanel.mediaControlPanel.custom_minimum_size

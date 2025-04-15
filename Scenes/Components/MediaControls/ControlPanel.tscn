@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dsq4lil7y26xw" path="res://Scenes/Components/MediaControls/DefaultMediaControls.tscn" id="1_5jggk"]
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_aqr20"]
-[ext_resource type="Script" path="res://Scripts/Components/MediaControls/ControlPanel.gd" id="1_r31sv"]
+[ext_resource type="Script" uid="uid://bevvvbl8dwvc" path="res://Scripts/Components/MediaControls/ControlPanel.gd" id="1_r31sv"]
 [ext_resource type="PackedScene" uid="uid://bxnsob26m55ef" path="res://Scenes/Components/MediaControls/DefaultQueueControls.tscn" id="4_0ljw6"]
 
 [node name="MediaControlPanel" type="Control" groups=["ControlPanel"]]
@@ -23,7 +23,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 538.0
+offset_top = 516.0
 offset_bottom = 538.0
 grow_horizontal = 2
 grow_vertical = 2
