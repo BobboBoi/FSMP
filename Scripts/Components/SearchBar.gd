@@ -3,11 +3,12 @@ class_name SearchBar
 
 @export var target : Control
 @export var refreshPatterns := true
+@export var filter := true
 #var property := "name"
 
 func _init() -> void:
-	if !text_changed.is_connected(Filter):
-		text_changed.connect(Filter)
+	if !text_changed.is_connected(Filter.unbind(1)):
+		text_changed.connect(Filter.unbind(1))
 	if !text_submitted.is_connected(Submitted):
 		text_submitted.connect(Submitted.unbind(1))
 
@@ -28,8 +29,8 @@ func Submitted() -> void:
 	if butts.size() <= 0: return
 	butts[0].grab_focus()
 
-func Filter(_value : String):
-	if target == null: return
+func Filter():
+	if target == null or !filter: return
 	for i in target.get_children():
 		if i is MusicSelection or i is AlbumSelection:
 			i.visible = !(i.data.name.to_lower().find(text.to_lower()) == -1 and not text == "")

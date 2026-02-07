@@ -1,10 +1,38 @@
 [gd_scene load_steps=10 format=3 uid="uid://blry2rxlowk06"]
 
-[ext_resource type="Script" uid="uid://dnod2jgecw8ff" path="res://Scripts/Components/QuickAccess/QuickAccess.gd" id="1_irfns"]
+[ext_resource type="Script" uid="uid://cla38744sophl" path="res://Scripts/Components/QuickAccess/NewQuickAccessMenu.cs" id="1_kc0hi"]
 [ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="2_1au3y"]
-[ext_resource type="Script" uid="uid://hfbpgn27i08f" path="res://Scripts/Components/SearchBar.gd" id="2_ynxih"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_kc0hi"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_sidv1"]
+
+[sub_resource type="GDScript" id="GDScript_kabur"]
+resource_name = "QuickSearchBar"
+script/source = "extends SearchBar
+
+@onready var timer = Timer.new()
+var prevText := \"\"
+
+func _ready() -> void:
+	timer.wait_time = 0.5
+	add_child(timer)
+	
+	timer.timeout.connect(RefreshSearch)
+
+func Filter() -> void:
+	super()
+	if text == \"\" and !timer.is_stopped():
+		RefreshSearch()
+		timer.stop()
+	
+	elif text != \"\" and timer.is_stopped():
+		RefreshSearch()
+		timer.start()
+
+func RefreshSearch() -> void:
+	if prevText == text: return
+	prevText = text
+	owner.call(\"Reload\",text)
+"
 
 [sub_resource type="Resource" id="Resource_0wepv"]
 script = ExtResource("4_sidv1")
@@ -33,7 +61,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_irfns")
+script = ExtResource("1_kc0hi")
 metadata/_edit_group_ = true
 
 [node name="Root" type="Control" parent="."]
@@ -62,8 +90,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Search for your garbage :)"
-script = ExtResource("2_ynxih")
+script = SubResource("GDScript_kabur")
 target = NodePath("../Scroll/List")
+filter = false
 
 [node name="Scroll" type="ScrollContainer" parent="Root/Vcont"]
 layout_mode = 2

@@ -112,11 +112,11 @@ func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
 	var startPlaying := queue.size() <= 0
 	if shuffled:
 		for i in range(data.size()):
-			queue.insert(currentIndex+i+1,data[i])
+			queue.insert(currentIndex + i + int(!startPlaying),data[i])
 		srcQueue.append_array(data)
 	else:
 		for i in range(data.size()):
-			srcQueue.insert(currentIndex+i+1,data[i])
+			srcQueue.insert(currentIndex + i + int(!startPlaying),data[i])
 		queue = srcQueue.duplicate()
 	
 	QueueChange.emit()

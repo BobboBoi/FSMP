@@ -37,6 +37,10 @@ func ShowHome() -> void:
 
 func HideHome() -> void:
 	self.visible = false
+	
+	if tabCont == null:
+		await tree_entered
+	
 	tabCont.set_current_tab(TABS.MUSIC)
 
 #Player actions
