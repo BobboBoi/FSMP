@@ -65,10 +65,11 @@ func ClearSelection():
 		i.Select(false)
 
 #region deprecated
-##@deprecated
+## @deprecated
 func EditPressed():
 	$Edit.visible = !$Edit.visible
-##@deprecated
+
+## @deprecated
 func SetAlbumForAll():
 	pass
 	var musicList = Node.new()

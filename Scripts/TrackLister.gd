@@ -13,7 +13,7 @@ var threads : Array[Thread] = []
 signal ListChanged
 
 func _ready() -> void:
-	Reload()
+	MeasureReloadSpeed()
 
 func _exit_tree() -> void:
 	for t in threads:
@@ -48,26 +48,29 @@ func Reload() -> void:
 			if music.filter(func(d : MusicData): return d.name == i.name && d.artist == i.artist).size() == 0:
 				music.append(i)
 	
+	# Find every unique album in the library
 	var uniqueAlbums : Array = []
 	for i in music:
 		if i.album != "":
 			if uniqueAlbums.find(i.album) == -1:
 				uniqueAlbums.append(i.album)
 	
+	# Load the album metadeta and add them to the library
 	for i in uniqueAlbums:
 		var loadedAlbum := CheckAlbumData(i)
 		albums.append(loadedAlbum)
+	
 	albums.sort_custom(func(a,b): return a.name.to_lower() < b.name.to_lower())
 	
 	ListChanged.emit()
 
-##Call check music data on every file in the given directory.
-##And return all data for the music in the directory.
+## Call check music data on every file in the given directory.
+## And return all data for the music in the directory.
 func AddMusicFromPath(p : String) -> Array[MusicData]:
 	var files := FindMusicFiles(p)
 	var newMusic : Array[MusicData] = []
 	
-	#Go over files in dir
+	# Go over files in dir
 	for i in files:
 		var loadedMusic := CheckMusicData(p,i)
 		newMusic.append(loadedMusic)
@@ -93,7 +96,7 @@ func FindMusicFiles(path : String) -> Array:
 	dir.list_dir_end()
 	return files
 
-##Load album data or create new data if it doesn't exist.
+## Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
 	return AlbumData.Create(albumName) #TODO Artists aren't listed yet
 

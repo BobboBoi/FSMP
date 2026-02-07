@@ -24,6 +24,8 @@ func _OnTabClosed():
 	search.text = ""
 
 func Reload():
+	await get_tree().process_frame
+	print("Add buttons to menu")
 	for i in list.get_children(): i.queue_free()
 	for t in threads:
 		t.wait_to_finish()
@@ -33,14 +35,14 @@ func Reload():
 	for s in range(ceil(float(Lister.music.size()) / THREAD_SLICE)):
 		var t := Thread.new()
 		threads.push_back(t)
-		t.start(AddMusicButtons.bind(Lister.music.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))),Thread.Priority.PRIORITY_LOW)
-	
-	await get_tree().process_frame
+		t.start(AddMusicButtons.bind(Lister.music.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))), Thread.PRIORITY_NORMAL)
 	
 	var butts : Array[MusicSelection] = []
 	for t in range(threads.size()):
-		butts.append_array(await threads.front().wait_to_finish())
+		butts.append_array(threads.front().wait_to_finish())
 		threads.remove_at(0)
+	
+	print("Buttons added")
 	
 	for b in butts:
 		list.add_child(b)
@@ -54,6 +56,7 @@ func AddMusicButtons(arr : Array[MusicData]) -> Array[MusicSelection]:
 		var butt := MusicSelection.Create(i)
 		ConnectButton(butt)
 		butts.append(butt)
+	
 	return butts
 
 func ConnectButton(butt : MusicSelection) -> void:
