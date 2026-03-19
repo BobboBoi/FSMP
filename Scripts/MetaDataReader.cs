@@ -12,7 +12,7 @@ public partial class MetaDataReader : Node
     [Signal]
     public delegate void CoverLoadedEventHandler(ImageTexture img);
 
-    public static MetaData GetFromAudioFile(string path,string altTitle = "")
+    public static MetaData GetFromAudioFile(string path)
     {
         try
         {
@@ -21,7 +21,7 @@ public partial class MetaDataReader : Node
 
             MetaData data = new()
             {
-                Title = raw.Tag.Title is null ? altTitle : raw.Tag.Title,
+                Title = raw.Tag.Title ?? Path.GetFileName(path),
                 Album = raw.Tag.Album,
                 Index = (int)raw.Tag.Track,
                 Disc = (int)raw.Tag.Disc,
@@ -32,17 +32,21 @@ public partial class MetaDataReader : Node
         }
         catch (UnsupportedFormatException)
         {
-            return null;
+            return new() { Title = Path.GetFileName(path), Artists = new string[] { "" } };
+        }
+        catch(CorruptFileException)
+        {
+            return new() { Title = Path.GetFileName(path), Artists = new string[] { "" } };
         }
     }
 
-    public async void GetImageFromAudioFileAsync(string path,int index)
+    public async void GetImageFromAudioFileAsync(string path, int index)
     {
         ImageTexture img = await Task.Run(() => GetImageFromAudioFile(path, index));
         EmitSignal(SignalName.CoverLoaded, img);
     }
 
-    public ImageTexture GetImageFromAudioFile(string path,int index)
+    public ImageTexture GetImageFromAudioFile(string path, int index)
     {
         if (index < 0) return null;
         try
@@ -89,7 +93,7 @@ public partial class MetaDataReader : Node
         }
     }
 
-    public static string GetImageTypeFromAudioFile(string path,int index)
+    public static string GetImageTypeFromAudioFile(string path, int index)
     {
         if (index < 0) return String.Empty;
         
@@ -102,7 +106,7 @@ public partial class MetaDataReader : Node
         return result[index].MimeType;
     }
 
-    public static byte[] GetImageBytesFromAudioFile(string path,int index)
+    public static byte[] GetImageBytesFromAudioFile(string path, int index)
     {
         if (index < 0) return [];
         

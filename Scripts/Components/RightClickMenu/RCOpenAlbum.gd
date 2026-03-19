@@ -21,7 +21,7 @@ func _pressed() -> void:
 		home.OpenAlbum(albumData,cover)
 	
 	elif owner.currentSelection is QuickAccessButton:
-		var data := TrackLister.CheckMusicDataFromPath(owner.currentSelection.path)
+		var data := TrackLister.CheckMusicData(owner.currentSelection.path)
 		if data.album == "": return
 		
 		var albumData := Lister.GetAlbumData(data.album)
@@ -42,7 +42,7 @@ func _Show(src : Node) -> void:
 		var data = src.data
 		if data.album == "": return
 	elif src is QuickAccessButton:
-		var data := TrackLister.CheckMusicDataFromPath(src.path)
+		var data := TrackLister.CheckMusicData(src.path)
 		if data.album == "": return
 	
 	show()

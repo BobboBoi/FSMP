@@ -25,7 +25,7 @@ func _exit_tree() -> void:
 ##Same as [mehtod Reload] but also prints the load time and amount into the console.
 func MeasureReloadSpeed():
 	var time = Time.get_ticks_msec()
-	Reload()
+	await Reload()
 	print("Took %f seconds to load" % ((Time.get_ticks_msec() - time) / 1000.0))
 	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
 
@@ -42,7 +42,7 @@ func Reload() -> void:
 		threads[p].start(AddMusicFromPath.bind(paths[p]))
 	
 	for t in threads:
-		var result : Array[MusicData] = t.wait_to_finish()
+		var result : Array[MusicData] = await t.wait_to_finish()
 		
 		for i in result:
 			if music.filter(func(d : MusicData): return d.name == i.name && d.artist == i.artist).size() == 0:
@@ -66,32 +66,38 @@ func Reload() -> void:
 
 ## Call check music data on every file in the given directory.
 ## And return all data for the music in the directory.
-func AddMusicFromPath(p : String) -> Array[MusicData]:
-	var files := FindMusicFiles(p)
+func AddMusicFromPath(path : String, recursive := true) -> Array[MusicData]:
+	if !DirAccess.dir_exists_absolute(path):
+		Messages.call_deferred_thread_group("TextMessage", path, " does not exist")
+		return []
+	
+	var files := FindMusicFiles(path, recursive)
 	var newMusic : Array[MusicData] = []
 	
 	# Go over files in dir
-	for i in files:
-		var loadedMusic := CheckMusicData(p,i)
+	for p in files:
+		var loadedMusic := CheckMusicData(p)
 		newMusic.append(loadedMusic)
 	
 	return newMusic
 
-func FindMusicFiles(path : String) -> Array:
-	if !DirAccess.dir_exists_absolute(path):
-		Messages.call_deferred_thread_group("TextMessage",path+" does not exist")
-		return []
-	
+func FindMusicFiles(path : String, recursive := true) -> Array:
 	var files := []
 	var dir := DirAccess.open(path)
 	dir.list_dir_begin()
 	
 	while true:
-		var file = dir.get_next()
+		var file := dir.get_next()
 		if file == "":
 			break
-		elif IsMusicFile(file) and not file.begins_with("."):
-			files.append(file)
+		
+		var filepath := path + "\\" + file
+		
+		if IsMusicFile(file) and not file.begins_with("."):
+			files.append(filepath)
+		elif !IsUnsupportedMusicFile(file) and recursive:
+			if DirAccess.dir_exists_absolute(filepath) and !IsExcluded(filepath):
+				files.append_array(FindMusicFiles(filepath))
 	
 	dir.list_dir_end()
 	return files
@@ -100,7 +106,9 @@ func FindMusicFiles(path : String) -> Array:
 func CheckAlbumData(albumName : String) -> AlbumData:
 	return AlbumData.Create(albumName) #TODO Artists aren't listed yet
 
+## Attempt to load the album cover from the files metadata
 func LoadAlbumCover(data : AlbumData) -> ImageTexture:
+	# Skip album covers that we already know won't load
 	if data.coverStatus == AlbumData.COVER_STATUS.CORRUPT_ERROR: return null
 	if data.coverStatus == AlbumData.COVER_STATUS.NO_COVER: return null
 	
@@ -124,27 +132,33 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 	
 	return null;
 
+## Get the [AlbumData] associated with the provided [param album] title
 func GetAlbumData(album : String) -> AlbumData:
 	var a := albums.filter(func (d : AlbumData): return d.name == album)
 	if a.size() <= 0: return null
 	return a.front()
 
-static func CheckMusicDataFromPath(p : String) -> MusicData:
-	var fileName := p.get_slice("\\",p.count("\\"))
-	fileName = fileName.get_slice("/",p.count("/"))
-	var dir := p.erase(p.find(fileName),fileName.length())
-	return CheckMusicData(dir,fileName)
+## If true the path is in the current [Config.exludePaths]
+func IsExcluded(path : String) -> bool:
+	path = path.replace("\\","/")
+	for e in Loader.config.excludePaths:
+		if path.contains(e):
+			return true
+	
+	return false
 
-static func CheckMusicData(p : String,i : String) -> MusicData:
-	var meta := MetaDataReader.GetFromAudioFile(p+"/"+i,i)
-	if meta == null:
-		return MusicData.Create(i,p+"/"+i,"","")
-	if !(meta.Title == "" and meta.Album == ""):
-		return MusicData.CreateFromMetaData(p+"/"+i,meta)
-	return MusicData.Create(i,p+"/"+i,"","")
+static func CheckMusicData(filepath : String) -> MusicData:
+	var meta := MetaDataReader.GetFromAudioFile(filepath)
+	return MusicData.CreateFromMetaData(filepath,meta)
 
-static func IsMusicFile(file) -> bool:
-	return file.ends_with(".wav") or file.ends_with(".mp3") or file.ends_with(".ogg")
+## Returns [code]true[/code] if the provided [param filepath] is of a supported music file type
+static func IsMusicFile(filepath : String) -> bool:
+	return filepath.ends_with(".wav") or filepath.ends_with(".mp3") or filepath.ends_with(".ogg")
 
-static func IsImageFile(file : String) -> bool:
-	return file.ends_with(".png") or file.ends_with(".jpg")
+## Returns [code]true[/code] if the provided [param filepath] is of a unsupported music file type
+static func IsUnsupportedMusicFile(filepath : String) -> bool:
+	return filepath.ends_with(".flac") or filepath.ends_with(".m4a")
+
+## Returns [code]true[/code] if the provided [param filepath] is of a supported image file type
+static func IsImageFile(filepath : String) -> bool:
+	return filepath.ends_with(".png") or filepath.ends_with(".jpg")

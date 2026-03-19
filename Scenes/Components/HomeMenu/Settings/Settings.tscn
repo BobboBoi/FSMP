@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://yh17p5vo1ynv"]
+[gd_scene format=3 uid="uid://yh17p5vo1ynv"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_8w6qu"]
 [ext_resource type="Script" uid="uid://coo5ne6qqjaxw" path="res://Scripts/Components/Settings.gd" id="2_sjl3n"]
@@ -14,7 +14,7 @@ border_width_bottom = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1ale"]
 
-[node name="Settings" type="Control"]
+[node name="Settings" type="Control" unique_id=1335263951]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ grow_vertical = 2
 theme = ExtResource("1_8w6qu")
 script = ExtResource("2_sjl3n")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2106941211]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.303)
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=2035917224]
 unique_name_in_owner = true
 auto_translate_mode = 1
 disable_3d = true
@@ -46,13 +46,13 @@ access = 2
 show_hidden_files = true
 use_native_dialog = true
 
-[node name="Layer" type="CanvasLayer" parent="."]
+[node name="Layer" type="CanvasLayer" parent="." unique_id=883080699]
 
-[node name="About" parent="Layer" instance=ExtResource("3_kn6m5")]
+[node name="About" parent="Layer" unique_id=2123627605 instance=ExtResource("3_kn6m5")]
 unique_name_in_owner = true
 visible = false
 
-[node name="Control" type="PanelContainer" parent="."]
+[node name="Control" type="PanelContainer" parent="." unique_id=1200317521]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.212674
@@ -63,32 +63,32 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Hbox" type="HBoxContainer" parent="Control"]
+[node name="Hbox" type="HBoxContainer" parent="Control" unique_id=1926283903]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="Control/Hbox"]
+[node name="Panel" type="PanelContainer" parent="Control/Hbox" unique_id=1060238588]
 custom_minimum_size = Vector2(313, 419)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
 metadata/_edit_use_anchors_ = true
 
-[node name="VCont" type="VBoxContainer" parent="Control/Hbox/Panel"]
+[node name="VCont" type="VBoxContainer" parent="Control/Hbox/Panel" unique_id=511415282]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 16
 
-[node name="Pad" type="HSeparator" parent="Control/Hbox/Panel/VCont"]
+[node name="Pad" type="HSeparator" parent="Control/Hbox/Panel/VCont" unique_id=2030908714]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 
-[node name="Label" type="Label" parent="Control/Hbox/Panel/VCont"]
+[node name="Label" type="Label" parent="Control/Hbox/Panel/VCont" unique_id=814106379]
 layout_mode = 2
 text = "Settings
 "
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MusicFolder" type="Button" parent="Control/Hbox/Panel/VCont"]
+[node name="MusicFolder" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1249160741]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -96,7 +96,15 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "Add music folder"
 
-[node name="Refresh" type="Button" parent="Control/Hbox/Panel/VCont"]
+[node name="ExclMusicFolder2" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=525122922]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Exclude folder"
+
+[node name="Refresh" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1545401775]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -104,14 +112,14 @@ size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "Refresh"
 
-[node name="About" type="Button" parent="Control/Hbox/Panel/VCont"]
+[node name="About" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=112685617]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 text = "About"
 
-[node name="Close" type="Button" parent="Control/Hbox/Panel/VCont"]
+[node name="Close" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1503737214]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -119,40 +127,53 @@ mouse_default_cursor_shape = 2
 text = "Close
 "
 
-[node name="DirectoryList" type="PanelContainer" parent="Control/Hbox"]
+[node name="DirectoryList" type="PanelContainer" parent="Control/Hbox" unique_id=1443981162]
 custom_minimum_size = Vector2(313, 419)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4eh40")
 metadata/_edit_use_anchors_ = true
 
-[node name="Scroll" type="ScrollContainer" parent="Control/Hbox/DirectoryList"]
+[node name="Scroll" type="ScrollContainer" parent="Control/Hbox/DirectoryList" unique_id=376382104]
 layout_mode = 2
 
-[node name="List" type="VBoxContainer" parent="Control/Hbox/DirectoryList/Scroll"]
+[node name="List" type="VBoxContainer" parent="Control/Hbox/DirectoryList/Scroll" unique_id=1275247559]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_17h2w")
 bookMarks = false
 sort = false
+metadata/_custom_type_script = "uid://70cjm6jss6y8"
 
-[node name="Pad" type="HSeparator" parent="Control/Hbox/DirectoryList/Scroll/List"]
+[node name="Pad" type="HSeparator" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=845913773]
 layout_mode = 2
 theme_override_constants/separation = 22
 theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 
-[node name="Label" type="Label" parent="Control/Hbox/DirectoryList/Scroll/List"]
+[node name="DirectoryLabel" type="Label" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=698624252]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Directories
 "
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="AddButton" type="Button" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=387517055]
+layout_mode = 2
+text = "Add"
+
+[node name="Pad2" type="HSeparator" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=979815768]
+layout_mode = 2
+theme_override_constants/separation = 22
+theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
+
 [connection signal="visibility_changed" from="." to="." method="VisUpdate"]
 [connection signal="gui_input" from="ColorRect" to="." method="OnColorRectInput"]
-[connection signal="canceled" from="FileDialog" to="." method="OnCancel"]
+[connection signal="canceled" from="FileDialog" to="." method="OnFileDialogCanceled"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/MusicFolder" to="." method="MusicFolderPressed"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/ExclMusicFolder2" to="." method="ExcludeFolderPressed"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/Refresh" to="." method="RefreshLister"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/About" to="Layer/About" method="show"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/Close" to="." method="hide"]
+[connection signal="pressed" from="Control/Hbox/DirectoryList/Scroll/List/AddButton" to="." method="OnAddPressed"]

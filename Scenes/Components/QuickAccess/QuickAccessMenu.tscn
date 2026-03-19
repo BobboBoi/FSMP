@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blry2rxlowk06"]
+[gd_scene format=3 uid="uid://blry2rxlowk06"]
 
 [ext_resource type="Script" uid="uid://cla38744sophl" path="res://Scripts/Components/QuickAccess/NewQuickAccessMenu.cs" id="1_kc0hi"]
 [ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="2_1au3y"]
@@ -36,15 +36,9 @@ func RefreshSearch() -> void:
 
 [sub_resource type="Resource" id="Resource_0wepv"]
 script = ExtResource("4_sidv1")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_blodo"]
 script = ExtResource("4_sidv1")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="InputEventKey" id="InputEventKey_m7vdc"]
 device = -1
@@ -53,7 +47,7 @@ keycode = 4194332
 [sub_resource type="Shortcut" id="Shortcut_6vhid"]
 events = [SubResource("InputEventKey_m7vdc")]
 
-[node name="QuickAccessMenu" type="Control"]
+[node name="QuickAccessMenu" type="Control" unique_id=971188612]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,7 +58,7 @@ mouse_filter = 2
 script = ExtResource("1_kc0hi")
 metadata/_edit_group_ = true
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=643518619]
 unique_name_in_owner = true
 layout_mode = 1
 anchor_right = 0.208333
@@ -75,7 +69,7 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Vcont" type="VBoxContainer" parent="Root"]
+[node name="Vcont" type="VBoxContainer" parent="Root" unique_id=259750797]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -85,7 +79,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 
-[node name="Searchbar" type="LineEdit" parent="Root/Vcont" node_paths=PackedStringArray("target")]
+[node name="Searchbar" type="LineEdit" parent="Root/Vcont" unique_id=501931384 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -94,7 +88,7 @@ script = SubResource("GDScript_kabur")
 target = NodePath("../Scroll/List")
 filter = false
 
-[node name="Scroll" type="ScrollContainer" parent="Root/Vcont"]
+[node name="Scroll" type="ScrollContainer" parent="Root/Vcont" unique_id=1719809398]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
@@ -108,7 +102,7 @@ allow_horizontal_scroll = false
 hide_scrollbar_over_time = true
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
-[node name="List" type="VBoxContainer" parent="Root/Vcont/Scroll"]
+[node name="List" type="VBoxContainer" parent="Root/Vcont/Scroll" unique_id=462864188]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,7 +110,7 @@ size_flags_vertical = 3
 script = ExtResource("2_1au3y")
 bookMarks = false
 
-[node name="ListButton" type="Button" parent="Root"]
+[node name="ListButton" type="Button" parent="Root" unique_id=78114944]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1

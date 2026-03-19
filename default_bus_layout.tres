@@ -1,8 +1,9 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cnfcgy22l7s5i"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://cnfcgy22l7s5i"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_cex42"]
 resource_name = "SpectrumAnalyzer"
 tap_back_pos = 0.2
+fft_size = 1
 
 [sub_resource type="AudioEffectEQ6" id="AudioEffectEQ6_j3pel"]
 resource_name = "EQ6"

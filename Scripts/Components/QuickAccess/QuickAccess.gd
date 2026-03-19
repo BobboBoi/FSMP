@@ -93,7 +93,7 @@ func OnListButtonPressed() -> void:
 
 func SizeUpdate() -> void:
 	if root == null: return
-	root.size.x = size.x*root.anchor_right
+	root.size.x = size.x * root.anchor_right
 	root.size.y = size.y
 	
 	if status == STATES.OPEN:

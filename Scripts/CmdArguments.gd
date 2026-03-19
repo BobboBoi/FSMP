@@ -19,10 +19,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	var fileName := arguments[index].get_slice("\\",arguments[index].count("\\"))
-	var dir := arguments[index].erase(arguments[index].find(fileName),fileName.length())
-	
-	Player.PlaySingleFromData(TrackLister.CheckMusicData(dir,fileName))
+	Player.PlaySingleFromData(TrackLister.CheckMusicData(arguments[index]))
 	
 	if home != null:
 		if !home.is_inside_tree():

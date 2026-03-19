@@ -24,8 +24,6 @@ func _OnTabClosed():
 	search.text = ""
 
 func Reload():
-	await get_tree().process_frame
-	print("Add buttons to menu")
 	for i in list.get_children(): i.queue_free()
 	for t in threads:
 		t.wait_to_finish()
@@ -42,7 +40,7 @@ func Reload():
 		butts.append_array(threads.front().wait_to_finish())
 		threads.remove_at(0)
 	
-	print("Buttons added")
+	await get_tree().process_frame
 	
 	for b in butts:
 		list.add_child(b)

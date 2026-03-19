@@ -41,12 +41,12 @@ func _input(event: InputEvent) -> void:
 ##Similair to [member PlayFromPath] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
 func PlaySingleFromPath(path : String,emitSignal := true):
-	PlaySingleFromData(TrackLister.CheckMusicDataFromPath(path),emitSignal)
+	PlaySingleFromData(TrackLister.CheckMusicData(path), emitSignal)
 
 ##Plays a new track with the give [param path].
 ##[b]Note[/b] the path used is the path to the local userdata and not the music file.
 func PlayFromPath(path : String,emitSignal := true):
-	PlayFromData(TrackLister.CheckMusicDataFromPath(path),emitSignal)
+	PlayFromData(TrackLister.CheckMusicData(path), emitSignal)
 
 ##Similair to [member PlayFromData] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
@@ -105,7 +105,8 @@ func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 func EnqueueFromPathArray(paths : Array[String]):
 	var data : Array[MusicData] = []
 	for p in paths:
-		data.append(TrackLister.CheckMusicDataFromPath(p))
+		data.append(TrackLister.CheckMusicData(p))
+	
 	EnqueueFromDataArray(data)
 
 func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
@@ -126,7 +127,8 @@ func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
 func EnqueueNextFromPathArray(paths : Array[String]):
 	var data : Array[MusicData] = []
 	for p in paths:
-		data.append(TrackLister.CheckMusicDataFromPath(p))
+		data.append(TrackLister.CheckMusicData(p))
+	
 	EnqueueNextFromDataArray(data)
 
 func ReplaceQueueWithDataArray(data : Array[MusicData]) -> void:

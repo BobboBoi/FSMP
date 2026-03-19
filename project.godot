@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="F.S.M.P."
@@ -15,15 +19,19 @@ config/description="The worst music player you'll ever use.
 "
 config/tags=PackedStringArray("mainproject")
 run/main_scene="res://Scenes/Program.tscn"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-boot_splash/fullsize=false
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
+boot_splash/stretch_mode=0
 boot_splash/image="res://Assets/Sprites/FSMPLogo.png"
 config/icon="res://Assets/Sprites/Logo.png"
+
+[audio]
+
+buses/default_bus_layout="uid://cnfcgy22l7s5i"
 
 [autoload]
 
 Loader="*res://Scripts/Loader.gd"
-DiscordSDKLoader="*res://addons/discord-sdk-gd/nodes/core_updater.gd"
+DiscordSDKLoader="*uid://beo172ada8x0k"
 Discord="*res://Scripts/Discord.gd"
 GlobalInput="*res://addons/global_input/autoload/global_input_csharp/GlobalInputCSharp.tscn"
 Player="*res://Scripts/MusicPlayer.gd"
