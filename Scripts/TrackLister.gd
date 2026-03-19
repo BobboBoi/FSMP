@@ -9,6 +9,7 @@ var threads : Array[Thread] = []
 
 #Seems to not work with threading?
 #const illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
+const THREAD_SLICE := 100
 
 signal ListChanged
 
@@ -36,10 +37,23 @@ func Reload() -> void:
 	albums = []
 	threads = []
 	
+	# Find files
+	var files : PackedStringArray = []
 	for p in range(paths.size()):
 		var newThread := Thread.new()
 		threads.push_back(newThread)
-		threads[p].start(AddMusicFromPath.bind(paths[p]))
+		threads[p].start(GetMusicFilesFromPath.bind(paths[p]), Thread.Priority.PRIORITY_HIGH)
+	
+	for t in threads:
+		files.append_array(await t.wait_to_finish())
+	
+	threads = []
+	
+	# Get file data
+	for s in range(ceil(float(files.size()) / THREAD_SLICE)):
+		var newThread := Thread.new()
+		threads.push_back(newThread)
+		threads[s].start(GetMusicDataFromFiles.bind(files.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))), Thread.Priority.PRIORITY_HIGH)
 	
 	for t in threads:
 		var result : Array[MusicData] = await t.wait_to_finish()
@@ -49,7 +63,7 @@ func Reload() -> void:
 				music.append(i)
 	
 	# Find every unique album in the library
-	var uniqueAlbums : Array = []
+	var uniqueAlbums : PackedStringArray = []
 	for i in music:
 		if i.album != "":
 			if uniqueAlbums.find(i.album) == -1:
@@ -66,23 +80,15 @@ func Reload() -> void:
 
 ## Call check music data on every file in the given directory.
 ## And return all data for the music in the directory.
-func AddMusicFromPath(path : String, recursive := true) -> Array[MusicData]:
+func GetMusicFilesFromPath(path : String, recursive := true) -> PackedStringArray:
 	if !DirAccess.dir_exists_absolute(path):
 		Messages.call_deferred_thread_group("TextMessage", path, " does not exist")
 		return []
 	
-	var files := FindMusicFiles(path, recursive)
-	var newMusic : Array[MusicData] = []
-	
-	# Go over files in dir
-	for p in files:
-		var loadedMusic := CheckMusicData(p)
-		newMusic.append(loadedMusic)
-	
-	return newMusic
+	return FindMusicFiles(path, recursive)
 
-func FindMusicFiles(path : String, recursive := true) -> Array:
-	var files := []
+func FindMusicFiles(path : String, recursive := true) -> PackedStringArray:
+	var files : PackedStringArray = []
 	var dir := DirAccess.open(path)
 	dir.list_dir_begin()
 	
@@ -101,6 +107,16 @@ func FindMusicFiles(path : String, recursive := true) -> Array:
 	
 	dir.list_dir_end()
 	return files
+
+func GetMusicDataFromFiles(files : PackedStringArray) -> Array[MusicData]:
+	var newMusic : Array[MusicData] = []
+	
+	# Go over files in dir
+	for p in files:
+		var loadedMusic := CheckMusicData(p)
+		newMusic.append(loadedMusic)
+	
+	return newMusic
 
 ## Load album data or create new data if it doesn't exist.
 func CheckAlbumData(albumName : String) -> AlbumData:
