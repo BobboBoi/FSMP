@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://42pus6g3tefj"]
+[gd_scene format=3 uid="uid://42pus6g3tefj"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_3dv26"]
-[ext_resource type="Texture2D" uid="uid://btl2ilw25strr" path="res://Assets/Sprites/Logo.png" id="1_l0557"]
+[ext_resource type="Texture2D" uid="uid://ce34xc58urqlr" path="res://Assets/Sprites/Logo.png" id="1_l0557"]
 [ext_resource type="Script" uid="uid://cw48ype6o3wet" path="res://Scripts/Components/AlbumCover.gd" id="2_0dyj8"]
 [ext_resource type="StyleBox" uid="uid://dilgkseudstbh" path="res://Assets/Resources/StyleBoxxes/CoverClip.tres" id="4_xa0k2"]
 
-[node name="AlbumCover" type="PanelContainer"]
+[node name="AlbumCover" type="PanelContainer" unique_id=1244670201]
 show_behind_parent = true
 clip_contents = true
 custom_minimum_size = Vector2(106, 0)
@@ -18,12 +18,12 @@ theme_type_variation = &"CoverBorder"
 script = ExtResource("2_0dyj8")
 texture = ExtResource("1_l0557")
 
-[node name="Pad" type="Control" parent="."]
+[node name="Pad" type="Control" parent="." unique_id=512337556]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 2
 
-[node name="BG" type="Panel" parent="Pad"]
+[node name="BG" type="Panel" parent="Pad" unique_id=860800828]
 unique_name_in_owner = true
 show_behind_parent = true
 clip_contents = true
@@ -39,7 +39,7 @@ theme_type_variation = &"CoverBorder"
 theme_override_styles/panel = ExtResource("4_xa0k2")
 metadata/_edit_use_anchors_ = true
 
-[node name="Texture" type="TextureRect" parent="Pad"]
+[node name="Texture" type="TextureRect" parent="Pad" unique_id=1274221057]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1

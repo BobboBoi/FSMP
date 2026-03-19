@@ -19,7 +19,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	Player.PlaySingleFromData(TrackLister.CheckMusicData(arguments[index]))
+	Player.PlaySingleFromPath(arguments[index])
 	
 	if home != null:
 		if !home.is_inside_tree():

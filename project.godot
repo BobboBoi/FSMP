@@ -47,10 +47,6 @@ window/vsync/vsync_mode=2
 
 project/assembly_name="F.S.M.P."
 
-[editor]
-
-run/main_run_args="\"D:\\SynologyDrive\\SynologyDrive\\Music\\Funky town low quality.mp3\""
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/discord-sdk-gd/plugin.cfg")

@@ -22,6 +22,10 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	Player.QueueChange.connect(Refresh)
 	Player.QueueProgressed.connect(ProgressQueue)
+	
+	if Player.playing:
+		Refresh()
+	
 	hide()
 
 func Refresh():

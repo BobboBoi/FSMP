@@ -50,13 +50,13 @@ func PlayFromPath(path : String,emitSignal := true):
 
 ##Similair to [member PlayFromData] but resets the queue.[br]
 ##This is used when a single song is selected to be played.
-func PlaySingleFromData(data : MusicData,emitSignal := true):
+func PlaySingleFromData(data : MusicData, emitSignal := true):
 	srcQueue = [data]
 	queue = srcQueue.duplicate()
 	currentIndex = 0
 	QueueChange.emit()
 	
-	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
+	PlayNewTrack(data.path, data.name, data.album, data.artist, emitSignal)
 
 ##Plays a track using data from [param data].
 func PlayFromData(data : MusicData,emitSignal := true):

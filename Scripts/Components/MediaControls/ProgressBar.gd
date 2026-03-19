@@ -4,6 +4,8 @@ extends ProgressBar
 
 func _ready() -> void:
 	Player.connect("NewTrack",NewTrack)
+	if Player.playing:
+		NewTrack(Player.stream)
 
 func _process(_delta: float) -> void:
 	self.value = Player.get_playback_position()

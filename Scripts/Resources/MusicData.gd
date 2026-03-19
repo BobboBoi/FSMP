@@ -9,7 +9,7 @@ class_name MusicData
 @export var albumIndex : int
 @export var disc : int
 
-static func CreateFromMetaData(newPath : String,meta : MetaData) -> MusicData:
+static func CreateFromMetaData(newPath : String, meta : MetaData) -> MusicData:
 	var newData := MusicData.new()
 	newData.path = newPath
 	newData.name = meta.Title
@@ -19,7 +19,7 @@ static func CreateFromMetaData(newPath : String,meta : MetaData) -> MusicData:
 	newData.disc = meta.Disc
 	return newData
 
-static func Create(newName : String,newPath : String,newArtist := "",newAlbum := "",newIndex := 0,newDisc := 0) -> MusicData:
+static func Create(newName : String, newPath : String, newArtist := "", newAlbum := "", newIndex := 0, newDisc := 0) -> MusicData:
 	var newData := MusicData.new()
 	newData.name = newName
 	newData.path = newPath

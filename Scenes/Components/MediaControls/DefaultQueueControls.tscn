@@ -1,29 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxnsob26m55ef"]
+[gd_scene format=3 uid="uid://bxnsob26m55ef"]
 
 [ext_resource type="Script" uid="uid://bvnnwfb2jsq4i" path="res://Scripts/Components/MediaControls/Queue/QueueControls.gd" id="1_ncq4o"]
-[ext_resource type="Texture2D" uid="uid://ddpewvbyye7yc" path="res://Assets/Sprites/Icons/Shuffle.png" id="2_jg317"]
+[ext_resource type="Texture2D" uid="uid://c4jglymbyuv8n" path="res://Assets/Sprites/Icons/Shuffle.png" id="2_jg317"]
 [ext_resource type="Script" uid="uid://duujkqlwst61t" path="res://Scripts/Components/CustomizableList.gd" id="2_saxjw"]
 [ext_resource type="Script" uid="uid://cgrpgaghvws5h" path="res://Scripts/Components/MediaControls/ShuffleButton.gd" id="3_5upsm"]
-[ext_resource type="Texture2D" uid="uid://b1tocbsqwk8gq" path="res://Assets/Sprites/Icons/UnShuffled.png" id="4_wpf3l"]
-[ext_resource type="Texture2D" uid="uid://boubfg5pm26io" path="res://Assets/Sprites/Icons/Clear.png" id="5_3cpt4"]
+[ext_resource type="Texture2D" uid="uid://dag4f0nu5dafe" path="res://Assets/Sprites/Icons/UnShuffled.png" id="4_wpf3l"]
+[ext_resource type="Texture2D" uid="uid://dc3oeoj6lqxy1" path="res://Assets/Sprites/Icons/Clear.png" id="5_3cpt4"]
 [ext_resource type="Script" uid="uid://c4d2qqscc43x1" path="res://Scripts/Components/MediaControls/ClearButton.gd" id="6_8mo2s"]
-[ext_resource type="Texture2D" uid="uid://dglb4uy5buxju" path="res://Assets/Sprites/Icons/ClearHover.png" id="6_g1vc4"]
+[ext_resource type="Texture2D" uid="uid://cduyfjgjc8gva" path="res://Assets/Sprites/Icons/ClearHover.png" id="6_g1vc4"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="8_hqli5"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="9_y1tws"]
 
 [sub_resource type="Resource" id="Resource_u7clm"]
 script = ExtResource("9_y1tws")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_p41j7"]
 script = ExtResource("9_y1tws")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
-[node name="DefaultQueueControls" type="PanelContainer"]
+[node name="DefaultQueueControls" type="PanelContainer" unique_id=719505334]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,16 +27,16 @@ size_flags_vertical = 3
 theme_type_variation = &"QueueBG"
 script = ExtResource("1_ncq4o")
 
-[node name="QueueCont" type="VBoxContainer" parent="."]
+[node name="QueueCont" type="VBoxContainer" parent="." unique_id=525870140]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="QueueCont"]
+[node name="Panel" type="PanelContainer" parent="QueueCont" unique_id=969933045]
 layout_mode = 2
 
-[node name="QueueControls" type="HBoxContainer" parent="QueueCont/Panel"]
+[node name="QueueControls" type="HBoxContainer" parent="QueueCont/Panel" unique_id=1955557797]
 layout_mode = 2
 
-[node name="ShuffleButton" type="TextureButton" parent="QueueCont/Panel/QueueControls"]
+[node name="ShuffleButton" type="TextureButton" parent="QueueCont/Panel/QueueControls" unique_id=1548493688]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -53,7 +47,7 @@ script = ExtResource("3_5upsm")
 ShuffledTexture = ExtResource("2_jg317")
 UnshuffledTexture = ExtResource("4_wpf3l")
 
-[node name="ClearButton" type="TextureButton" parent="QueueCont/Panel/QueueControls"]
+[node name="ClearButton" type="TextureButton" parent="QueueCont/Panel/QueueControls" unique_id=785438908]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -64,16 +58,16 @@ texture_hover = ExtResource("6_g1vc4")
 stretch_mode = 0
 script = ExtResource("6_8mo2s")
 
-[node name="Pad" type="Control" parent="QueueCont/Panel/QueueControls"]
+[node name="Pad" type="Control" parent="QueueCont/Panel/QueueControls" unique_id=1730284245]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Playlist" type="Button" parent="QueueCont/Panel/QueueControls"]
+[node name="Playlist" type="Button" parent="QueueCont/Panel/QueueControls" unique_id=1747454471]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Save To Playlist"
 
-[node name="Scroll" type="ScrollContainer" parent="QueueCont"]
+[node name="Scroll" type="ScrollContainer" parent="QueueCont" unique_id=478015952]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -87,7 +81,7 @@ allow_horizontal_scroll = false
 hide_scrollbar_over_time = true
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
-[node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" groups=["ControlPanel"]]
+[node name="QueueList" type="VBoxContainer" parent="QueueCont/Scroll" unique_id=1086508539 groups=["ControlPanel"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

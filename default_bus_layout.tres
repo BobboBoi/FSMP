@@ -2,8 +2,6 @@
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_cex42"]
 resource_name = "SpectrumAnalyzer"
-tap_back_pos = 0.2
-fft_size = 1
 
 [sub_resource type="AudioEffectEQ6" id="AudioEffectEQ6_j3pel"]
 resource_name = "EQ6"

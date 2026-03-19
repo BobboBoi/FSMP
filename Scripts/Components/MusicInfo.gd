@@ -6,7 +6,11 @@ extends RichTextLabel
 
 func _ready() -> void:
 	Player.NewTrack.connect(Refresh)
-	text = ""
+	
+	if Player.playing:
+		text = Player.queue.front().name
+	else:
+		text = ""
 
 func Refresh(_stream) -> void:
 	var data := Player.queue[Player.currentIndex]
