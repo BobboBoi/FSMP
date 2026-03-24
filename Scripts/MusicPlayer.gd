@@ -71,24 +71,15 @@ func PlayNewTrack(music : String,trackName : String = "",album : String = "",art
 	
 	print(music)
 	currentPath = music
-	if !music.ends_with(".flac"):
-		var file = FileAccess.open(music, FileAccess.READ)
-		var bytes = file.get_buffer(file.get_length())
-		
-		# Load mp3
-		if music.ends_with(".mp3"):
-			self.stream = StreamLoader.LoadMP3FromBytes(bytes)
-		# Load wav
-		elif music.ends_with(".wav"):
-			self.stream = StreamLoader.LoadWAVFromBytes(bytes)
-		# Load wav
-		elif music.ends_with(".ogg"):
-			self.stream = StreamLoader.LoadOGGFromBytes(bytes)
-		
-		file.close()
 	
-	else:
-		self.stream = AudioStreamFLAC.load_from_file(music)
+	if music.ends_with(".mp3"):
+		self.stream = StreamLoader.LoadMP3FromPath(music)
+	elif music.ends_with(".wav"):
+		self.stream = StreamLoader.LoadWAVFromPath(music)
+	elif music.ends_with(".ogg"):
+		self.stream = StreamLoader.LoadOGGFromPath(music)
+	elif music.ends_with(".flac"):
+		self.stream = StreamLoader.LoadFLACFromPath(music)
 	
 	self.play()
 	

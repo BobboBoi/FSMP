@@ -10,6 +10,7 @@ This is a really bad music player. Please don't use this.
 
 <b>Features</b>
 <ul>
+<li>Supports: MP3, OGG, FLAC and WAV files</li>
 <li>Metadata support</li>
 <li>Useless visualizer</li>
 <li>No playlists</li>
