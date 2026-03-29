@@ -13,7 +13,7 @@ func _ready() -> void:
 		if FileAccess.file_exists(arguments[i]) and TrackLister.IsMusicFile(arguments[i]):
 			index = i
 			break
-		print("Unsupported cmd argument: \"",arguments[i],"\" supported file formats are MP3,WAV,OGG")
+		print("Unsupported cmd argument: \"",arguments[i],"\" supported file formats are MP3,WAV,OGG,FLAC")
 	
 	if index < 0:
 		queue_free()
