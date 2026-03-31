@@ -5,57 +5,83 @@ var music : Array[MusicData] = []
 var albums : Array[AlbumData] = []
 var paths : Array[String] = []
 
-var threads : Array[Thread] = []
+var reloadThread : Thread
+var subThreads : Array[Thread] = []
 
 #Seems to not work with threading?
 #const illegalChars : Array[String] = ["\\","/",":","?","*","\"","|","%","<",">"]
 const THREAD_SLICE := 100
 
+signal ReloadStarted(async : bool)
 signal ListChanged
 
 func _ready() -> void:
-	MeasureReloadSpeed()
+	Reload()
 
 func _exit_tree() -> void:
-	for t in threads:
+	for t in subThreads:
 		t.wait_to_finish()
 	
+	reloadThread.wait_to_finish()
 	music.clear()
 
-##Used for performance tests.[br]
-##Same as [mehtod Reload] but also prints the load time and amount into the console.
+## Used for performance tests.[br]
+## Same as [mehtod Reload] but also prints the load time and amount into the console.
 func MeasureReloadSpeed():
 	var time = Time.get_ticks_msec()
-	await Reload()
+	Reload()
+	
+	await ListChanged
 	print("Took %f seconds to load" % ((Time.get_ticks_msec() - time) / 1000.0))
 	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
 
-##Look for music files in saved directories
-func Reload() -> void:
+## Look for music files in saved directories.[br]If [param async] is [code]true[/code] runs on the [member reloadThread].[br]
+## Emits [signal ReloadStarted] when starting a new reload task.
+## Emits [signal ListChanged] when finished.
+func Reload(async := true) -> void:
+	if reloadThread != null and async:
+		if reloadThread.is_alive():
+			push_error("Reload thread already running!")
+			return
+	
+	ReloadStarted.emit(async)
+	
+	if async:
+		if reloadThread == null: 
+			reloadThread = Thread.new()
+		
+		ListChanged.connect(reloadThread.wait_to_finish, CONNECT_ONE_SHOT)
+		reloadThread.start(ReloadTask)
+	
+	else:
+		ReloadTask()
+
+## Look for music files in saved directories
+func ReloadTask() -> void:
 	paths = Loader.config.musicPaths
 	music = []
 	albums = []
-	threads = []
+	subThreads = []
 	
 	# Find files
 	var files : PackedStringArray = []
 	for p in range(paths.size()):
 		var newThread := Thread.new()
-		threads.push_back(newThread)
-		threads[p].start(GetMusicFilesFromPath.bind(paths[p]), Thread.Priority.PRIORITY_HIGH)
+		subThreads.push_back(newThread)
+		subThreads[p].start(GetMusicFilesFromPath.bind(paths[p]), Thread.Priority.PRIORITY_HIGH)
 	
-	for t in threads:
+	for t in subThreads:
 		files.append_array(await t.wait_to_finish())
 	
-	threads = []
+	subThreads = []
 	
 	# Get file data
 	for s in range(ceil(float(files.size()) / THREAD_SLICE)):
 		var newThread := Thread.new()
-		threads.push_back(newThread)
-		threads[s].start(GetMusicDataFromFiles.bind(files.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))), Thread.Priority.PRIORITY_HIGH)
+		subThreads.push_back(newThread)
+		subThreads[s].start(GetMusicDataFromFiles.bind(files.slice(THREAD_SLICE*s,THREAD_SLICE*(s+1))), Thread.Priority.PRIORITY_HIGH)
 	
-	for t in threads:
+	for t in subThreads:
 		var result : Array[MusicData] = await t.wait_to_finish()
 		
 		for i in result:
@@ -76,7 +102,7 @@ func Reload() -> void:
 	
 	albums.sort_custom(func(a,b): return a.name.to_lower() < b.name.to_lower())
 	
-	ListChanged.emit()
+	ListChanged.emit.call_deferred()
 
 ## Call check music data on every file in the given directory.
 ## And return all data for the music in the directory.

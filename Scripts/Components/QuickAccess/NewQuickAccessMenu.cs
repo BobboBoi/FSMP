@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,14 @@ public partial class NewQuickAccessMenu : Control
     {
         // Based on: https://stackoverflow.com/questions/63420269/how-to-cancel-an-existing-task-and-run-a-new-task-when-it-completes
         _cancellationTokenSource?.Cancel();
+        //await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        var children = list.GetChildren();
+
         using (var cts = new CancellationTokenSource())
         {
             _cancellationTokenSource = cts;
             var previousTask = _latestTask;
-            var newTask = new Task(() => Search(q, cts.Token), cts.Token);
+            var newTask = new Task(() => Search(q, children, cts.Token), cts.Token);
             _latestTask = newTask;
 
             // Prevent an exception from any task to crash the application
@@ -64,38 +68,38 @@ public partial class NewQuickAccessMenu : Control
         }
     }
 
-    private void Search(string q, CancellationToken cancellationToken)
+    private void Search(string q, Array<Node> children, CancellationToken cancellationToken)
     {
         if (q == "")
         {
             // Clear menu if search request is empty
-            foreach (Button b in list.GetChildren())
+            foreach (Button b in children)
             {
                 if (cancellationToken.IsCancellationRequested)
                     return;
 
-                b.CallDeferred("queue_free");
+                b.CallDeferred("free");
             }
         }
         else
         {
             // List of existing items that match
-            List<String> skip = [];
+            HashSet<String> skip = [];
 
             // Remove non matching items
-            foreach (Button b in list.GetChildren())
+            foreach (Button b in children)
             {
                 if (cancellationToken.IsCancellationRequested)
                     return;
 
-                if (b.Text.Contains(q, StringComparison.CurrentCultureIgnoreCase) && !skip.Contains(b.Text.ToLower()))
+                if (b.Text.Contains(q, StringComparison.CurrentCultureIgnoreCase))
                     skip.Add(b.Text.ToLower());
                 else
-                    b.CallDeferred("queue_free");
+                    b.CallDeferred("free");
             }
 
-            // Yummy type casting :P
-            Godot.Collections.Array<Resource> results = (Godot.Collections.Array<Resource>)lister.Get("music");
+            // Add missing
+            Array<Resource> results = (Array<Resource>)lister.Get("music");
             foreach (var m in results.Where(t => 
                 ((string)t.Get("name")).Contains(q, StringComparison.CurrentCultureIgnoreCase) && !skip.Contains(((string)t.Get("name")).ToLower()))
             )
@@ -135,7 +139,7 @@ public partial class NewQuickAccessMenu : Control
         {
             searchbar.ReleaseFocus();
             searchbar.Text = "";
-
+            
             foreach (Button b in list.GetChildren())
                 b.QueueFree();
 

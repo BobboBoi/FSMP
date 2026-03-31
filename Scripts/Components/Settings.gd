@@ -1,14 +1,22 @@
 extends Control
 
 @onready var fileDialog : FileDialog = %FileDialog
-@onready var dirList := %List
 @onready var directoryLabel := %DirectoryLabel
+@onready var dirList := %List
+
+@onready var refreshButton := %Refresh
+@onready var addFolderButton := %AddFolderButton
+const reloadTip := "Reloading please wait..."
 
 var currentState := STATES.MUSIC
 enum STATES {
 	MUSIC,
 	EXCLUDE
 }
+
+func _ready() -> void:
+	DisableReloads()
+	Lister.ListChanged.connect(EnableReloads)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("HomeMenu"):
@@ -44,13 +52,13 @@ func AddMusicFolder(dir : String):
 	fileDialog.dir_selected.disconnect(AddMusicFolder)
 	ReloadAddMusic()
 	
-	await ReloadAndSaveChanges()
+	ReloadAndSaveChanges()
 
 func RemoveMusicFolder(dir : String):
 	Loader.config.musicPaths.remove_at(Loader.config.musicPaths.find(dir))
 	ReloadAddMusic()
 	
-	await ReloadAndSaveChanges()
+	ReloadAndSaveChanges()
 #endregion music folders
 
 #region exclude folders
@@ -74,18 +82,18 @@ func AddExcludeFolder(dir : String):
 	fileDialog.dir_selected.disconnect(AddExcludeFolder)
 	ReloadExludeFolders()
 	
-	await ReloadAndSaveChanges()
+	ReloadAndSaveChanges()
 
 func RemoveExcludeFolder(dir : String):
 	Loader.config.excludePaths.remove_at(Loader.config.musicPaths.find(dir))
 	ReloadExludeFolders()
 	
-	await ReloadAndSaveChanges()
+	ReloadAndSaveChanges()
 #endregion exclude folders
 
 func ReloadAndSaveChanges() -> void:
-	await Lister.Reload()
-	Loader._save("user://config",Loader.config.duplicate())
+	Lister.Reload()
+	Loader._save("user://config", Loader.config.duplicate())
 
 func CloseLayer():
 	if fileDialog.visible:
@@ -98,11 +106,26 @@ func CloseLayer():
 		hide()
 		get_window().set_input_as_handled()
 
+func DisableReloads() -> void:
+	refreshButton.disabled = true
+	addFolderButton.disabled = true
+	
+	refreshButton.tooltip_text = reloadTip
+	addFolderButton.tooltip_text = reloadTip
+
+func EnableReloads() -> void:
+	refreshButton.disabled = false
+	addFolderButton.disabled = false
+	
+	refreshButton.tooltip_text = ""
+	addFolderButton.tooltip_text = ""
+
 func OnColorRectInput(event: InputEvent) -> void:
 	if event.is_action("ui_accept"):
 		CloseLayer()
 
-func RefreshLister() -> void:
+func OnRefreshPressed() -> void:
+	DisableReloads()
 	Lister.Reload()
 
 func MusicFolderPressed() -> void:

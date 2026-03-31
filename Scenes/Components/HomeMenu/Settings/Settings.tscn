@@ -159,7 +159,8 @@ text = "Directories
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AddButton" type="Button" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=387517055]
+[node name="AddFolderButton" type="Button" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=387517055]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Add"
 
@@ -173,7 +174,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 [connection signal="canceled" from="FileDialog" to="." method="OnFileDialogCanceled"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/MusicFolder" to="." method="MusicFolderPressed"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/ExclMusicFolder2" to="." method="ExcludeFolderPressed"]
-[connection signal="pressed" from="Control/Hbox/Panel/VCont/Refresh" to="." method="RefreshLister"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/Refresh" to="." method="OnRefreshPressed"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/About" to="Layer/About" method="show"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/Close" to="." method="hide"]
-[connection signal="pressed" from="Control/Hbox/DirectoryList/Scroll/List/AddButton" to="." method="OnAddPressed"]
+[connection signal="pressed" from="Control/Hbox/DirectoryList/Scroll/List/AddFolderButton" to="." method="OnAddPressed"]

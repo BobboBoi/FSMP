@@ -35,13 +35,13 @@ func _pressed() -> void:
 
 func _Show(src : Node) -> void:
 	if owner is not RightClickMenu: return
-	if !(src is MusicSelection or src is QueueSelection or src is QuickAccessButton): return
+	if !(src is MusicSelection or src is QueueSelection or src is QuickAccessButton or src is NewQuickAccessButton): return
 	if home.selected.size() > 0: return
 	
 	if src is MusicSelection or src is QueueSelection:
 		var data = src.data
 		if data.album == "": return
-	elif src is QuickAccessButton:
+	elif src is QuickAccessButton or src is NewQuickAccessButton:
 		var data := TrackLister.CheckMusicData(src.path)
 		if data.album == "": return
 	

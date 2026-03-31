@@ -13,7 +13,7 @@ static func CreateFromMetaData(newPath : String, meta : MetaData) -> MusicData:
 	var newData := MusicData.new()
 	newData.path = newPath
 	newData.name = meta.Title
-	newData.artist = meta.Artists[0]
+	newData.artist = " & ".join(meta.Artists)
 	newData.album = meta.Album
 	newData.albumIndex = meta.Index
 	newData.disc = meta.Disc

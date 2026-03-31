@@ -24,7 +24,9 @@ func _OnTabClosed():
 	search.text = ""
 
 func Reload():
-	for i in list.get_children(): i.queue_free()
+	for i in list.get_children(): 
+		i.queue_free()
+	
 	for t in threads:
 		t.wait_to_finish()
 	threads = []

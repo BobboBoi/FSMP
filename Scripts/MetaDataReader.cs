@@ -16,7 +16,7 @@ public partial class MetaDataReader : Node
     {
         try
         {
-            var raw = File.Create(path);
+            var raw = File.Create(path, ReadStyle.PictureLazy);
             if (raw is null) return null;
 
             MetaData data = new()
@@ -25,18 +25,18 @@ public partial class MetaDataReader : Node
                 Album = raw.Tag.Album,
                 Index = (int)raw.Tag.Track,
                 Disc = (int)raw.Tag.Disc,
-                Artists = raw.Tag.Performers.Length > 0 ? raw.Tag.Performers : new string[] {""},
+                Artists = raw.Tag.Performers
             };
 
             return data;
         }
         catch (UnsupportedFormatException)
         {
-            return new() { Title = Path.GetFileName(path), Artists = new string[] { "" } };
+            return new() { Title = Path.GetFileName(path), Artists = [""] };
         }
         catch(CorruptFileException)
         {
-            return new() { Title = Path.GetFileName(path), Artists = new string[] { "" } };
+            return new() { Title = Path.GetFileName(path), Artists = [""] };
         }
     }
 

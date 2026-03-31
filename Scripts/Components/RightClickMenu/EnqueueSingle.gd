@@ -18,6 +18,6 @@ func _pressed() -> void:
 
 func _Show(src : Node) -> void:
 	if owner is not RightClickMenu: return
-	if !(src is MusicSelection or src is QuickAccessButton): return
+	if !(src is MusicSelection or src is QuickAccessButton or src is NewQuickAccessButton): return
 	if home.selected.size() > 0: return
 	show()
