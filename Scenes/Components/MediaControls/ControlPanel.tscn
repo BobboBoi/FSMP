@@ -24,7 +24,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 516.0
-offset_bottom = 538.0
+offset_bottom = 516.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -35,7 +35,6 @@ layout_mode = 2
 
 [node name="QueuePanel" parent="MainCont" unique_id=1205099984 instance=ExtResource("4_0ljw6")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 538)
 layout_mode = 2
 
 [connection signal="resized" from="." to="." method="SizeUpdate" flags=3]

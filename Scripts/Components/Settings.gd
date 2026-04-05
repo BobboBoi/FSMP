@@ -15,7 +15,7 @@ enum STATES {
 }
 
 func _ready() -> void:
-	DisableReloads()
+	Lister.ReloadStarted.connect(DisableReloads.unbind(1))
 	Lister.ListChanged.connect(EnableReloads)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -93,7 +93,7 @@ func RemoveExcludeFolder(dir : String):
 
 func ReloadAndSaveChanges() -> void:
 	Lister.Reload()
-	Loader._save("user://config", Loader.config.duplicate())
+	Loader.Save(Loader.configPath, Loader.config)
 
 func CloseLayer():
 	if fileDialog.visible:
@@ -125,7 +125,6 @@ func OnColorRectInput(event: InputEvent) -> void:
 		CloseLayer()
 
 func OnRefreshPressed() -> void:
-	DisableReloads()
 	Lister.Reload()
 
 func MusicFolderPressed() -> void:

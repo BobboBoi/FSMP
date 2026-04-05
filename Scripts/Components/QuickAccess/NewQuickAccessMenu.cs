@@ -38,6 +38,18 @@ public partial class NewQuickAccessMenu : Control
         lister = GetNode<Node>("/root/Lister");
     }
 
+    public override void _Notification(int what)
+    {
+        base._Notification(what);
+
+        switch(what)
+        {
+            case (int)NotificationResized:
+                SizeUpdate();
+                break;
+        }
+    }
+
     private Task _latestTask = Task.CompletedTask;
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -165,7 +177,10 @@ public partial class NewQuickAccessMenu : Control
         if (Status == STATES.OPEN)
             root.Position = new Vector2(0, root.Position.Y);
         else
-            root.Position = new Vector2(-root.Size.X, root.Position.Y) ;
+        {
+            root.Position = new Vector2(-root.Size.X, root.Position.Y);
+            GD.Print(-root.Size.X);
+        }
     }
 	
 

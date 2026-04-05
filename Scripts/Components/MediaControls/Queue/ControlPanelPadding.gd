@@ -3,7 +3,7 @@ extends Control
 @onready var controlPanel : ControlPanel = get_tree().get_first_node_in_group("ControlPanel")
 
 func _ready() -> void:
-	controlPanel.resized.connect(SizeUpdate)
+	#controlPanel.resized.connect(SizeUpdate)
 	#controlPanel.minimum_size_changed.connect(MinSizeUpdate)
 	SizeUpdate()
 

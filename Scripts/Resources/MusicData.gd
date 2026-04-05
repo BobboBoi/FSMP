@@ -37,7 +37,7 @@ func GetArtistsString() -> String:
 			result += artists[a] + ", "
 	
 	if artists.size() > 1:
-		result += artists[artists.size()-2] + " & " + artists[artists.size()-2]
+		result += artists[artists.size()-2] + " & " + artists[artists.size()-1]
 	elif artists.size() == 1:
 		result = artists[0]
 	

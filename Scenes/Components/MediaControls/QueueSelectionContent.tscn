@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://muwqglgsr75o"]
+[gd_scene format=3 uid="uid://muwqglgsr75o"]
 
 [sub_resource type="GDScript" id="GDScript_5sbud"]
 resource_name = "QueueSelectionContent"
@@ -6,7 +6,7 @@ script/source = "extends HBoxContainer
 
 func Refresh(selection : QueueSelection, fade := true) -> void:
 	%Name.text = selection.data.name
-	%Artist.text = selection.data.artist
+	%Artist.text = selection.data.GetArtistsString()
 	
 	if !fade: return
 	
@@ -17,22 +17,22 @@ func Refresh(selection : QueueSelection, fade := true) -> void:
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw5i3"]
 
-[node name="Cont" type="HBoxContainer"]
+[node name="Cont" type="HBoxContainer" unique_id=1749620177]
 mouse_filter = 2
 script = SubResource("GDScript_5sbud")
 
-[node name="SpinParent" type="Control" parent="."]
+[node name="SpinParent" type="Control" parent="." unique_id=1898526197]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VSeparator" type="VSeparator" parent="."]
+[node name="VSeparator" type="VSeparator" parent="." unique_id=394853668]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_qw5i3")
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" type="Label" parent="." unique_id=1197026207]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -43,7 +43,7 @@ text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Artist" type="Label" parent="."]
+[node name="Artist" type="Label" parent="." unique_id=1147937196]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c8x7r1ev2ma03" path="res://Assets/Sprites/Icons/LoopOne.png" id="3_hcu6x"]
 [ext_resource type="Script" uid="uid://d2b0ydwyygkf2" path="res://Scripts/Components/MediaControls/QueueButton.gd" id="3_pntsk"]
 [ext_resource type="Texture2D" uid="uid://cyusf7dsubbvy" path="res://Assets/Sprites/Icons/NoLoop.png" id="4_sjwuw"]
+[ext_resource type="Texture2D" uid="uid://b13gh3wh2evg6" path="res://Assets/Sprites/Icons/Pause.png" id="8_b76id"]
+[ext_resource type="Texture2D" uid="uid://5ydno3jjtc1i" path="res://Assets/Sprites/Icons/Resume.png" id="9_15hh1"]
+[ext_resource type="Script" uid="uid://qim7hloipgjn" path="res://Scripts/Components/MediaControls/PauseButton.gd" id="10_15hh1"]
+[ext_resource type="PackedScene" uid="uid://3jgkoftmbgph" path="res://Scenes/Components/MediaControls/VolumeSlider.tscn" id="12_e7tai"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbfk"]
 content_margin_left = 60.0
@@ -28,6 +32,16 @@ unicode = 108
 
 [sub_resource type="Shortcut" id="Shortcut_wa540"]
 events = [SubResource("InputEventKey_b8ecu")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj61b"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_g1lrg"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_m3nnv"]
+events = [SubResource("InputEventKey_g1lrg")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ewgbj"]
 device = -1
@@ -69,15 +83,15 @@ layout_mode = 2
 text = "0:00 - 0:00"
 script = ExtResource("1_7cqot")
 
-[node name="Controls" type="CenterContainer" parent="VCont/BottomControls" unique_id=542638382]
-custom_minimum_size = Vector2(290, 0)
+[node name="Controls" type="HBoxContainer" parent="VCont/BottomControls" unique_id=1065799514]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPad" type="Control" parent="VCont/BottomControls/Controls" unique_id=1674361858]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Hcont" type="HBoxContainer" parent="VCont/BottomControls/Controls" unique_id=1065799514]
-layout_mode = 2
-
-[node name="LoopButton" type="TextureButton" parent="VCont/BottomControls/Controls/Hcont" unique_id=1477164004]
+[node name="LoopButton" type="TextureButton" parent="VCont/BottomControls/Controls" unique_id=1477164004]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -90,12 +104,29 @@ LoopQueueTexture = ExtResource("1_c4gqo")
 LoopSingleTexture = ExtResource("3_hcu6x")
 NoLoopTexture = ExtResource("4_sjwuw")
 
-[node name="Sep" type="Control" parent="VCont/BottomControls/Controls/Hcont" unique_id=414511262]
-custom_minimum_size = Vector2(320, 0)
+[node name="Sep1" type="VSeparator" parent="VCont/BottomControls/Controls" unique_id=1182264991]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qj61b")
 
-[node name="QueueButton" type="TextureButton" parent="VCont/BottomControls/Controls/Hcont" unique_id=1405061323]
+[node name="PauseButton" type="TextureButton" parent="VCont/BottomControls/Controls" unique_id=213051060]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_m3nnv")
+texture_normal = ExtResource("8_b76id")
+texture_pressed = ExtResource("9_15hh1")
+stretch_mode = 0
+script = ExtResource("10_15hh1")
+
+[node name="Sep2" type="VSeparator" parent="VCont/BottomControls/Controls" unique_id=931790597]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qj61b")
+
+[node name="QueueButton" type="TextureButton" parent="VCont/BottomControls/Controls" unique_id=1405061323]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -105,3 +136,21 @@ shortcut = SubResource("Shortcut_ialpq")
 texture_normal = ExtResource("3_ciw4t")
 stretch_mode = 0
 script = ExtResource("3_pntsk")
+
+[node name="VolumeControls" type="HBoxContainer" parent="VCont/BottomControls/Controls" unique_id=1125423607]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="PadL" type="VSeparator" parent="VCont/BottomControls/Controls/VolumeControls" unique_id=1333483678]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qj61b")
+
+[node name="VolumeSlider" parent="VCont/BottomControls/Controls/VolumeControls" unique_id=242673849 instance=ExtResource("12_e7tai")]
+layout_mode = 2
+
+[node name="PadR" type="VSeparator" parent="VCont/BottomControls/Controls/VolumeControls" unique_id=1563344471]
+layout_mode = 2
+theme_override_constants/separation = 64
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qj61b")

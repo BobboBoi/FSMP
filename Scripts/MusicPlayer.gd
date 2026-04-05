@@ -56,13 +56,13 @@ func PlaySingleFromData(data : MusicData, emitSignal := true):
 	currentIndex = 0
 	QueueChange.emit()
 	
-	PlayNewTrack(data.path, data.name, data.album, data.artist, emitSignal)
+	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
 ##Plays a track using data from [param data].
 func PlayFromData(data : MusicData,emitSignal := true):
-	PlayNewTrack(data.path,data.name,data.album,data.artist,emitSignal)
+	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
-func PlayNewTrack(music : String,trackName : String = "",album : String = "",artist : String = "", emitSignal := true):
+func PlayNewTrack(music : String, trackName := "", album := "", artist := "", emitSignal := true):
 	self.stop()
 	if music == "": return
 	if music == currentPath:

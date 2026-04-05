@@ -16,6 +16,6 @@ func Refresh(_stream) -> void:
 	var data := Player.queue[Player.currentIndex]
 	
 	if data.artists.size() > 0:
-		text = data.album + " - " + data.GetArtistsString()
+		text = data.name + " - " + data.GetArtistsString()
 	else:
 		text = data.name;

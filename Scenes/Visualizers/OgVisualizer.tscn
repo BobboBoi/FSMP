@@ -691,7 +691,7 @@ unique_name_in_owner = true
 z_index = -1
 position = Vector2(576, 324)
 sprite_frames = SubResource("SpriteFrames_itlep")
-animation = &"Da Man"
+animation = &"Pug"
 script = ExtResource("6_qy74n")
 
 [connection signal="Beat" from="MainCont/BeatReader" to="Sprite" method="OnBeat" unbinds=1]

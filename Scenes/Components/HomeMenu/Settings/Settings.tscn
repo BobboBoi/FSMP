@@ -162,6 +162,7 @@ metadata/_edit_use_anchors_ = true
 [node name="AddFolderButton" type="Button" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=387517055]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Add"
 
 [node name="Pad2" type="HSeparator" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=979815768]
