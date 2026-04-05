@@ -30,11 +30,9 @@ offset_right = 326.6502
 offset_bottom = 326.6502
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 66.26174
+rotation = 242.45982
 pivot_offset = Vector2(326.6502, 326.6502)
 mouse_filter = 2
 texture = ExtResource("2_mgjfv")
 expand_mode = 1
 metadata/_edit_lock_ = true
-
-[connection signal="resized" from="." to="." method="SizeUpdate"]

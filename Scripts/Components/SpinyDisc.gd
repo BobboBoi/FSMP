@@ -9,7 +9,7 @@ class_name SpinyDisc
 		SizeUpdate()
 @export var spinning := true :
 	set(value):
-		set_process(value)
+		set_process(is_visible_in_tree() and value)
 		spinning = value
 
 func _ready() -> void:
@@ -18,6 +18,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if get_child_count() <= 0: return
 	%Texture.rotation_degrees += speed * delta
+
+func _notification(what: int) -> void:
+	match(what):
+		NOTIFICATION_VISIBILITY_CHANGED:
+			set_process(is_visible_in_tree() and spinning)
+		NOTIFICATION_RESIZED:
+			SizeUpdate()
 
 func SizeUpdate() -> void:
 	if get_child_count() <= 0: return

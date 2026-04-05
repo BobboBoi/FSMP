@@ -25,16 +25,6 @@ func _exit_tree() -> void:
 	reloadThread.wait_to_finish()
 	music.clear()
 
-## Used for performance tests.[br]
-## Same as [mehtod Reload] but also prints the load time and amount into the console.
-func MeasureReloadSpeed():
-	var time = Time.get_ticks_msec()
-	Reload()
-	
-	await ListChanged
-	print("Took %f seconds to load" % ((Time.get_ticks_msec() - time) / 1000.0))
-	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
-
 ## Look for music files in saved directories.[br]If [param async] is [code]true[/code] runs on the [member reloadThread].[br]
 ## Emits [signal ReloadStarted] when starting a new reload task.
 ## Emits [signal ListChanged] when finished.
@@ -51,10 +41,19 @@ func Reload(async := true) -> void:
 			reloadThread = Thread.new()
 		
 		ListChanged.connect(reloadThread.wait_to_finish, CONNECT_ONE_SHOT)
-		reloadThread.start(ReloadTask)
+		reloadThread.start(MeasureReloadSpeed)
 	
 	else:
 		ReloadTask()
+
+## Used for performance tests.[br]
+## Same as [mehtod ReloadTask] but also prints the load time and amount into the console.
+func MeasureReloadSpeed():
+	var time = Time.get_ticks_msec()
+	ReloadTask()
+	
+	print("Took %f seconds to load" % ((Time.get_ticks_msec() - time) / 1000.0))
+	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
 
 ## Look for music files in saved directories
 func ReloadTask() -> void:
@@ -85,7 +84,7 @@ func ReloadTask() -> void:
 		var result : Array[MusicData] = await t.wait_to_finish()
 		
 		for i in result:
-			if music.filter(func(d : MusicData): return d.name == i.name && d.artist == i.artist).size() == 0:
+			if music.filter(func(d : MusicData): return d.name == i.name && d.GetArtistsString() == i.GetArtistsString()).size() == 0:
 				music.append(i)
 	
 	# Find every unique album in the library

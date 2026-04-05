@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnabikjgn0f5x"]
+[gd_scene format=3 uid="uid://dnabikjgn0f5x"]
 
 [sub_resource type="GDScript" id="GDScript_l7wph"]
 resource_name = "MusicSelectionContent"
@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func Refresh(selection : MusicSelection) -> void:
 	%Name.text = selection.data.name
-	%Artist.text = selection.data.artist
+	%Artist.text = selection.data.GetArtistsString()
 	%Album.text = selection.data.album
 	%Index.visible = selection.index >= 0
 	%Index.text = str(selection.index)
@@ -26,16 +26,16 @@ func Refresh(selection : MusicSelection) -> void:
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw5i3"]
 
-[node name="Cont" type="HBoxContainer"]
+[node name="Cont" type="HBoxContainer" unique_id=2143532559]
 mouse_filter = 2
 script = SubResource("GDScript_l7wph")
 
-[node name="CheckParent" type="Control" parent="."]
+[node name="CheckParent" type="Control" parent="." unique_id=1567922777]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CheckBox" type="CheckBox" parent="CheckParent"]
+[node name="CheckBox" type="CheckBox" parent="CheckParent" unique_id=51885304]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -54,19 +54,19 @@ mouse_default_cursor_shape = 2
 alignment = 1
 icon_alignment = 1
 
-[node name="Index" type="Label" parent="."]
+[node name="Index" type="Label" parent="." unique_id=347207551]
 unique_name_in_owner = true
 layout_mode = 2
 text = "###"
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="VSeparator" type="VSeparator" parent="."]
+[node name="VSeparator" type="VSeparator" parent="." unique_id=47731098]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_qw5i3")
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" type="Label" parent="." unique_id=1165209199]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -77,7 +77,7 @@ text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Artist" type="Label" parent="."]
+[node name="Artist" type="Label" parent="." unique_id=133219784]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -88,7 +88,7 @@ text_overrun_behavior = 1
 max_lines_visible = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Album" type="Label" parent="."]
+[node name="Album" type="Label" parent="." unique_id=71933497]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

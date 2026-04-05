@@ -1,24 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8u27hukg18cw"]
+[gd_scene format=3 uid="uid://c8u27hukg18cw"]
 
 [ext_resource type="Script" uid="uid://cogkefb70eufo" path="res://Scripts/Components/HomeMenu/Tabs/AlbumTab.gd" id="1_depv2"]
 [ext_resource type="Script" uid="uid://hfbpgn27i08f" path="res://Scripts/Components/SearchBar.gd" id="2_pbqr3"]
 [ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="3_c1di3"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_k06b4"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_js5uv"]
+[ext_resource type="PackedScene" uid="uid://dvb5p02mwjhqv" path="res://Scenes/Components/SpinyDisc.tscn" id="6_js5uv"]
 
 [sub_resource type="Resource" id="Resource_l5ntw"]
 script = ExtResource("4_js5uv")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_j2tfc"]
 script = ExtResource("4_js5uv")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
-[node name="AlbumTab" type="Control"]
+[node name="AlbumTab" type="Control" unique_id=1630652310]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +24,7 @@ mouse_filter = 2
 script = ExtResource("1_depv2")
 metadata/_tab_index = 1
 
-[node name="MainCont" type="VBoxContainer" parent="."]
+[node name="MainCont" type="VBoxContainer" parent="." unique_id=177988874]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SearchBar" type="LineEdit" parent="MainCont" node_paths=PackedStringArray("target")]
+[node name="SearchBar" type="LineEdit" parent="MainCont" unique_id=150676154 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 process_priority = 1
 custom_minimum_size = Vector2(0, 53)
@@ -47,7 +42,20 @@ placeholder_text = "Search for your garbage here :)
 script = ExtResource("2_pbqr3")
 target = NodePath("../Scroll/AlbumList")
 
-[node name="Scroll" type="ScrollContainer" parent="MainCont"]
+[node name="LoadingSpinner" type="CenterContainer" parent="MainCont" unique_id=1176547199]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpinyDisc" parent="MainCont/LoadingSpinner" unique_id=1131877589 instance=ExtResource("6_js5uv")]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont" unique_id=1192594438]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -61,7 +69,7 @@ hide_scrollbar_over_time = true
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 metadata/_edit_use_anchors_ = true
 
-[node name="AlbumList" type="VBoxContainer" parent="MainCont/Scroll"]
+[node name="AlbumList" type="VBoxContainer" parent="MainCont/Scroll" unique_id=429824730]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

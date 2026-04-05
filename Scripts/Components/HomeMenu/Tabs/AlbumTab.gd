@@ -3,6 +3,13 @@ extends Tab
 @onready var list := %AlbumList
 @onready var search := %SearchBar
 
+func _ready():
+	Lister.ListChanged.connect(%LoadingSpinner.hide)
+	Lister.ReloadStarted.connect(%LoadingSpinner.show.unbind(1))
+	
+	Lister.ListChanged.connect(%Scroll.show)
+	Lister.ReloadStarted.connect(%Scroll.hide.unbind(1))
+
 func _OnTabClosed():
 	if Lister.ListChanged.is_connected(_OnTabOpened):
 		Lister.ListChanged.disconnect(_OnTabOpened)

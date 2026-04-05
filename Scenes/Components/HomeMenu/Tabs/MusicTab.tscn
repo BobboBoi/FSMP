@@ -1,24 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://gsmdmm4cie0"]
+[gd_scene format=3 uid="uid://gsmdmm4cie0"]
 
 [ext_resource type="Script" uid="uid://hfbpgn27i08f" path="res://Scripts/Components/SearchBar.gd" id="1_2b4sg"]
 [ext_resource type="Script" uid="uid://n56rph65ogr7" path="res://Scripts/Components/HomeMenu/Tabs/MusicTab.gd" id="1_bpk4h"]
 [ext_resource type="Script" uid="uid://70cjm6jss6y8" path="res://Scripts/Components/SongList.gd" id="2_u13nc"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_f2jhu"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_1crrd"]
+[ext_resource type="PackedScene" uid="uid://dvb5p02mwjhqv" path="res://Scenes/Components/SpinyDisc.tscn" id="6_1crrd"]
 
 [sub_resource type="Resource" id="Resource_2ko3y"]
 script = ExtResource("4_1crrd")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_4dm0o"]
 script = ExtResource("4_1crrd")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
-[node name="MusicTab" type="Control"]
+[node name="MusicTab" type="Control" unique_id=1761763658]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +23,7 @@ grow_vertical = 2
 script = ExtResource("1_bpk4h")
 metadata/_tab_index = 0
 
-[node name="MainCont" type="VBoxContainer" parent="."]
+[node name="MainCont" type="VBoxContainer" parent="." unique_id=1373201410]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SearchBar" type="LineEdit" parent="MainCont" node_paths=PackedStringArray("target")]
+[node name="SearchBar" type="LineEdit" parent="MainCont" unique_id=1416010101 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
 z_index = 1
 custom_minimum_size = Vector2(0, 53)
@@ -46,7 +41,20 @@ placeholder_text = "Search for your garbage here :)
 script = ExtResource("1_2b4sg")
 target = NodePath("../Scroll/MusicList")
 
-[node name="Scroll" type="ScrollContainer" parent="MainCont"]
+[node name="LoadingSpinner" type="CenterContainer" parent="MainCont" unique_id=438820590]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpinyDisc" parent="MainCont/LoadingSpinner" unique_id=1131877589 instance=ExtResource("6_1crrd")]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Scroll" type="ScrollContainer" parent="MainCont" unique_id=1531354364]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -60,7 +68,7 @@ hide_scrollbar_over_time = true
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 metadata/_edit_use_anchors_ = true
 
-[node name="MusicList" type="VBoxContainer" parent="MainCont/Scroll"]
+[node name="MusicList" type="VBoxContainer" parent="MainCont/Scroll" unique_id=64312321]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
