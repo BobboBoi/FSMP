@@ -32,10 +32,20 @@ func _exit_tree() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: return
 	if event.is_action_pressed("Pause"):
-		self.stream_paused = !self.stream_paused
-		if self.stream_paused: Paused.emit()
-		else: Resumed.emit()
+		if self.stream_paused:
+			Resume()
+		else:
+			Pause()
 
+#region Control
+func Pause() -> void:
+	self.stream_paused = true
+	Paused.emit()
+
+func Resume() -> void:
+	self.stream_paused = false
+	Resumed.emit()
+#endregion Control
 
 #region Playing
 ##Similair to [member PlayFromPath] but resets the queue.[br]

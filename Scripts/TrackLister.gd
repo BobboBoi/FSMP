@@ -110,9 +110,14 @@ func GetMusicFilesFromPath(path : String, recursive := true) -> PackedStringArra
 		Messages.call_deferred_thread_group("TextMessage", path, " does not exist")
 		return []
 	
-	return FindMusicFiles(path, recursive)
+	var excludes : PackedStringArray = []
+	for p in Loader.config.excludePaths:
+		if path.substr(0,1) == p.substr(0,1):
+			excludes.append(p)
+	
+	return FindMusicFiles(path, excludes, recursive)
 
-func FindMusicFiles(path : String, recursive := true) -> PackedStringArray:
+func FindMusicFiles(path : String, excludes : PackedStringArray, recursive := true) -> PackedStringArray:
 	var files : PackedStringArray = []
 	var dir := DirAccess.open(path)
 	dir.list_dir_begin()
@@ -126,9 +131,10 @@ func FindMusicFiles(path : String, recursive := true) -> PackedStringArray:
 		
 		if IsMusicFile(file) and not file.begins_with("."):
 			files.append(filepath)
+		
 		elif !IsUnsupportedMusicFile(file) and recursive:
-			if DirAccess.dir_exists_absolute(filepath) and !IsExcluded(filepath):
-				files.append_array(FindMusicFiles(filepath))
+			if DirAccess.dir_exists_absolute(filepath) and !IsExcluded(filepath, excludes):
+				files.append_array(FindMusicFiles(filepath, excludes))
 	
 	dir.list_dir_end()
 	return files
@@ -180,10 +186,11 @@ func GetAlbumData(album : String) -> AlbumData:
 	return a.front()
 
 ## If true the path is in the current [Config.exludePaths]
-func IsExcluded(path : String) -> bool:
+func IsExcluded(path : String, excludes : PackedStringArray) -> bool:
 	path = path.replace("\\","/")
-	for e in Loader.config.excludePaths:
-		if path.contains(e):
+	
+	for e in excludes:
+		if path == e:
 			return true
 	
 	return false

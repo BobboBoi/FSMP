@@ -7,8 +7,10 @@ func _ready() -> void:
 	PlayerUpdate()
 
 func _pressed() -> void:
-	# might cause issues as it doesn't emit any Pause or Resume signals
-	Player.stream_paused = button_pressed
+	if Player.stream_paused:
+		Player.Resume()
+	else:
+		Player.Pause()
 
 func PlayerUpdate() -> void:
 	button_pressed = Player.stream_paused

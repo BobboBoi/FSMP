@@ -177,12 +177,6 @@ public partial class NewQuickAccessMenu : Control
         if (Status == STATES.OPEN)
             root.Position = new Vector2(0, root.Position.Y);
         else
-        {
             root.Position = new Vector2(-root.Size.X, root.Position.Y);
-            GD.Print(-root.Size.X);
-        }
     }
-	
-
-
 }

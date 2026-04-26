@@ -2,7 +2,6 @@ extends Control
 class_name ControlPanel
 ##The main controls for the currently playing music.
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
 @onready var queuePanel := %QueuePanel
 @onready var mediaControlPanel := %DefaultMediaControls
 @onready var mainCont := %MainCont

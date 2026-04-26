@@ -8,7 +8,7 @@ func _pressed() -> void:
 	
 	if owner.currentSelection is MusicSelection:
 		Player.EnqueueNextFromDataArray([owner.currentSelection.data])
-	elif owner.currentSelection is QuickAccessButton:
+	elif owner.currentSelection is QuickAccessButton or owner.currentSelection is NewQuickAccessButton:
 		Player.EnqueueNextFromPathArray([owner.currentSelection.path])
 	else:
 		return

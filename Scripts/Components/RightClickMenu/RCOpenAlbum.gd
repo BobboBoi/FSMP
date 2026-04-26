@@ -20,7 +20,7 @@ func _pressed() -> void:
 			home.ShowHome()
 		home.OpenAlbum(albumData,cover)
 	
-	elif owner.currentSelection is QuickAccessButton:
+	elif owner.currentSelection is QuickAccessButton or owner.currentSelection is NewQuickAccessButton: 
 		var data := TrackLister.CheckMusicData(owner.currentSelection.path)
 		if data.album == "": return
 		

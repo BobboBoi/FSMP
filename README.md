@@ -14,7 +14,7 @@ This is a really bad music player. Please don't use this.
 <li>Metadata support</li>
 <li>Useless visualizer</li>
 <li>No playlists</li>
-<li>No pause button</li>
+<li>A pause button (For cringe people)</li>
 <li>Discord support</li>
 <li>And more useless features</li>
 </ul>

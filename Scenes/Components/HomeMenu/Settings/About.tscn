@@ -47,7 +47,7 @@ layout_mode = 2
 text = "This is a really bad music player.
 It was made purely as a stupid hobby
 
-Set music directories with the \"Add music folder\" button. Supported formats: MP3,WAV and OGG.
+Set music directories with the \"Add music folder\" button. Supported formats: MP3, OGG, WAV, and FLAC.
 "
 autowrap_mode = 2
 
