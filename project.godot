@@ -47,6 +47,10 @@ window/vsync/vsync_mode=2
 
 project/assembly_name="F.S.M.P."
 
+[editor]
+
+run/main_run_args="\"D:\\SynologyDrive\\SynologyDrive\\Music\\SiIvaGunner\\Triple-Q - GilvaSunner's Highest Quality Video Game - 03 Knuckles from K.N.U.C.K.L.E.S. & Knuckles- Knuckles in Knuckles the Echidna feat. Knuckles from the Knuckles the Echid.MP3\""
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/discord-sdk-gd/plugin.cfg")

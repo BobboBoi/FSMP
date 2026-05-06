@@ -48,18 +48,19 @@ func Resume() -> void:
 #endregion Control
 
 #region Playing
-##Similair to [member PlayFromPath] but resets the queue.[br]
-##This is used when a single song is selected to be played.
+## Similair to [member PlayFromPath] but resets the queue.[br]
+## This is used when a single song is selected to be played.
 func PlaySingleFromPath(path : String,emitSignal := true):
 	PlaySingleFromData(TrackLister.CheckMusicData(path), emitSignal)
 
-##Plays a new track with the give [param path].
-##[b]Note[/b] the path used is the path to the local userdata and not the music file.
+## @deprecated
+## Plays a new track with the give [param path].
+## [b]Note[/b] the path used is the path to the local userdata and not the music file.
 func PlayFromPath(path : String,emitSignal := true):
 	PlayFromData(TrackLister.CheckMusicData(path), emitSignal)
 
-##Similair to [member PlayFromData] but resets the queue.[br]
-##This is used when a single song is selected to be played.
+## Similair to [member PlayFromData] but resets the queue.[br]
+## This is used when a single song is selected to be played.
 func PlaySingleFromData(data : MusicData, emitSignal := true):
 	srcQueue = [data]
 	queue = srcQueue.duplicate()
@@ -68,12 +69,17 @@ func PlaySingleFromData(data : MusicData, emitSignal := true):
 	
 	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
-##Plays a track using data from [param data].
+## @deprecated
+## Plays a track using data from [param data].
 func PlayFromData(data : MusicData,emitSignal := true):
 	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
 func PlayNewTrack(music : String, trackName := "", album := "", artist := "", emitSignal := true):
+	if self.stream_paused:
+		Resume()
+	
 	self.stop()
+	
 	if music == "": return
 	if music == currentPath:
 		self.play()
@@ -82,13 +88,14 @@ func PlayNewTrack(music : String, trackName := "", album := "", artist := "", em
 	print(music)
 	currentPath = music
 	
-	if music.ends_with(".mp3"):
+	var lcPath := music.to_lower()
+	if lcPath.ends_with(".mp3"):
 		self.stream = StreamLoader.LoadMP3FromPath(music)
-	elif music.ends_with(".wav"):
+	elif lcPath.ends_with(".wav"):
 		self.stream = StreamLoader.LoadWAVFromPath(music)
-	elif music.ends_with(".ogg"):
+	elif lcPath.ends_with(".ogg"):
 		self.stream = StreamLoader.LoadOGGFromPath(music)
-	elif music.ends_with(".flac"):
+	elif lcPath.ends_with(".flac"):
 		self.stream = StreamLoader.LoadFLACFromPath(music)
 	
 	self.play()

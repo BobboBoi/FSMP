@@ -201,11 +201,13 @@ static func CheckMusicData(filepath : String) -> MusicData:
 
 ## Returns [code]true[/code] if the provided [param filepath] is of a supported music file type
 static func IsMusicFile(filepath : String) -> bool:
-	return filepath.ends_with(".wav") or filepath.ends_with(".mp3") or filepath.ends_with(".ogg") or filepath.ends_with(".flac")
+	var lcPath = filepath.to_lower()
+	return lcPath.ends_with(".wav") or lcPath.ends_with(".mp3") or lcPath.ends_with(".ogg") or lcPath.ends_with(".flac")
 
 ## Returns [code]true[/code] if the provided [param filepath] is of a unsupported music file type
 static func IsUnsupportedMusicFile(filepath : String) -> bool:
-	return filepath.ends_with(".m4a")
+	var lcPath = filepath.to_lower()
+	return lcPath.ends_with(".m4a")
 
 ## Returns [code]true[/code] if the provided [param filepath] is of a supported image file type
 static func IsImageFile(filepath : String) -> bool:
