@@ -30,8 +30,6 @@ func _pressed() -> void:
 		var cover := await GetCover(albumData)
 		home.ShowHome()
 		home.OpenAlbum(albumData,cover)
-	else:
-		return
 
 func _Show(src : Node) -> void:
 	if owner is not RightClickMenu: return
