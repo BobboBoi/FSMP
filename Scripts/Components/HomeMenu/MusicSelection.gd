@@ -3,7 +3,7 @@ class_name MusicSelection
 
 @onready var content = preload("uid://dnabikjgn0f5x")
 @onready var visNot := %VisNotifier
-@export var data : MusicData :
+var data : MusicData :
 	set(value):
 		data = value
 		if is_inside_tree() and get_child_count() > 1: 

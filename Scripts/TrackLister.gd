@@ -41,10 +41,10 @@ func Reload(async := true) -> void:
 			reloadThread = Thread.new()
 		
 		ListChanged.connect(reloadThread.wait_to_finish, CONNECT_ONE_SHOT)
-		reloadThread.start(MeasureReloadSpeed)
+		reloadThread.start(ReloadTaskSharp)
 	
 	else:
-		ReloadTask()
+		ReloadTaskSharp()
 
 ## Used for performance tests.[br]
 ## Same as [mehtod ReloadTask] but also prints the load time and amount into the console.
@@ -54,6 +54,31 @@ func MeasureReloadSpeed():
 	
 	print("Took %f seconds to load" % ((Time.get_ticks_msec() - time) / 1000.0))
 	print("While loading: %s total tracks and %s total albums!" % [music.size(),albums.size()] )
+
+func ReloadTaskSharp() -> void:
+	paths = Loader.config.musicPaths
+	music.clear()
+	albums.clear()
+	
+	var lib = Library.new()
+	lib.Reload()
+	music = await lib.LibraryLoaded
+	
+	# Find every unique album in the library
+	var uniqueAlbums : PackedStringArray = []
+	for i in music:
+		if i.album != "":
+			if uniqueAlbums.find(i.album) == -1:
+				uniqueAlbums.append(i.album)
+	
+	# Load the album metadeta and add them to the library
+	for i in uniqueAlbums:
+		var loadedAlbum := CheckAlbumData(i)
+		albums.append(loadedAlbum)
+	
+	albums.sort_custom(func(a,b): return a.name.to_lower() < b.name.to_lower())
+	
+	ListChanged.emit.call_deferred()
 
 ## Look for music files in saved directories
 func ReloadTask() -> void:
@@ -196,8 +221,7 @@ func IsExcluded(path : String, excludes : PackedStringArray) -> bool:
 	return false
 
 static func CheckMusicData(filepath : String) -> MusicData:
-	var meta := MetaDataReader.GetFromAudioFile(filepath)
-	return MusicData.CreateFromMetaData(filepath,meta)
+	return MetaDataReader.GetMusicDataFromAudioFile(filepath)
 
 ## Returns [code]true[/code] if the provided [param filepath] is of a supported music file type
 static func IsMusicFile(filepath : String) -> bool:

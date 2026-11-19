@@ -33,7 +33,6 @@ buses/default_bus_layout="uid://cnfcgy22l7s5i"
 Loader="*res://Scripts/Loader.gd"
 DiscordSDKLoader="*uid://beo172ada8x0k"
 Discord="*res://Scripts/Discord.gd"
-GlobalInput="*res://addons/global_input/autoload/global_input_csharp/GlobalInputCSharp.tscn"
 Player="*res://Scripts/MusicPlayer.gd"
 CmdArg="*res://Scripts/CmdArguments.gd"
 Lister="*res://Scripts/TrackLister.gd"
@@ -49,13 +48,9 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="F.S.M.P."
 
-[editor]
-
-run/main_run_args="\"D:\\SynologyDrive\\SynologyDrive\\Music\\Butter Dog Type Beat.mp3\""
-
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/discord-sdk-gd/plugin.cfg")
+enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/discord-sdk-gd/plugin.cfg", "res://addons/godot_visualstudio_debugger/plugin.cfg")
 
 [file_customization]
 

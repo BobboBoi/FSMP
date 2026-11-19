@@ -33,7 +33,7 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = nul
 	
 	#Load Saved Data
 	for i in files:
-		var butt := MusicSelection.Create(i,i.albumIndex)
+		var butt := MusicSelection.Create(i,i.index)
 		list.add_child(butt)
 	
 	cover.texture = newCover

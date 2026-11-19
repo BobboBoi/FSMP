@@ -12,7 +12,7 @@ public partial class MetaDataReader : Node
     [Signal]
     public delegate void CoverLoadedEventHandler(ImageTexture img);
 
-    public static MetaData GetFromAudioFile(string path)
+    public static MetaData GetMetaDataFromAudioFile(string path)
     {
         try
         {
@@ -21,22 +21,53 @@ public partial class MetaDataReader : Node
 
             MetaData data = new()
             {
-                Title = raw.Tag.Title ?? Path.GetFileName(path),
-                Album = raw.Tag.Album,
-                Index = (int)raw.Tag.Track,
-                Disc = (int)raw.Tag.Disc,
-                Artists = raw.Tag.Performers
+                title = raw.Tag.Title ?? Path.GetFileName(path),
+                album = raw.Tag.Album,
+                index = (int)raw.Tag.Track,
+                disc = (int)raw.Tag.Disc,
+                artists = raw.Tag.Performers,
+                type = GetFileType(path)
             };
 
             return data;
         }
         catch (UnsupportedFormatException)
         {
-            return new() { Title = Path.GetFileName(path), Artists = [""] };
+            return new() { title = Path.GetFileName(path), artists = [""] };
         }
         catch(CorruptFileException)
         {
-            return new() { Title = Path.GetFileName(path), Artists = [""] };
+            return new() { title = Path.GetFileName(path), artists = [""] };
+        }
+    }
+
+    public static MusicData GetMusicDataFromAudioFile(string path)
+    {
+        try
+        {
+            var raw = File.Create(path, ReadStyle.PictureLazy);
+            if (raw is null) return null;
+
+            MusicData data = new()
+            {
+                path = path,
+                title = raw.Tag.Title ?? Path.GetFileName(path),
+                album = raw.Tag.Album,
+                index = (int)raw.Tag.Track,
+                disc = (int)raw.Tag.Disc,
+                artists = raw.Tag.Performers,
+                type = GetFileType(path)
+            };
+
+            return data;
+        }
+        catch (UnsupportedFormatException)
+        {
+            return new() { title = Path.GetFileName(path), artists = [""] };
+        }
+        catch (CorruptFileException)
+        {
+            return new() { title = Path.GetFileName(path), artists = [""] };
         }
     }
 
@@ -125,4 +156,16 @@ public partial class MetaDataReader : Node
         return !(codec == null || result != SKCodecResult.Success);
     }
 
+    private static MetaData.FileType GetFileType(string path)
+    {
+        string extension = Path.GetExtension(path.ToLower());
+        return extension switch
+        {
+            ".mp3" => MetaData.FileType.MP3,
+            ".wav" => MetaData.FileType.WAV,
+            ".ogg" => MetaData.FileType.OGG,
+            ".flac" => MetaData.FileType.FLAC,
+            _ => MetaData.FileType.UNKOWN
+        };
+    }
 }

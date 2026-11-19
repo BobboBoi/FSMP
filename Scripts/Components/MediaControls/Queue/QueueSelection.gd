@@ -4,7 +4,7 @@ class_name QueueSelection
 @onready var content = preload("uid://muwqglgsr75o")
 @onready var visNot := %VisNotifier
 @export var queueIndex : int
-@export var data : MusicData
+var data : MusicData
 
 signal ContentLoaded
 

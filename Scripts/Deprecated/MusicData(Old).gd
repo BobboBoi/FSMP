@@ -1,5 +1,5 @@
 extends Resource
-class_name MusicData
+#class_name MusicData
 
 ##Path to the music file
 @export var path : String
