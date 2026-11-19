@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class Library : Node
 {
+    # region windows native
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     public static extern IntPtr FindFirstFileW(string lpFileName, out WIN32_FIND_DATAW lpFindFileData);
 
@@ -36,6 +37,7 @@ public partial class Library : Node
     }
         
     private static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+    # endregion windows native
 
     [Signal]
     public delegate void LibraryLoadedEventHandler(Godot.Collections.Array<MusicData> music);
@@ -48,7 +50,7 @@ public partial class Library : Node
     public override void _Ready()
     {
         base._Ready();
-        Reload();
+        //Reload();
     }
 
     private async void Reload()
@@ -120,7 +122,6 @@ public partial class Library : Node
 
     private MusicData[] CleanTask(MusicData current)
     {
-        //HashSet<MusicData> remove = [];
         List<MusicData> dupes = music.FindAll(b => current.title == b.title && current.artists.Join() == b.artists.Join());
         MusicData[] remove = new MusicData[dupes.Count-1];
 
@@ -129,12 +130,10 @@ public partial class Library : Node
             if (compareTracks(current, dupes[j]) < 0)
             {
                 current = dupes[j];
-                //remove.Add(current);
                 remove[j - 1] = current;
             }
             else
                 remove[j - 1] = dupes[j];
-                //remove.Add(dupes[j]);
         }
 
         return remove;
