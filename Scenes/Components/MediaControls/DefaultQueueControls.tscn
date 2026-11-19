@@ -64,7 +64,9 @@ size_flags_horizontal = 3
 
 [node name="Playlist" type="Button" parent="QueueCont/Panel/QueueControls" unique_id=1747454471]
 layout_mode = 2
+tooltip_text = "WIP Sawwwy :3c"
 mouse_default_cursor_shape = 2
+disabled = true
 text = "Save To Playlist"
 
 [node name="Scroll" type="ScrollContainer" parent="QueueCont" unique_id=478015952]

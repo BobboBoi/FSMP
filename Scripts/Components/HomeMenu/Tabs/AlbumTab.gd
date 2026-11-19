@@ -29,9 +29,5 @@ func _OnTabOpened():
 		var butt := AlbumSelection.Create(i)
 		list.add_child(butt)
 		butt.ConnectToAlbum(home)
-		
-		#Connect selection signals
-		butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)
-		butt.Unselected.connect(home.UnselectedItem.bind(butt),CONNECT_DEFERRED)
 	
 	list.Update()

@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://blry2rxlowk06" path="res://Scenes/Components/QuickAccess/QuickAccessMenu.tscn" id="5_pn0wa"]
 [ext_resource type="Script" uid="uid://jxwkpei5rai7" path="res://Scripts/Components/MediaControls/Queue/ControlPanelPadding.gd" id="7_0isjx"]
 [ext_resource type="PackedScene" uid="uid://dex5ybh72uomo" path="res://Scenes/Components/HomeMenu/Home.tscn" id="7_6r1r5"]
-[ext_resource type="PackedScene" uid="uid://f7dm2bawj3y0" path="res://Scenes/Components/RightClickMenu.tscn" id="10_u6kvq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4fvh"]
 
@@ -56,15 +55,20 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v4fvh")
-current_tab = 1
+current_tab = 0
 tabs_visible = false
+
+[node name="Home" parent="Program/MainCont/ProgramTabs" unique_id=43904561 instance=ExtResource("7_6r1r5")]
+z_index = 0
+layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Visualizer" type="Control" parent="Program/MainCont/ProgramTabs" unique_id=955657891]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("3_5qxlq")
-metadata/_tab_index = 0
+metadata/_tab_index = 1
 
 [node name="Spectrum" parent="Program/MainCont/ProgramTabs/Visualizer" unique_id=976022735 instance=ExtResource("4_l6lyp")]
 layout_mode = 1
@@ -77,11 +81,6 @@ layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Home" parent="Program/MainCont/ProgramTabs" unique_id=43904561 instance=ExtResource("7_6r1r5")]
-z_index = 0
-layout_mode = 2
-metadata/_tab_index = 1
-
 [node name="ControlPanelPadding" type="Control" parent="Program/MainCont" unique_id=1674082172]
 layout_mode = 2
 script = ExtResource("7_0isjx")
@@ -89,6 +88,3 @@ script = ExtResource("7_0isjx")
 [node name="ControlPanel" parent="Program" unique_id=2140874525 instance=ExtResource("5_kwqji")]
 z_index = 1
 layout_mode = 1
-
-[node name="RightClick" parent="." unique_id=1000246218 instance=ExtResource("10_u6kvq")]
-layout_mode = 0

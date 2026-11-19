@@ -8,15 +8,14 @@ class_name HomeMenu
 
 @onready var albumEdit := %EditAlbum
 
-var selected : Array[HomeMenuItem] = []
-
 enum TABS {
 	MUSIC,
 	ALBUM,
 	ALBUM_MUSIC
 }
 
-signal SelectionUpdated
+func _ready() -> void:
+	Player.NewQueue.connect(HideHome)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and visible:
@@ -42,49 +41,3 @@ func HideHome() -> void:
 		await tree_entered
 	
 	tabCont.set_current_tab(TABS.MUSIC)
-
-#Player actions
-func PlayTrack(data : MusicData) -> void:
-	Player.PlaySingleFromData(data)
-	HideHome()
-
-#Music selection
-func SelectedItem(item : HomeMenuItem):
-	if selected.find(item) != -1: return
-	selected.append(item)
-	SelectionUpdated.emit()
-
-func UnselectedItem(item : HomeMenuItem):
-	var index := selected.find(item)
-	if index == -1: return
-	selected.remove_at(index)
-	SelectionUpdated.emit()
-
-func ClearSelection():
-	for i in selected:
-		i.Select(false)
-
-#region deprecated
-## @deprecated
-func EditPressed():
-	$Edit.visible = !$Edit.visible
-
-## @deprecated
-func SetAlbumForAll():
-	pass
-	var musicList = Node.new()
-	var arr : Array[MusicSelection] = []
-	for i in musicList.get_children():
-		if i is MusicSelection:
-			if i.selected:
-				arr.append(i)
-	
-	for i in arr:
-		var newData := i.data
-		newData.album = albumEdit.text
-		Loader._save("user://Songs/"+newData.name,newData)
-		i.data = newData
-	
-	#Load album data or create new data if it doesn't exist.
-	var _garbo = Lister.CheckAlbumData(albumEdit.text)
-#endregion

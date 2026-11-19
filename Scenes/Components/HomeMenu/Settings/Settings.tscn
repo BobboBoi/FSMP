@@ -88,21 +88,21 @@ text = "Settings
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MusicFolder" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1249160741]
+[node name="MusicFolders" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1249160741]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Add music folder"
+text = "Music folders"
 
-[node name="ExclMusicFolder2" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=525122922]
+[node name="ExcludedFolder" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=525122922]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Exclude folder"
+text = "Excluded folders"
 
 [node name="Refresh" type="Button" parent="Control/Hbox/Panel/VCont" unique_id=1545401775]
 unique_name_in_owner = true
@@ -154,7 +154,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 [node name="DirectoryLabel" type="Label" parent="Control/Hbox/DirectoryList/Scroll/List" unique_id=698624252]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Directories
+text = "Music Folders
 "
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -173,8 +173,8 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_f1ale")
 [connection signal="visibility_changed" from="." to="." method="VisUpdate"]
 [connection signal="gui_input" from="ColorRect" to="." method="OnColorRectInput"]
 [connection signal="canceled" from="FileDialog" to="." method="OnFileDialogCanceled"]
-[connection signal="pressed" from="Control/Hbox/Panel/VCont/MusicFolder" to="." method="MusicFolderPressed"]
-[connection signal="pressed" from="Control/Hbox/Panel/VCont/ExclMusicFolder2" to="." method="ExcludeFolderPressed"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/MusicFolders" to="." method="MusicFolderPressed"]
+[connection signal="pressed" from="Control/Hbox/Panel/VCont/ExcludedFolder" to="." method="ExcludeFolderPressed"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/Refresh" to="." method="OnRefreshPressed"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/About" to="Layer/About" method="show"]
 [connection signal="pressed" from="Control/Hbox/Panel/VCont/Close" to="." method="hide"]

@@ -2,7 +2,7 @@ extends Control
 
 @onready var analyzer : AudioEffectSpectrumAnalyzerInstance
 @onready var window : Window = get_window()
-@onready var lineObject := %Line
+@onready var lineObject : Line2D = %Line
 
 #@export var width : float = 750;
 @export var freqCurve : Curve
@@ -14,8 +14,7 @@ extends Control
 @export var line = true
 @export var lineYOrigin := 0.0
 var flexOrigin := 0.0
-var fheight := 400;
-
+var fheight := 400.
 
 @export var MIN_DB = 50 #80
 const FREQ_MAX = 11050.0
@@ -33,6 +32,14 @@ func _ready():
 	flexOrigin = lineYOrigin
 	
 	lastPos.resize(samples)
+	
+	await get_tree().process_frame
+	
+	var scaling := get_window().content_scale_factor
+	if scaling != 1:
+		var mod := 1. / scaling
+		fheight *= mod
+		lineObject.width *= mod
 
 func _process(_delta):
 	if window.mode == window.Mode.MODE_MINIMIZED: return

@@ -1,8 +1,5 @@
-extends Control
+extends Button
 class_name RightClickItem
 
-func Show(src : Node) -> void:
-	_Show(src)
-
-func _Show(_src : Node) -> void:
-	visible = true
+func CheckVisibility(_src : Node) -> void:
+	show()

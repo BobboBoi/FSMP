@@ -164,13 +164,13 @@ func LoadAlbumCover(data : AlbumData) -> ImageTexture:
 	
 	for i in list:
 		var reader := MetaDataReader.new()
-		reader.GetImageFromAudioFileAsync(i.path,0) #Causes errors for some JPEG's
+		reader.GetImageFromAudioFileAsync(i.path, 0) #Causes errors for some JPEG's
 		var result = await reader.CoverLoaded
 		
 		if result != null:
 			if result is ImageTexture:
 				data.coverStatus = AlbumData.COVER_STATUS.HAS_COVER
-				result.resource_name = data.name
+				result.resource_name = data.name + "-cover"
 				return result
 			else:
 				data.coverStatus = AlbumData.COVER_STATUS.CORRUPT_ERROR

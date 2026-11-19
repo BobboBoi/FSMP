@@ -54,7 +54,6 @@ func Reload() -> void:
 	# Add buttons
 	for b in butts:
 		list.add_child(b)
-		ConnectButton(b)
 	
 	list.Update()
 
@@ -66,9 +65,3 @@ func CreateMusicButtons(arr : Array[MusicData]) -> Array[MusicSelection]:
 		butts.append(butt)
 	
 	return butts
-
-func ConnectButton(butt : MusicSelection) -> void:
-	#Connect selection signals
-	butt.ConnectToPlayTrack(home)
-	butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)
-	butt.Unselected.connect(home.UnselectedItem.bind(butt),CONNECT_DEFERRED)

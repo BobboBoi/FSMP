@@ -34,10 +34,15 @@ func _ready() -> void:
 	focus_exited.connect(_OnUnhover)
 	set_process(false)
 
+func _exit_tree() -> void:
+	if selected:
+		Select(false)
+
 func _process(_delta: float) -> void:
 	if !held: 
 		set_process(false)
 		return
+	
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		held = false
 		set_process(false)
@@ -70,8 +75,12 @@ func _gui_input(event: InputEvent) -> void:
 func Select(value : bool) -> void:
 	if selected == value: return
 	
-	if value: Selected.emit()
-	else: Unselected.emit()
+	if value:
+		RightClick.Select(self)
+		Selected.emit()
+	else: 
+		RightClick.Unselect(self)
+		Unselected.emit()
 	
 	selected = value
 

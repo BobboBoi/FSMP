@@ -1,8 +1,12 @@
-extends Control
+extends Window
 class_name RightClickMenu
 
 @onready var cont := %Cont
-var currentSelection = null
+
+var hovered : Control = null
+var selection : Array[HomeMenuItem] = []
+
+signal SelectionUpdated
 
 func _ready() -> void:
 	Close()
@@ -10,48 +14,72 @@ func _ready() -> void:
 	for i in cont.get_children():
 		if i is Button:
 			i.pressed.connect(Close)
+	
+	size = size
 
 func _input(event: InputEvent) -> void:
-	if !visible: return
-	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		var local = make_input_local(event)
-		if Rect2(Vector2(0,0),size).has_point(local.position): return
-		Close()
-	
-	elif event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
 		Close()
 
+func _notification(what: int) -> void:
+	match(what):
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			Close()
+
 func Open(src : Control) -> void:
-	if currentSelection == src:
+	if hovered == src:
 		Close()
 		return
-	currentSelection = src
+	hovered = src
 	
 	OpenButtons(src)
 	
-	var c := false
+	var active := 0
 	for i in cont.get_children():
 		if i.visible:
-			c = true
-			break
-	if !c: 
-		currentSelection = null
+			active += 1
+	if active == 0: 
+		hovered = null
 		return
 	
 	show()
-	global_position = get_global_mouse_position() + Vector2(20,0)
+	set_process_input(visible)
+	
+	size.x = cont.size.x
+	size.y = (cont.get_child(0).size.y + cont.get("theme_override_constants/separation")) * active
+	position = DisplayServer.mouse_get_position() + Vector2i(20,0)
 
 func Close() -> void:
-	currentSelection = null
+	hovered = null
 	for i in cont.get_children(): i.hide()
 	hide()
+	set_process_input(visible)
 
 func OpenButtons(src : Node) -> void:
 	for i in cont.get_children():
-		if i is RightClickItem: i.Show(src)
-		if i.has_method("Show"): i.Show(src)
-		else: i.show()
+		
+		if i is RightClickItem: 
+			i.CheckVisibility(src)
+		else:
+			assert(!i.has_method("Show"), "REWORK: " + i.name) # TEMPORARY!
 
-func _on_focus_exited() -> void:
-	Close()
+#Music selection
+func Select(item : HomeMenuItem):
+	var index := selection.find(item)
+	if index != -1: return
+	
+	selection.append(item)
+	SelectionUpdated.emit()
+
+func Unselect(item : HomeMenuItem):
+	var index := selection.find(item)
+	if index == -1: return
+	
+	selection.remove_at(index)
+	SelectionUpdated.emit()
+
+func ClearSelection():
+	var oldSelection := selection.duplicate()
+	
+	for i in oldSelection:
+		i.Select(false)

@@ -36,9 +36,9 @@ public partial class NewQuickAccessButton : Button
         }
 
         else if (input.IsActionPressed("EnqueueNext"))
-            _player.Call("EnqueueNextFromPathArray", new string[] { path });
+            _player.Call("EnqueueNextFromPath", path);
         else if (input.IsActionPressed("Enqueue"))
-            _player.Call("EnqueueFromPathArray", new string[] { path });
+            _player.Call("EnqueueFromPath", path);
     }
 
     public void ConnectToPlayer(NewQuickAccessMenu menu)

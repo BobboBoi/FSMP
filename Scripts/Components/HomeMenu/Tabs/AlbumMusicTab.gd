@@ -35,11 +35,6 @@ func OpenAlbum(album : AlbumData, newHome : HomeMenu, newCover : Texture2D = nul
 	for i in files:
 		var butt := MusicSelection.Create(i,i.albumIndex)
 		list.add_child(butt)
-		butt.ConnectToPlayTrack(home)
-		
-		#Connect selection signals
-		butt.Selected.connect(home.SelectedItem.bind(butt),CONNECT_DEFERRED)
-		butt.Unselected.connect(home.UnselectedItem.bind(butt),CONNECT_DEFERRED)
 	
 	cover.texture = newCover
 	title.text = album.name

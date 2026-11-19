@@ -3,11 +3,6 @@
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_cex42"]
 resource_name = "SpectrumAnalyzer"
 
-[sub_resource type="AudioEffectEQ6" id="AudioEffectEQ6_j3pel"]
-resource_name = "EQ6"
-band_db/32_hz = -1.0
-band_db/100_hz = -1.0
-
 [resource]
 bus/1/name = &"Music"
 bus/1/solo = false
@@ -17,5 +12,3 @@ bus/1/volume_db = 0.0
 bus/1/send = &"Master"
 bus/1/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_cex42")
 bus/1/effect/0/enabled = true
-bus/1/effect/1/effect = SubResource("AudioEffectEQ6_j3pel")
-bus/1/effect/1/enabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dex5ybh72uomo"]
+[gd_scene format=3 uid="uid://dex5ybh72uomo"]
 
 [ext_resource type="Theme" uid="uid://d27558cdkugpr" path="res://Assets/Resources/MainTheme.tres" id="1_tmcsk"]
 [ext_resource type="Script" uid="uid://wnbjws0i3q0t" path="res://Scripts/Components/HomeMenu/Home.gd" id="1_uex14"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cugs6ixvklnpn" path="res://Scenes/Components/HomeMenu/Tabs/AlbumMusicTab.tscn" id="5_dx7ea"]
 [ext_resource type="PackedScene" uid="uid://c8u27hukg18cw" path="res://Scenes/Components/HomeMenu/Tabs/AlbumTab.tscn" id="5_p0xqo"]
 [ext_resource type="PackedScene" uid="uid://yh17p5vo1ynv" path="res://Scenes/Components/HomeMenu/Settings/Settings.tscn" id="6_xd810"]
-[ext_resource type="Script" uid="uid://bbi1lw831t4nf" path="res://Scripts/Components/HomeMenu/EnqueueButton.gd" id="7_84wqk"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_cdorg"]
 device = -1
@@ -19,13 +18,6 @@ keycode = 4194332
 
 [sub_resource type="Shortcut" id="Shortcut_cvt0x"]
 events = [SubResource("InputEventKey_cdorg"), SubResource("InputEventKey_mjpn1")]
-
-[sub_resource type="InputEventAction" id="InputEventAction_4htky"]
-action = &"Enqueue"
-pressed = true
-
-[sub_resource type="Shortcut" id="Shortcut_fc311"]
-events = [SubResource("InputEventAction_4htky")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_bw3fi"]
 device = -1
@@ -62,7 +54,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="Home" type="Control" groups=["Home"]]
+[node name="Home" type="Control" unique_id=1953642683 groups=["Home"]]
 z_index = 5
 layout_mode = 3
 anchors_preset = 15
@@ -73,7 +65,7 @@ grow_vertical = 2
 theme = ExtResource("1_tmcsk")
 script = ExtResource("1_uex14")
 
-[node name="BG" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="." unique_id=1164319786]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.247059, 0.247059, 0.247059, 1)
 
-[node name="MainCont" type="HBoxContainer" parent="."]
+[node name="MainCont" type="HBoxContainer" parent="." unique_id=1459793744]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,48 +82,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Navigation" type="PanelContainer" parent="MainCont"]
+[node name="Navigation" type="PanelContainer" parent="MainCont" unique_id=1143586027]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_cgrau")
 
-[node name="Options" type="VBoxContainer" parent="MainCont/Navigation"]
+[node name="Options" type="VBoxContainer" parent="MainCont/Navigation" unique_id=90338786]
 custom_minimum_size = Vector2(152, 0)
 layout_mode = 2
 
-[node name="Sub1" type="VBoxContainer" parent="MainCont/Navigation/Options"]
+[node name="Sub1" type="VBoxContainer" parent="MainCont/Navigation/Options" unique_id=1347779903]
 custom_minimum_size = Vector2(152, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Close" type="Button" parent="MainCont/Navigation/Options/Sub1"]
+[node name="Close" type="Button" parent="MainCont/Navigation/Options/Sub1" unique_id=717411632]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_cvt0x")
 text = "Close"
 metadata/_edit_use_anchors_ = true
 
-[node name="Enqueue" type="Button" parent="MainCont/Navigation/Options/Sub1"]
-visible = false
-layout_mode = 2
-tooltip_text = "Enqueue Selected item"
-mouse_default_cursor_shape = 2
-shortcut = SubResource("Shortcut_fc311")
-text = "Enqueue
-"
-script = ExtResource("7_84wqk")
-metadata/_edit_use_anchors_ = true
-
-[node name="HSeparator" type="HSeparator" parent="MainCont/Navigation/Options/Sub1"]
+[node name="HSeparator" type="HSeparator" parent="MainCont/Navigation/Options/Sub1" unique_id=1884870062]
 layout_mode = 2
 
-[node name="Music" type="Button" parent="MainCont/Navigation/Options/Sub1"]
+[node name="Music" type="Button" parent="MainCont/Navigation/Options/Sub1" unique_id=463755060]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_2fr8g")
 text = "Music"
 
-[node name="Albums" type="Button" parent="MainCont/Navigation/Options/Sub1"]
+[node name="Albums" type="Button" parent="MainCont/Navigation/Options/Sub1" unique_id=819113112]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -139,29 +120,31 @@ shortcut = SubResource("Shortcut_mxejl")
 text = "Albums
 "
 
-[node name="Playlists" type="Button" parent="MainCont/Navigation/Options/Sub1"]
+[node name="Playlists" type="Button" parent="MainCont/Navigation/Options/Sub1" unique_id=812523223]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+tooltip_text = "WIP Sawwwy :3c"
 mouse_default_cursor_shape = 2
+disabled = true
 text = "Playlists
 "
 
-[node name="Sub2" type="VBoxContainer" parent="MainCont/Navigation/Options"]
+[node name="Sub2" type="VBoxContainer" parent="MainCont/Navigation/Options" unique_id=1759915283]
 custom_minimum_size = Vector2(152, 0)
 layout_mode = 2
 
-[node name="Settings" type="Button" parent="MainCont/Navigation/Options/Sub2"]
+[node name="Settings" type="Button" parent="MainCont/Navigation/Options/Sub2" unique_id=1553783005]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Settings
 "
 
-[node name="Sep" type="VSeparator" parent="MainCont"]
+[node name="Sep" type="VSeparator" parent="MainCont" unique_id=1237657051]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxLine_y64le")
 
-[node name="TabCont" type="TabContainer" parent="MainCont"]
+[node name="TabCont" type="TabContainer" parent="MainCont" unique_id=981641066]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -169,26 +152,26 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_roh73")
 current_tab = 0
 tabs_visible = false
 
-[node name="MusicTab" parent="MainCont/TabCont" instance=ExtResource("3_uvy2d")]
+[node name="MusicTab" parent="MainCont/TabCont" unique_id=783578130 instance=ExtResource("3_uvy2d")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AlbumTab" parent="MainCont/TabCont" instance=ExtResource("5_p0xqo")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="AlbumMusicTab" parent="MainCont/TabCont" instance=ExtResource("5_dx7ea")]
+[node name="AlbumTab" parent="MainCont/TabCont" unique_id=1203370049 instance=ExtResource("5_p0xqo")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Sep2" type="VSeparator" parent="MainCont"]
+[node name="AlbumMusicTab" parent="MainCont/TabCont" unique_id=359394467 instance=ExtResource("5_dx7ea")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Sep2" type="VSeparator" parent="MainCont" unique_id=537692280]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3o752")
 
-[node name="Edit" type="Control" parent="."]
+[node name="Edit" type="Control" parent="." unique_id=1743166347]
 visible = false
 layout_mode = 1
 anchor_left = 0.348177
@@ -199,7 +182,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="Edit"]
+[node name="Panel" type="Panel" parent="Edit" unique_id=801478160]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,7 +191,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e3j07")
 
-[node name="Label" type="Label" parent="Edit"]
+[node name="Label" type="Label" parent="Edit" unique_id=983133563]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.465695
@@ -220,7 +203,7 @@ text = "Edit
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AlbumAll" type="Control" parent="Edit"]
+[node name="AlbumAll" type="Control" parent="Edit" unique_id=609323619]
 layout_mode = 1
 anchor_top = 0.1125
 anchor_right = 1.0
@@ -229,7 +212,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Butt" type="Button" parent="Edit/AlbumAll"]
+[node name="Butt" type="Button" parent="Edit/AlbumAll" unique_id=1030056916]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.22807
@@ -240,7 +223,7 @@ text = "Set album for all
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="EditAlbum" type="TextEdit" parent="Edit/AlbumAll"]
+[node name="EditAlbum" type="TextEdit" parent="Edit/AlbumAll" unique_id=2120441347]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -256,13 +239,11 @@ grow_vertical = 2
 placeholder_text = "Album Name
 "
 
-[node name="Settings" parent="." instance=ExtResource("6_xd810")]
+[node name="Settings" parent="." unique_id=1821476882 instance=ExtResource("6_xd810")]
 visible = false
 layout_mode = 1
 
-[connection signal="SelectionUpdated" from="." to="MainCont/Navigation/Options/Sub1/Enqueue" method="CheckSelection"]
 [connection signal="pressed" from="MainCont/Navigation/Options/Sub1/Close" to="." method="HideHome"]
-[connection signal="pressed" from="MainCont/Navigation/Options/Sub1/Enqueue" to="MainCont/Navigation/Options/Sub1/Enqueue" method="OnPressed"]
 [connection signal="pressed" from="MainCont/Navigation/Options/Sub1/Music" to="MainCont/TabCont" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="MainCont/Navigation/Options/Sub1/Albums" to="MainCont/TabCont" method="set_current_tab" binds= [1]]
 [connection signal="pressed" from="MainCont/Navigation/Options/Sub2/Settings" to="Settings" method="show"]

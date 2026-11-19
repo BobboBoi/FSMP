@@ -19,6 +19,7 @@ enum LOOPMODE {
 signal NewTrack(stream : AudioStream)
 signal Paused()
 signal Resumed()
+signal NewQueue()
 signal QueueChange()
 signal QueueProgressed(newIndex : int)
 
@@ -65,13 +66,15 @@ func PlaySingleFromData(data : MusicData, emitSignal := true):
 	srcQueue = [data]
 	queue = srcQueue.duplicate()
 	currentIndex = 0
+	
 	QueueChange.emit()
+	NewQueue.emit()
 	
 	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
 ## @deprecated
 ## Plays a track using data from [param data].
-func PlayFromData(data : MusicData,emitSignal := true):
+func PlayFromData(data : MusicData, emitSignal := true):
 	PlayNewTrack(data.path, data.name, data.album, data.GetArtistsString(), emitSignal)
 
 func PlayNewTrack(music : String, trackName := "", album := "", artist := "", emitSignal := true):
@@ -105,6 +108,13 @@ func PlayNewTrack(music : String, trackName := "", album := "", artist := "", em
 #endregion
 
 #region Queue
+func EnqueueFromPathArray(paths : Array[String]) -> void:
+	var data : Array[MusicData] = []
+	for p in paths:
+		data.append(TrackLister.CheckMusicData(p))
+	
+	EnqueueFromDataArray(data)
+
 func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 	var startPlaying := queue.size() <= 0
 	srcQueue.append_array(data)
@@ -112,14 +122,30 @@ func EnqueueFromDataArray(data : Array[MusicData]) -> void:
 	
 	QueueChange.emit()
 	
-	if startPlaying: PlayFromData(queue[currentIndex])
+	if startPlaying: 
+		PlayFromData(queue[currentIndex])
+		NewQueue.emit()
 
-func EnqueueFromPathArray(paths : Array[String]):
+func EnqueueFromPath(path : String) -> void:
+	EnqueueFromData(TrackLister.CheckMusicData(path))
+
+func EnqueueFromData(data : MusicData) -> void:
+	var startPlaying := queue.size() <= 0
+	srcQueue.append(data)
+	queue.append(data)
+	
+	QueueChange.emit()
+	
+	if startPlaying: 
+		PlayFromData(queue[currentIndex])
+		NewQueue.emit()
+
+func EnqueueNextFromPathArray(paths : Array[String]) -> void:
 	var data : Array[MusicData] = []
 	for p in paths:
 		data.append(TrackLister.CheckMusicData(p))
 	
-	EnqueueFromDataArray(data)
+	EnqueueNextFromDataArray(data)
 
 func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
 	var startPlaying := queue.size() <= 0
@@ -134,14 +160,27 @@ func EnqueueNextFromDataArray(data : Array[MusicData]) -> void:
 	
 	QueueChange.emit()
 	
-	if startPlaying: PlayFromData(queue[currentIndex])
+	if startPlaying: 
+		PlayFromData(queue[currentIndex])
+		NewQueue.emit()
 
-func EnqueueNextFromPathArray(paths : Array[String]):
-	var data : Array[MusicData] = []
-	for p in paths:
-		data.append(TrackLister.CheckMusicData(p))
+func EnqueueNextFromPath(path : String) -> void:
+	EnqueueNextFromData(TrackLister.CheckMusicData(path))
+
+func EnqueueNextFromData(data : MusicData) -> void:
+	var startPlaying := queue.size() <= 0
+	if shuffled:
+		queue.insert(currentIndex + int(!startPlaying), data)
+		srcQueue.append(data)
+	else:
+		srcQueue.insert(currentIndex + int(!startPlaying),data)
+		queue = srcQueue.duplicate()
 	
-	EnqueueNextFromDataArray(data)
+	QueueChange.emit()
+	
+	if startPlaying: 
+		PlayFromData(queue[currentIndex])
+		NewQueue.emit()
 
 func ReplaceQueueWithDataArray(data : Array[MusicData]) -> void:
 	currentIndex = 0
@@ -197,9 +236,15 @@ func RemoveFromQueue(i : int) -> void:
 		srcQueue.remove_at(i)
 		queue = srcQueue.duplicate()
 	
-	if i == currentIndex:
-		currentIndex -= 1 #WII BALL
-		ProgressQueue()
+	if queue.size() == 0:
+		self.stop()
+		Discord.refresh()
+	
+	elif i <= currentIndex:
+		currentIndex -= 1 # WII BALL
+		# use the old current index aka currentIndex + 1
+		if i == currentIndex + 1:
+			ProgressQueue()
 	
 	QueueChange.emit()
 

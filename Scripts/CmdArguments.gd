@@ -24,6 +24,7 @@ func _ready() -> void:
 	if home != null:
 		if !home.is_inside_tree():
 			await home.ready
+		
 		home.HideHome()
 	
 	queue_free()

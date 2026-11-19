@@ -59,16 +59,14 @@ func VisUpdate(vis : bool) -> void:
 		if get_child_count() > 1:
 			get_child(1).free()
 
-func ConnectToPlayTrack(home : HomeMenu):
-	Pressed.connect(home.PlayTrack.bind(data))
-
 func SlideSelect():
 	if !Input.is_action_pressed("SelectMode"): return
 	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): return
 	Select(true)
 
 func Clicked() -> void:
-	if Input.is_action_pressed("LeftClick"):
+	if Input.is_action_pressed("SelectMode"):
 		Select(!selected)
 	else:
+		Player.PlaySingleFromData(data)
 		Pressed.emit()

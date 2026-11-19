@@ -64,7 +64,7 @@ func RemoveMusicFolder(dir : String):
 #region exclude folders
 func ReloadExludeFolders() -> void:
 	currentState = STATES.EXCLUDE
-	directoryLabel.text = "Exclude Folders"
+	directoryLabel.text = "Excluded Folders"
 	
 	for i in dirList.get_children(): 
 		if i is DirectoryItem:
